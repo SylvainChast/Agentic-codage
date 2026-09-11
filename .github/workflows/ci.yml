@@ -37,6 +37,8 @@ jobs:
         run: python scripts/check_docs.py
       - name: Exercise isolated end-to-end example
         run: python examples/demo.py
+      - name: Exercise offline orchestration
+        run: python examples/orchestration_demo.py
       - name: Render and validate offline map
         run: |
           framework map

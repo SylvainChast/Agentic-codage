@@ -56,3 +56,14 @@ The HTML is a generated, offline snapshot; distinguish declarations, executed ch
 Use `framework costs` for project and per-task costs. Unknown and estimated amounts stay visible.
 Stop a loop at its recorded budget/retry limit, unresolved contract conflict or required external authority;
 leave a resumable handoff. These rules do not require permission for ordinary authorized, reversible work.
+
+## Controller-managed delegation (optional)
+
+The user owns the exact model choice for orchestrator, worker, reviewer and arbiter in
+`.framework/orchestration.json`. There is no required model brand, tier or implicit fallback.
+Prefer a capable planner for complex missions, but respect the user's explicit choice.
+`framework orchestration` provides native Codex/Claude transports and a JSON command bridge.
+A role is a responsibility and a fresh session, not proof of a provider identity.
+Use the `swarm-orchestrate` skill for controller launches. Inside a controller-managed invocation,
+follow its bounded role: do not recursively start orchestration, manage task records, or impersonate
+another role. The controller records calls and checks; workers only implement their assigned scope.

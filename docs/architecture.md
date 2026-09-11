@@ -23,6 +23,7 @@
 | `costs.py` | Calculs en unités mineures, complétude et ratios de livraison |
 | `context.py` | Extraction des décisions, risques et journaux liés à un chemin |
 | `map.py` | Instantané et rendu HTML, détection des données périmées |
+| `orchestration/` | Profils, protocoles, transports, appels comptabilisés, worktrees et contrôleur |
 | `assets/` | Schémas, instructions, skills et interface HTML autonome |
 
 `store.py` fournit les primitives. Les modules métier les composent. La CLI ne contient pas les
@@ -34,6 +35,8 @@ statuts ou de résultats calculés par un autre modèle.
 ```text
 .framework/
   policy.json
+  orchestration.json             # facultatif, modèles choisis
+  orchestrations/O-….json       # profils figés et journal de session
   OPERATING.md
   tasks/T-….json
   decisions/D-….json
@@ -88,3 +91,10 @@ exécuté. Aucune requête réseau n’est nécessaire.
 `map --check` compare les données, pas l’heure ni le commit observé. Ainsi un commit qui ne change pas
 les données n’invalide pas le rendu. Il faut régénérer après une évolution du code ou des fiches. La carte
 n’est pas une topologie AST complète ; `scope`, `paths` et les décisions matérialisent les relations.
+
+## Moteur de délégation
+
+`profiles` valide le choix utilisateur ; `protocol` valide les réponses et le graphe ; `adapters`
+construit les appels natifs/génériques ; `transport` surveille délai, annulation et sorties ; `calls`
+réserve les places et comptabilise ; `workspaces` isole et applique les patchs ; `engine` pilote les
+tours, preuves, revues et intégration explicite. Voir [le guide](orchestration.md).

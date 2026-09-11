@@ -19,7 +19,8 @@ def adapter_files() -> dict[str, str]:
              ".cursor/rules/agentic-codage.mdc":
              "---\ndescription: Agentic Codage shared task and evidence contract\nalwaysApply: true\n---\n\n" + pointer,
              ".windsurf/rules/agentic-codage.md": "---\ntrigger: always_on\n---\n\n" + pointer}
-    for name, asset in (("swarm-deliver", "deliver-skill.md"), ("swarm-review", "review-skill.md")):
+    for name, asset in (("swarm-deliver", "deliver-skill.md"), ("swarm-review", "review-skill.md"),
+                        ("swarm-orchestrate", "orchestrate-skill.md")):
         for directory in (".agents/skills", ".claude/skills", ".cursor/skills"):
             files[f"{directory}/{name}/SKILL.md"] = (ASSETS / asset).read_text(encoding="utf-8")
     return files

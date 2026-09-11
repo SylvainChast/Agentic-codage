@@ -24,11 +24,13 @@ l’opérateur exécute. Ne jamais lui attribuer une vérification qu’il n’a
 ## Skills livrés
 
 - **swarm-deliver** : entrer dans un contrat, réserver, exécuter, comptabiliser, vérifier et transmettre.
+- **swarm-orchestrate** : choisir les profils, lancer et suivre le contrôleur borné.
 - **swarm-review** : comparer le diff et les preuves aux critères sans réimplémenter le travail.
 
 Le rôle d’arbitre est décrit dans le workflow : il s’active lors d’un désaccord sémantique, sans imposer
-un agent permanent. Le framework ne fournit pas de configuration de sous-agents liée à un fournisseur,
-car les runtimes ne partagent pas une interface de lancement universelle.
+un agent permanent. La configuration `.framework/orchestration.json` associe chaque rôle à un modèle
+choisi par l’utilisateur et un transport. Voir [l’orchestration](orchestration.md) pour les CLI natives
+et le pont JSON générique ; les règles d’éditeur seules ne lancent aucun modèle.
 
 ## Générer et mettre à jour
 

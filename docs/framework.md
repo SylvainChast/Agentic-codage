@@ -9,7 +9,8 @@ https://github.com/SylvainChast/Agentic-codage/tree/main/docs
 
 Installer le framework avec Python 3.11+, configurer de vrais tests dans `policy.json`, puis
 committer les instructions et la configuration. L’initialisation fournit un contrôle volontairement
-en échec. Les adaptateurs sont des instructions, pas des permissions et pas des lanceurs de modèles.
+en échec. Les règles d’éditeur sont des instructions. Le contrôleur optionnel `orchestration` lance des modèles
+via des CLI configurées ; il n’accorde pas de permissions supplémentaires.
 
 ## Commandes
 
@@ -44,3 +45,25 @@ worktrees d’un clone sur un disque local ; plusieurs clones nécessitent un co
 Un bail ne bloque pas un éditeur qui l’ignore. Le budget limite les démarrages via la CLI, pas une
 API LLM externe. Les commandes de vérification exécutent du code avec vos permissions : les lancer
 dans un environnement isolé pour les contributions non fiables. Ne jamais consigner de secrets.
+
+## Orchestration optionnelle (0.2)
+
+L’utilisateur choisit chaque modèle. `framework orchestration init --adapter codex --model ID`
+configure les quatre rôles ; `set-role orchestrator --adapter claude --model ID` en change un seul.
+Les autres rôles sont worker, reviewer et arbiter. Un pont `--adapter command --command-json
+'["/chemin/executable"]'` permet d’ajouter un fournisseur, avec un contrat JSON stdin/stdout.
+`doctor` vérifie les exécutables sans appel payant. Lire `orchestration --help` et le skill
+`swarm-orchestrate` pour les commandes. Les identifiants ne sont jamais remplacés automatiquement.
+
+Committer code, politique, profil et contrat avant `orchestration run TASK`. Le contrôleur crée des
+worktrees, délègue selon les dépendances, vérifie et fait relire. Chaque appel est comptabilisé.
+Une session ready attend `orchestration integrate SESSION --actor ACTOR`, qui applique le candidat
+et enregistre l’acceptation sans commit ni push. `cancel SESSION` demande l’arrêt ; `feedback SESSION
+--message TEXTE` intervient au prochain plan. Une nouvelle exécution après blocage repart du code
+committé, sans reprise implicite du candidat précédent. Les coûts historiques restent imputés.
+
+Les worktrees ne sont pas une sandbox système. Le pont est du code de confiance ; les restrictions
+natives dépendent de la CLI. Les budgets sont contrôlés avant appel sur les montants connus, pas
+auprès du fournisseur. Les coûts absents restent inconnus. Les permissions, dépendances de test et
+comptes doivent être configurés par l’opérateur. Le guide détaillé est dans le dépôt du framework :
+https://github.com/SylvainChast/Agentic-codage/blob/main/docs/orchestration.md

@@ -74,8 +74,8 @@ Les revues et la coordination comptent aussi dans `max_runs` : prévoir leur co�
 
 `run record` accepte un dépassement après exécution : refuser son enregistrement masquerait le
 coût réel. `check` et la carte signalent le dépassement. Des coûts inconnus ne permettent pas un
-contrôle financier strict. Le framework ne coupe aucune API : un orchestrateur doit ajouter une
-limite fournisseur pour un plafond effectif, ainsi qu’un budget de temps réel.
+contrôle financier strict. Le contrôleur 0.2 surveille les délais et réserve les places d’appels simultanés, mais le prix
+d’un appel en cours n’est pas borné : ajouter une limite fournisseur pour un plafond effectif.
 
 ## Corrections et historique
 
@@ -87,3 +87,11 @@ La v0.1 ne dispose pas encore d’un journal comptable d’ajustements signé.
 L’acceptation d’une tâche compte tous ses livrables une fois. Après régression, ouvrir une nouvelle
 tâche/finding lié ; le coût des réparations entre au portefeuille. La révocation et les cohortes de
 livraison sont des évolutions possibles, pas des capacités promises dans cette version.
+
+## Attribution de l’orchestration
+
+Chaque appel reçoit `orchestration`, `role`, `work_item`, `requested_model`, `observed_models`,
+`identity_status` et `identity_source`. `costs` ajoute les groupes `by_role` et `by_orchestration`.
+Les appels de planification, revue et arbitrage comptent dans le budget de la même tâche et dans
+le coût de ses livrables. Un modèle inattendu peut avoir coûté : son montant déclaré reste conservé.
+Un timeout, arrêt ou échec de transport sans réponse exploitable reste de coût inconnu.

@@ -1,0 +1,447 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "O-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "enum": [
+            1
+          ]
+        },
+        "roles": {
+          "type": "object",
+          "properties": {
+            "orchestrator": {
+              "type": "object",
+              "properties": {
+                "adapter": {
+                  "type": "string",
+                  "enum": [
+                    "codex",
+                    "claude",
+                    "command"
+                  ]
+                },
+                "model": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "accepted_models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "adapter",
+                "model",
+                "command",
+                "accepted_models"
+              ],
+              "additionalProperties": false
+            },
+            "worker": {
+              "type": "object",
+              "properties": {
+                "adapter": {
+                  "type": "string",
+                  "enum": [
+                    "codex",
+                    "claude",
+                    "command"
+                  ]
+                },
+                "model": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "accepted_models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "adapter",
+                "model",
+                "command",
+                "accepted_models"
+              ],
+              "additionalProperties": false
+            },
+            "reviewer": {
+              "type": "object",
+              "properties": {
+                "adapter": {
+                  "type": "string",
+                  "enum": [
+                    "codex",
+                    "claude",
+                    "command"
+                  ]
+                },
+                "model": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "accepted_models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "adapter",
+                "model",
+                "command",
+                "accepted_models"
+              ],
+              "additionalProperties": false
+            },
+            "arbiter": {
+              "type": "object",
+              "properties": {
+                "adapter": {
+                  "type": "string",
+                  "enum": [
+                    "codex",
+                    "claude",
+                    "command"
+                  ]
+                },
+                "model": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "accepted_models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "adapter",
+                "model",
+                "command",
+                "accepted_models"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "orchestrator",
+            "worker",
+            "reviewer",
+            "arbiter"
+          ],
+          "additionalProperties": false
+        },
+        "max_parallel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_rounds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "require_model_report": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "roles",
+        "max_parallel",
+        "max_rounds",
+        "max_items",
+        "timeout_seconds",
+        "require_model_report"
+      ],
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_commit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_fingerprint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "blocked",
+        "cancelled",
+        "ready",
+        "integrated"
+      ]
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "run": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "item": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "requested_model": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observed_models": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "identity": {
+            "type": "string",
+            "enum": [
+              "unverified",
+              "reported",
+              "mismatch"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "outcome": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "run",
+          "role",
+          "item",
+          "requested_model",
+          "observed_models",
+          "identity",
+          "source",
+          "outcome",
+          "summary"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "plan": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "[a-z][a-z0-9-]{0,39}"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "criteria": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "depends_on": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "scope",
+              "criteria",
+              "depends_on"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "summary",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    "candidate_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "candidate_fingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "review": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completed_items": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "task",
+    "profile",
+    "contract",
+    "base_commit",
+    "base_fingerprint",
+    "status",
+    "round",
+    "steps",
+    "plan",
+    "candidate_commit",
+    "candidate_fingerprint",
+    "evidence",
+    "review",
+    "message",
+    "completed_items"
+  ],
+  "additionalProperties": false
+}

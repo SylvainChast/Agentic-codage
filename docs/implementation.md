@@ -3,7 +3,7 @@ status: implemented
 phase: done
 ---
 
-# Implémentation initiale
+# Implémentation du framework
 
 Le périmètre reprend la proposition acceptée : socle portable installable, contrats et réservations,
 coûts par tâche/livrable accepté, vérifications et revue indépendante déclarée, HTML de référence,
@@ -44,7 +44,7 @@ python3 bin/framework map --check
 La CI distante et les sessions réelles dans chaque éditeur sont des validations distinctes.
 Les preuves locales ne sont pas des attestations signées ; les limites sont documentées.
 
-## Validation locale observée
+## Validation initiale 0.1 observée
 
 47 tests de régression passent sur le Mac de construction. Le paquet a été installé dans un
 environnement virtuel isolé et ses assets vérifiés hors du checkout. Les deux skills passent le
@@ -52,3 +52,17 @@ validateur de structure ; les liens de documentation sont valides. Le parcours d
 exécute ses tests métier. La carte a été inspectée dans le navigateur : navigation, affichage des
 coûts incomplets et recherche dans les décisions. Aucune session de modèle externe ni facturation
 réelle n’a été simulée comme une mesure de production.
+
+## Couche d’orchestration 0.2
+
+Profils configurables pour les quatre rôles, transports natifs Codex/Claude et commande JSON,
+contrôleur avec worktrees, DAG et parallélisme, vérifications et revue séparée, arbitrage/reprise
+bornée, annulation, feedback et intégration explicite. Journal des modèles demandés/observés et
+coûts par rôle/session. Le troisième skill, la carte et le README documentent ce parcours.
+
+La suite comprend désormais 64 tests, dont 17 tests de la couche d’orchestration : parcours réel
+avec fournisseur factice, dépendances, limites simultanées, timeout/annulation, coûts inconnus,
+modèle inattendu, sortie de périmètre, modification par le relecteur et preuve/code altérés.
+`python3 examples/orchestration_demo.py` démontre le parcours hors ligne : trois appels simulés,
+tests produit réellement exécutés, coût fictif marqué comme estimation. Les constructions de
+commandes et normalisations natives sont testées ; aucun appel payant réel n’a été effectué.

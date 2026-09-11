@@ -1,0 +1,20 @@
+{
+  "actor": "codex-orchestration",
+  "cost_note": "Session Codex de construction ; facturation et tokens indisponibles. Aucun appel payant de modèle par les adaptateurs ; les coûts des fixtures sont simulés dans des dépôts temporaires.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-11T15:14:05+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-47ffa34c4805",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "gpt-6-astra",
+  "next_step": "Vérification finale, revue indépendante réelle à effectuer ; modèles natifs non testés avec un compte payant.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Couche 0.2 : modèles choisis par rôle, transports CLI et pont JSON, worktrees parallèles, contrôles, revue, arbitrage, coûts, annulation et intégration explicite ; 64 tests hors ligne passent.",
+  "task": "T-63d5fdcc82a0"
+}

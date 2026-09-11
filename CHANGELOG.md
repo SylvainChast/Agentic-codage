@@ -5,6 +5,15 @@
 Ajout de la licence MIT (copyright 2026 Sylvain Chastang), inclusion dans le paquet Python
 et mise à jour des documents de licence et de contribution.
 
+## 0.2.0 — 2026-09-11
+
+- Orchestration locale avec modèles exacts choisis par l’utilisateur pour quatre rôles, sans repli.
+- Transports Codex, Claude Code et pont JSON ; plans bornés, dépendances, worktrees et parallélisme.
+- Contrôles réels, revue séparée, arbitrage/replanification limitée et intégration explicite.
+- Journal des appels, identité observée, coûts par rôle/session, annulation et feedback.
+- Skill swarm-orchestrate et vue HTML, documentation des frontières et essais hors ligne.
+- Correction du schéma argv : plusieurs arguments identiques sont légitimes.
+
 ## 0.1.0 — 2026-09-11
 
 Première version : CLI sans dépendance d’exécution, contrats et réservations entre worktrees,

@@ -1,15 +1,16 @@
-# Périmètre de la version 0.1
+# Périmètre de la version 0.2
 
 ## Disponible
 
-CLI portable, initialisation, adaptateurs et deux skills, contrats de tâches, réservations
+CLI portable, initialisation, adaptateurs et trois skills, contrats de tâches, réservations
 atomiques entre worktrees, journaux et coûts, vérifications exécutées, revues déclarées, acceptation
-sur preuve courante, extraction de contexte, schémas stricts et carte HTML autonome.
+sur preuve courante, orchestration locale à modèles configurables, extraction de contexte, schémas stricts et carte HTML autonome.
 
 ## Limites explicites
 
-- **Pas d’orchestrateur de modèles** : aucun lancement automatique, routage de modèles, abonnement,
-  MCP ou gestion de clés. Les agents existants appellent la CLI.
+- **Orchestration locale bornée** : CLI Codex/Claude et pont JSON, comptes configurés par l’utilisateur.
+  Pas de daemon, reprise exacte après crash, gestion de clés ou intégration automatique aux PR.
+  Voir les [frontières de confiance et détails](orchestration.md).
 - **Pas de coordination multi-machine** : les baux concernent les worktrees d’un seul clone local.
 - **Pas de blocage physique des écritures** : les baux sont coopératifs et les identités déclaratives.
   Un acteur ayant accès au disque peut modifier les fichiers. La CI et les droits complètent le socle.
@@ -23,7 +24,7 @@ sur preuve courante, extraction de contexte, schémas stricts et carte HTML auto
 - **Pas de vérification sémantique des décisions par simple référence** : associer des tests au choix.
 - **Pas de vérification de chargement dans tous les éditeurs** : les adaptateurs sont générés et contrôlés,
   mais chaque hôte doit être configuré et essayé avec sa version.
-- **Pas de budget distribué ou comptabilité certifiée** : coûts saisis/importés manuellement, une devise
+- **Pas de budget distribué ou comptabilité certifiée** : coûts saisis/importés ou rapportés par les adaptateurs, une devise
   à deux décimales, pas de synchronisation de factures, de cohortes ni d’ajustements comptables signés.
 - **Pas d’acceptation partielle ou révocation automatique** : une tâche accepte son ensemble de livrables.
 - **Pas d’historique complet du runtime** : conserver séparément les artefacts CI et attestations de build.

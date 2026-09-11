@@ -71,3 +71,11 @@ Créer les tâches, runs, preuves et revues par la CLI. Les décisions, findings
 être importés ou édités en JSON dans une PR. Les changements de critères, de propriétaire, de budget
 ou de périmètre demandent une nouvelle révision du contrat avant une PR d’implémentation protégée.
 La CLI n’authentifie pas le rôle du signataire ; les droits Git et les revues assurent cette autorité.
+
+## Sessions d’orchestration (0.2)
+
+`orchestration.json` est une configuration facultative, couverte par l’empreinte du code.
+`orchestrations/O-….json` est une fiche de cycle de vie exclue de cette empreinte : profil figé,
+contrat/base, plan, travaux terminés, appels liés aux runs, candidat et preuve/revue. Les états sont
+`running`, `blocked`, `cancelled`, `ready`, `integrated`. Les métadonnées optionnelles des runs
+assurent la compatibilité des anciennes fiches. Les identités de modèles sont déclaratives.

@@ -11,7 +11,7 @@ from .store import FrameworkError, Store, covers, parse_time, task_contract
 def check(store: Store, base: str | None = None, task_id: str | None = None) -> dict:
     policy = store.policy()
     records = {kind: {r["id"]: r for r in store.all(kind)} for kind in
-               ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews")}
+               ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations")}
     errors, warnings = [], []
 
     def require(condition, message):
@@ -69,6 +69,41 @@ def check(store: Store, base: str | None = None, task_id: str | None = None) -> 
         require(run["currency"] == policy["currency"], f"{run['id']}: wrong currency")
         require((run["cost_source"] == "unknown") == (run["llm_cost_minor"] is None),
                 f"{run['id']}: inconsistent cost source")
+    if (store.meta / "orchestration.json").exists():
+        from .orchestration.profiles import load
+        try:
+            load(store)
+        except FrameworkError as exc:
+            errors.append(str(exc))
+    for session in records["orchestrations"].values():
+        require(session["task"] in tasks, f"{session['id']}: unknown task")
+        from .orchestration.profiles import validate_profile
+        try:
+            validate_profile(session["profile"])
+        except FrameworkError as exc:
+            errors.append(f"{session['id']}: {exc}")
+        require(len({s["run"] for s in session["steps"]}) == len(session["steps"]),
+                f"{session['id']}: duplicate invocation")
+        for step in session["steps"]:
+            run = records["runs"].get(step["run"])
+            require(bool(run and run.get("orchestration") == session["id"] and run["task"] == session["task"]),
+                    f"{session['id']}: missing/foreign invocation")
+            if run:
+                require(all(step[s] == run.get(r) for s, r in
+                            (("role", "role"), ("item", "work_item"), ("requested_model", "requested_model"),
+                             ("observed_models", "observed_models"), ("identity", "identity_status"),
+                             ("outcome", "outcome"))), f"{session['id']}: invocation/run disagreement")
+        if session['status'] in ('ready', 'integrated'):
+            proof = records['evidence'].get(session['evidence'])
+            rev = records['reviews'].get(session['review'])
+            require(bool(proof and rev and proof['task'] == rev['task'] == session['task']
+                         and proof['passed'] and rev['verdict'] == 'approve'
+                         and rev['evidence'] == proof['id']
+                         and proof['fingerprint'] == session['candidate_fingerprint']),
+                    f"{session['id']}: incomplete approved candidate")
+    for run in records["runs"].values():
+        if "orchestration" in run:
+            require(run["orchestration"] in records["orchestrations"], f"{run['id']}: unknown orchestration")
     check_names = {c["name"] for c in policy["checks"]}
     require(len(check_names) == len(policy["checks"]), "Duplicate check names")
     for decision in decisions.values():
@@ -143,7 +178,7 @@ def check_scope(store: Store, base: str, task: dict) -> list[str]:
     for name in sorted(changed - {""}):
         if name == f".framework/tasks/{task['id']}.json" or name == "docs/carte-du-code.html":
             continue
-        if name.startswith((".framework/runs/", ".framework/reviews/", ".framework/evidence/")):
+        if name.startswith((".framework/runs/", ".framework/reviews/", ".framework/evidence/", ".framework/orchestrations/")):
             kind = name.split("/")[1]
             if name.endswith(".json"):
                 record = store.get(kind, name.rsplit("/", 1)[1][:-5])

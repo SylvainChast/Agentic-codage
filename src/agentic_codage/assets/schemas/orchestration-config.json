@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "roles": {
+      "type": "object",
+      "properties": {
+        "orchestrator": {
+          "type": "object",
+          "properties": {
+            "adapter": {
+              "type": "string",
+              "enum": [
+                "codex",
+                "claude",
+                "command"
+              ]
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "command": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "accepted_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "adapter",
+            "model",
+            "command",
+            "accepted_models"
+          ],
+          "additionalProperties": false
+        },
+        "worker": {
+          "type": "object",
+          "properties": {
+            "adapter": {
+              "type": "string",
+              "enum": [
+                "codex",
+                "claude",
+                "command"
+              ]
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "command": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "accepted_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "adapter",
+            "model",
+            "command",
+            "accepted_models"
+          ],
+          "additionalProperties": false
+        },
+        "reviewer": {
+          "type": "object",
+          "properties": {
+            "adapter": {
+              "type": "string",
+              "enum": [
+                "codex",
+                "claude",
+                "command"
+              ]
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "command": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "accepted_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "adapter",
+            "model",
+            "command",
+            "accepted_models"
+          ],
+          "additionalProperties": false
+        },
+        "arbiter": {
+          "type": "object",
+          "properties": {
+            "adapter": {
+              "type": "string",
+              "enum": [
+                "codex",
+                "claude",
+                "command"
+              ]
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "command": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "accepted_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "adapter",
+            "model",
+            "command",
+            "accepted_models"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "orchestrator",
+        "worker",
+        "reviewer",
+        "arbiter"
+      ],
+      "additionalProperties": false
+    },
+    "max_parallel": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_rounds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_items": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "require_model_report": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "roles",
+    "max_parallel",
+    "max_rounds",
+    "max_items",
+    "timeout_seconds",
+    "require_model_report"
+  ],
+  "additionalProperties": false
+}

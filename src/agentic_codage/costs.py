@@ -54,7 +54,8 @@ def report(store: Store) -> dict:
     accepted_tasks = sum(t["status"] == "accepted" for t in tasks)
     delivered = sum(row["accepted_deliverables"] for row in rows)
     complete = bool(runs) and all(row["complete"] for row in rows if row["runs"] or row["status"] == "accepted")
-    return dict(currency=policy["currency"], tasks=rows, total_known_cost_minor=total,
+    return dict(currency=policy["currency"], tasks=rows, by_role=group_costs(runs, "role"),
+                by_orchestration=group_costs(runs, "orchestration"), total_known_cost_minor=total,
                 run_count=len(runs), executed_tasks=executed, accepted_tasks=accepted_tasks,
                 accepted_deliverables=delivered, complete=complete,
                 estimated_cost_runs=sum(row["estimated_cost_runs"] for row in rows),
@@ -62,3 +63,13 @@ def report(store: Store) -> dict:
                 cost_per_executed_task_minor=total / executed if executed and complete else None,
                 cost_per_accepted_task_minor=total / accepted_tasks if accepted_tasks and complete else None,
                 cost_per_accepted_deliverable_minor=total / delivered if delivered and complete else None)
+
+
+def group_costs(runs, key):
+    result = []
+    for label in sorted({r[key] for r in runs if key in r}):
+        own = [r for r in runs if r.get(key) == label]
+        result.append(dict(name=label, runs=len(own), known_cost_minor=sum(run_cost(r) for r in own),
+                           missing_cost_runs=sum(r['llm_cost_minor'] is None for r in own),
+                           estimated_cost_runs=sum(r['cost_source'] == 'estimate' for r in own)))
+    return result

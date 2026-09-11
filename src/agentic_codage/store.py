@@ -13,8 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 ASSETS = Path(__file__).parent / "assets"
-KINDS = ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews")
-PREFIXES = dict(zip(KINDS, ("T", "R", "D", "F", "X", "E", "V")))
+KINDS = ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations")
+PREFIXES = dict(zip(KINDS, ("T", "R", "D", "F", "X", "E", "V", "O")))
 
 
 class FrameworkError(Exception):

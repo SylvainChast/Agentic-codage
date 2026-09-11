@@ -4,9 +4,9 @@
 
 Codex, Claude Code, Cursor, GitHub Copilot dans VS Code ou Visual Studio, Gemini CLI et assistants génériques utilisent les mêmes contrats, commandes et preuves. Le modèle reste votre choix. La [carte HTML](docs/carte-du-code.html) constitue la vue de référence : les agents alimentent des fiches JSON, le framework les valide et assemble la carte.
 
-Version **0.1.0** · Python **3.11+** · Git · aucune dépendance Python d’exécution · interface et documentation en français, instructions d’agents en anglais.
+Version **0.2.0** · Python **3.11+** · Git · aucune dépendance Python d’exécution · interface et documentation en français, instructions d’agents en anglais.
 
-> Le framework coordonne le travail et conserve les preuves. Il ne lance pas de modèles, ne paie pas d’API, ne garantit pas une certification et ne remplace pas les protections du dépôt. Son périmètre exact est décrit dans [les limites](docs/limitations.md).
+> Le framework coordonne le travail et conserve les preuves. Il peut lancer des modèles via vos CLI configurées ; ces appels utilisent vos comptes et peuvent être facturés. Il ne garantit pas une certification et ne remplace pas les protections du dépôt. Son périmètre exact est décrit dans [les limites](docs/limitations.md).
 
 ## Démarrer en cinq minutes
 
@@ -55,6 +55,30 @@ Exemple de vérification Python :
 
 L’installation crée les fiches, les instructions et `docs/framework.md`. Elle ne modifie pas votre code, ne choisit pas votre stack et ne configure pas automatiquement les droits GitHub. Ajouter et committer les fichiers générés avant d’ouvrir des worktrees.
 
+## Choisir et lancer l’orchestrateur
+
+Vous choisissez le modèle de chaque rôle : **orchestrateur, exécutant, relecteur, arbitre**.
+Astra, Fable, Sol, Opus ou un autre modèle accessible à votre outil : aucune liste imposée,
+aucun remplacement silencieux. Utiliser l’identifiant exact reconnu par votre CLI.
+
+```bash
+framework orchestration init --adapter codex --model VOTRE_MODELE
+framework orchestration set-role orchestrator --adapter claude --model VOTRE_AUTRE_MODELE
+framework orchestration doctor
+# Après création de la tâche et commit du code, du contrat et du profil :
+framework orchestration run T-IDENTIFIANT
+framework orchestration show O-IDENTIFIANT
+framework orchestration integrate O-IDENTIFIANT --actor votre-identite
+```
+
+Le contrôleur décompose le travail, délègue en worktrees isolés, exécute les tests et demande une
+revue séparée. Les travaux indépendants peuvent avancer en parallèle ; les reprises sont bornées.
+Il conserve chaque appel et son coût. L’intégration du candidat approuvé reste explicite.
+Les ponts exécutables disponibles sont Codex, Claude Code et une **commande JSON générique**.
+Les règles d’éditeur restent utilisables sans ce moteur.
+
+[Configuration, modèles, budgets, annulation et limites →](docs/orchestration.md)
+
 ## Le parcours d’une mission
 
 1. **Contractualiser** : objectif, critères, livrables, chemins modifiables, interfaces partagées, dépendances et budget.
@@ -90,6 +114,7 @@ L’exemple n’invente pas de preuve : `verify` exécute réellement les comman
 
 ```bash
 python3 examples/demo.py
+python3 examples/orchestration_demo.py   # délégation simulée, worktrees et tests réels
 ```
 
 La démonstration utilise des **coûts fictifs explicitement étiquetés**. Elle ne lance aucun LLM et ne facture rien.
@@ -111,8 +136,8 @@ Les montants sont en **unités mineures entières** : 125 = 1,25 EUR. Une seule 
 
 | Outil | Fichiers livrés |
 |---|---|
-| Codex / assistants compatibles AGENTS | `AGENTS.md`, `.agents/skills/swarm-deliver/`, `.agents/skills/swarm-review/` |
-| Claude Code | `CLAUDE.md`, `.claude/skills/swarm-deliver/`, `.claude/skills/swarm-review/` |
+| Codex / assistants compatibles AGENTS | `AGENTS.md`, `.agents/skills/swarm-deliver/`, `.agents/skills/swarm-review/`, `swarm-orchestrate/` |
+| Claude Code | `CLAUDE.md`, `.claude/skills/swarm-deliver/`, `.claude/skills/swarm-review/`, `swarm-orchestrate/` |
 | Cursor | `.cursor/rules/agentic-codage.mdc`, `.cursor/skills/…` |
 | Copilot, VS Code et Visual Studio | `.github/copilot-instructions.md` |
 | Gemini CLI | `GEMINI.md` |
@@ -145,6 +170,7 @@ Les réservations vivantes sont dans le répertoire Git commun (`git rev-parse -
 
 | Lire pour… | Document |
 |---|---|
+| Choisir les modèles et déléguer automatiquement | [Orchestration](docs/orchestration.md) |
 | Suivre une mission de bout en bout | [Workflow](docs/workflow.md) |
 | Trouver une commande et ses erreurs | [CLI](docs/cli.md) |
 | Comprendre les coûts et budgets | [Coûts](docs/costs.md) |

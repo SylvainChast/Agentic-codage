@@ -22,6 +22,8 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--version", action="version", version=__version__)
     p.add_argument("--root", type=Path, default=Path.cwd(), help="Target project root (default: current directory)")
     commands = p.add_subparsers(dest="command", required=True)
+    from .orchestration.cli import register
+    register(commands)
     init = commands.add_parser("init", help="Initialize safely; never replace existing instructions")
     init.add_argument("--name", required=True)
     init.add_argument("--currency", default="EUR", help="Single project currency, two decimal minor units")
@@ -106,6 +108,9 @@ def dispatch(args) -> object:
     if command == "adapters":
         return sync_adapters(store, args.check)
     store.policy()
+    if command == "orchestration":
+        from .orchestration.cli import dispatch as orchestration_dispatch
+        return orchestration_dispatch(store, args)
     if command == "import":
         data = read_json(args.file)
         store.put(args.kind, data, new=True)

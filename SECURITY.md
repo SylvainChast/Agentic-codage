@@ -21,3 +21,11 @@ Les fichiers de preuves peuvent contenir des sorties sensibles : les examiner av
 Pour signaler une vulnérabilité, utiliser le canal privé de signalement GitHub du dépôt s’il est
 activé, sinon contacter le propriétaire via un canal privé déjà établi. Ne pas publier d’identifiants
 ni de secrets dans une issue. Aucun délai de réponse ou programme de primes n’est promis.
+
+## Orchestration locale
+
+Les worktrees isolent les candidats Git, sans constituer une sandbox système. Les commandes
+adaptateurs et vérifications sont du code de confiance exécuté avec les droits de l’utilisateur.
+Les contrôles de périmètre sont rétrospectifs et les identités de modèles déclaratives. Isoler les
+agents non fiables au niveau système ; consulter [les limites détaillées](docs/orchestration.md).
+Les logs d’appels sous le répertoire Git commun peuvent contenir du code privé ; ils restent locaux.

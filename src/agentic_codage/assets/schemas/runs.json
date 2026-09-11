@@ -98,6 +98,44 @@
         "null"
       ],
       "minimum": 0
+    },
+    "orchestration": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_item": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requested_model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_models": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "identity_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "reported",
+        "mismatch"
+      ]
+    },
+    "identity_source": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "required": [

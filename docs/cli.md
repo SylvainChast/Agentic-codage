@@ -52,3 +52,10 @@ pas mélangés avec le JSON de la CLI : ils sont écrits dans `.framework/eviden
 | Contrat absent de la base | Intégrer la PR de cadrage avant la PR d’implémentation |
 
 Aucune commande ne choisit de modèle, n’ouvre une PR, ne fusionne une branche ou ne déploie un produit.
+
+## Orchestration (0.2)
+
+`framework orchestration` expose `init`, `set-role`, `config`, `doctor`, `run`, `list`, `show`,
+`feedback`, `cancel` et `integrate`. Le [guide détaillé](orchestration.md) décrit arguments,
+protocole, coûts et états. `run` retourne 0 pour ready, 1 pour une session bloquée/annulée ;
+les erreurs de configuration ou préconditions retournent 2.

@@ -236,6 +236,10 @@ function economics() {
   table.append(tbody);
   wrap.append(table);
   f.append(wrap);
+  for (const group of costs.by_role || []) {
+    f.append(el("p", group.name + " : " + money(group.known_cost_minor) +
+      " connus · " + group.runs + " appels · " + group.missing_cost_runs + " coûts inconnus"));
+  }
   $("count").textContent = rows.length + " missions";
   return f;
 }
@@ -302,6 +306,11 @@ const views = [
             : "Exception déclarée",
       ),
   ],
+  ["orchestrations", "Orchestration", () => cardList(
+    records.orchestrations || [],
+    r => r.task + " · " + r.profile.roles.orchestrator.model,
+    r => r.status + " · " + r.steps.length + " appels · tour " + r.round
+  )],
   ["proof", "Preuves", proof],
   ["costs", "Coûts", economics],
   [
