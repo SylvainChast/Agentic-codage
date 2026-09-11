@@ -28,7 +28,6 @@ sur preuve courante, extraction de contexte, schémas stricts et carte HTML auto
 - **Pas d’acceptation partielle ou révocation automatique** : une tâche accepte son ensemble de livrables.
 - **Pas d’historique complet du runtime** : conserver séparément les artefacts CI et attestations de build.
 - **Pas de hooks de permission universels** : les mécanismes des éditeurs diffèrent ; le socle reste la CLI.
-- **Pas de licence open source choisie** : décider avant une redistribution publique.
 
 ## Évolutions à évaluer avec des mesures
 

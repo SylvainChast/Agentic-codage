@@ -1,0 +1,20 @@
+{
+  "actor": "codex-mit",
+  "cost_note": "Facturation indisponible dans la session ; temps humain et infrastructure non imputés.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-11T14:47:37+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-84b396eaeb5b",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — consommation non mesurée",
+  "next_step": "Exécuter les contrôles du dépôt puis transmettre la modification ; aucune revue indépendante inventée.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Texte MIT officiel ajouté, documentation harmonisée et présence de la licence vérifiée dans le wheel construit.",
+  "task": "T-916ea21f5d6a"
+}

@@ -25,5 +25,5 @@ commande dans `docs/cli.md` et les exemples. Les commits suivent `feat:`, `fix:`
 
 Les PR expliquent le problème, le comportement obtenu, les tests exécutés et les limites restantes.
 Les modifications aux politiques, workflows et règles nécessitent une revue distincte. Ne pas
-inventer une revue indépendante pour accepter sa propre tâche. Les contributions et droits de
-redistribution doivent être clarifiés par le propriétaire avant ouverture à des tiers.
+inventer une revue indépendante pour accepter sa propre tâche. Les contributions à ce dépôt sont proposées sous la [licence MIT](LICENSE) du projet. Vérifier
+que vous disposez des droits nécessaires sur le code et les éléments que vous contribuez.

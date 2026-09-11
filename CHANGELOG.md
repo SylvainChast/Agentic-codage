@@ -1,5 +1,10 @@
 # Changelog
 
+## Non publié
+
+Ajout de la licence MIT (copyright 2026 Sylvain Chastang), inclusion dans le paquet Python
+et mise à jour des documents de licence et de contribution.
+
 ## 0.1.0 — 2026-09-11
 
 Première version : CLI sans dépendance d’exécution, contrats et réservations entre worktrees,

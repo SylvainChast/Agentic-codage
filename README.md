@@ -170,4 +170,4 @@ La CI répète les tests sur plusieurs systèmes et versions Python. Les contrô
 
 ## Licence
 
-Aucune licence de redistribution n’est choisie dans cette première version. Avant une diffusion comme framework open source, le propriétaire doit choisir et ajouter la licence adaptée. Les licences et la provenance des dépendances des produits restent à inventorier séparément.
+Ce framework est distribué sous [licence MIT](LICENSE), copyright © 2026 Sylvain Chastang. Le texte complet de la licence est inclus dans le dépôt et le paquet Python. Les licences et la provenance des dépendances des produits restent à inventorier séparément.

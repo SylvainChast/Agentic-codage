@@ -1,0 +1,52 @@
+test_cycles_fail (test_checks.CheckTests.test_cycles_fail) ... ok
+test_expired_exception_and_resolved_finding_fail (test_checks.CheckTests.test_expired_exception_and_resolved_finding_fail) ... ok
+test_new_task_requires_planning_on_base (test_checks.CheckTests.test_new_task_requires_planning_on_base) ... ok
+test_scope_changes_cannot_authorize_themselves (test_checks.CheckTests.test_scope_changes_cannot_authorize_themselves) ... ok
+test_trusted_scope_detects_untracked_outside_changes (test_checks.CheckTests.test_trusted_scope_detects_untracked_outside_changes) ... ok
+test_code_pr_uses_registered_task_and_platform_base (test_ci_scope.CIScopeTests.test_code_pr_uses_registered_task_and_platform_base) ... ok
+test_missing_pr_contract_is_rejected (test_ci_scope.CIScopeTests.test_missing_pr_contract_is_rejected) ... ok
+test_planning_can_register_new_task (test_ci_scope.CIScopeTests.test_planning_can_register_new_task) ... ok
+test_planning_cannot_change_source_code (test_ci_scope.CIScopeTests.test_planning_cannot_change_source_code) ... ok
+test_cli_output_is_json_and_bad_records_fail (test_cli_map.MapAndCliTests.test_cli_output_is_json_and_bad_records_fail) ... ok
+test_map_content_is_reproducible_and_survives_commit (test_cli_map.MapAndCliTests.test_map_content_is_reproducible_and_survives_commit) ... ok
+test_map_escapes_untrusted_html_and_detects_staleness (test_cli_map.MapAndCliTests.test_map_escapes_untrusted_html_and_detects_staleness) ... ok
+test_verify_exit_one_for_failed_checks (test_cli_map.MapAndCliTests.test_verify_exit_one_for_failed_checks) ... ok
+test_estimates_and_explicit_zero_are_visible (test_costs.CostTests.test_estimates_and_explicit_zero_are_visible) ... ok
+test_failed_runs_and_human_time_are_counted (test_costs.CostTests.test_failed_runs_and_human_time_are_counted) ... ok
+test_human_rounding_is_half_up (test_costs.CostTests.test_human_rounding_is_half_up) ... ok
+test_rejects_negative_mixed_or_inconsistent_costs (test_costs.CostTests.test_rejects_negative_mixed_or_inconsistent_costs) ... ok
+test_unknown_is_not_zero (test_costs.CostTests.test_unknown_is_not_zero) ... ok
+test_unproven_accepted_status_cannot_inflate_delivery_metrics (test_costs.CostTests.test_unproven_accepted_status_cannot_inflate_delivery_metrics) ... ok
+test_overlapping_parent_path_conflicts (test_leases.LeaseTests.test_overlapping_parent_path_conflicts) ... ok
+test_prefix_boundary_and_expiry (test_leases.LeaseTests.test_prefix_boundary_and_expiry) ... ok
+test_resource_conflicts_even_when_paths_differ (test_leases.LeaseTests.test_resource_conflicts_even_when_paths_differ) ... ok
+test_two_processes_cannot_both_reserve_same_scope (test_leases.LeaseTests.test_two_processes_cannot_both_reserve_same_scope) ... ok
+test_worktrees_share_database (test_leases.LeaseTests.test_worktrees_share_database) ... ok
+test_wrong_owner_cannot_release (test_leases.LeaseTests.test_wrong_owner_cannot_release) ... ok
+test_cannot_start_without_lease (test_lifecycle.LifecycleTests.test_cannot_start_without_lease) ... ok
+test_check_cannot_change_code_and_claim_success (test_lifecycle.LifecycleTests.test_check_cannot_change_code_and_claim_success) ... ok
+test_dependency_must_be_accepted (test_lifecycle.LifecycleTests.test_dependency_must_be_accepted) ... ok
+test_exhausted_budget_blocks_next_start_but_records_overrun (test_lifecycle.LifecycleTests.test_exhausted_budget_blocks_next_start_but_records_overrun) ... ok
+test_failed_checks_are_retained_and_block_approval (test_lifecycle.LifecycleTests.test_failed_checks_are_retained_and_block_approval) ... ok
+test_full_acceptance_requires_current_proof_and_review (test_lifecycle.LifecycleTests.test_full_acceptance_requires_current_proof_and_review) ... ok
+test_missing_handoff_blocks_submission (test_lifecycle.LifecycleTests.test_missing_handoff_blocks_submission) ... ok
+test_no_self_review (test_lifecycle.LifecycleTests.test_no_self_review) ... ok
+test_portfolio_accepted_unit_cost_includes_other_failed_tasks (test_lifecycle.LifecycleTests.test_portfolio_accepted_unit_cost_includes_other_failed_tasks) ... ok
+test_secondary_implementer_cannot_review (test_lifecycle.LifecycleTests.test_secondary_implementer_cannot_review) ... ok
+test_stale_code_or_contract_rejects_acceptance (test_lifecycle.LifecycleTests.test_stale_code_or_contract_rejects_acceptance) ... ok
+test_tampered_logs_detected (test_lifecycle.LifecycleTests.test_tampered_logs_detected) ... ok
+test_timeout_is_failure (test_lifecycle.LifecycleTests.test_timeout_is_failure) ... ok
+test_adapters_refuse_to_overwrite_user_instructions (test_store.StoreTests.test_adapters_refuse_to_overwrite_user_instructions) ... ok
+test_append_does_not_replace_existing_record (test_store.StoreTests.test_append_does_not_replace_existing_record) ... ok
+test_fingerprint_tracks_code_not_lifecycle (test_store.StoreTests.test_fingerprint_tracks_code_not_lifecycle) ... ok
+test_fingerprint_tracks_deletions (test_store.StoreTests.test_fingerprint_tracks_deletions) ... ok
+test_initialization_is_not_destructive (test_store.StoreTests.test_initialization_is_not_destructive) ... ok
+test_literal_scope_rejects_traversal_and_globs (test_store.StoreTests.test_literal_scope_rejects_traversal_and_globs) ... ok
+test_strict_types_duplicate_keys_and_extra_fields (test_store.StoreTests.test_strict_types_duplicate_keys_and_extra_fields) ... ok
+test_symlink_escape_rejected (test_store.StoreTests.test_symlink_escape_rejected) ... ok
+test_task_id_cannot_escape (test_store.StoreTests.test_task_id_cannot_escape) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 7.898s
+
+OK

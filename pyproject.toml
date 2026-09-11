@@ -7,6 +7,7 @@ name = "agentic-codage"
 version = "0.1.0"
 description = "Model-independent agent coordination, quality evidence and delivery economics"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.11"
 authors = [{name = "Sylvain Chastang"}]
 classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]

@@ -1,0 +1,30 @@
+{
+  "acceptance": null,
+  "budget_minor": 1000,
+  "created_at": "2026-09-11T14:47:16+00:00",
+  "criteria": [
+    "Le texte MIT porte le copyright Sylvain Chastang 2026",
+    "Le paquet distribué inclut la licence et les documents ne la disent plus absente"
+  ],
+  "decisions": [],
+  "deliverables": [
+    "Licence MIT cohérente dans le dépôt et le paquet"
+  ],
+  "depends_on": [],
+  "id": "T-916ea21f5d6a",
+  "max_runs": 3,
+  "owner": "codex-mit",
+  "resources": [
+    "project:license"
+  ],
+  "scope": [
+    "LICENSE",
+    "pyproject.toml",
+    "README.md",
+    "CONTRIBUTING.md",
+    "docs/limitations.md",
+    "CHANGELOG.md"
+  ],
+  "status": "submitted",
+  "title": "Publier le framework sous licence MIT"
+}
