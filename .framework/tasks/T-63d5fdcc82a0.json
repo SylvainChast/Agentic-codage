@@ -1,0 +1,47 @@
+{
+  "acceptance": null,
+  "budget_minor": 20000,
+  "created_at": "2026-09-11T14:55:08+00:00",
+  "criteria": [
+    "Chaque rôle conserve le modèle choisi sans liste de prestige ni repli silencieux",
+    "Un contrôleur planifie, délègue, vérifie et fait relire dans des worktrees isolés",
+    "Les appels, annulations, refus, reprises et coûts sont traçables",
+    "Les adaptateurs Codex, Claude et commande JSON sont documentés et testés sans appels payants"
+  ],
+  "decisions": [
+    "D-portable-core",
+    "D-cost-provenance",
+    "D-local-trust"
+  ],
+  "deliverables": [
+    "Moteur d’orchestration et profils",
+    "Adaptateurs et skill de pilotage",
+    "Tests et démonstration hors ligne",
+    "Documentation et carte mises à jour"
+  ],
+  "depends_on": [],
+  "id": "T-63d5fdcc82a0",
+  "max_runs": 10,
+  "owner": "codex-orchestration",
+  "resources": [
+    "framework:orchestration"
+  ],
+  "scope": [
+    "src",
+    "tests",
+    "docs",
+    "scripts",
+    "examples",
+    ".agents",
+    ".claude",
+    ".cursor",
+    ".framework/OPERATING.md",
+    "README.md",
+    "CHANGELOG.md",
+    "pyproject.toml",
+    ".github",
+    "SECURITY.md"
+  ],
+  "status": "active",
+  "title": "Ajouter une orchestration avec modèles choisis par l’utilisateur"
+}
