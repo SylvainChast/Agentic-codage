@@ -12,6 +12,7 @@ et mise à jour des documents de licence et de contribution.
 - Contrôles réels, revue séparée, arbitrage/replanification limitée et intégration explicite.
 - Journal des appels, identité observée, coûts par rôle/session, annulation et feedback.
 - Skill swarm-orchestrate et vue HTML, documentation des frontières et essais hors ligne.
+- Conservation des octets du checkout propre en présence de conversion Git CRLF ; annulation testée sur signal de démarrage.
 - Correction du schéma argv : plusieurs arguments identiques sont légitimes.
 
 ## 0.1.0 — 2026-09-11

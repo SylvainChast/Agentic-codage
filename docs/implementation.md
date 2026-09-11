@@ -60,9 +60,9 @@ contrôleur avec worktrees, DAG et parallélisme, vérifications et revue sépar
 bornée, annulation, feedback et intégration explicite. Journal des modèles demandés/observés et
 coûts par rôle/session. Le troisième skill, la carte et le README documentent ce parcours.
 
-La suite comprend désormais 64 tests, dont 17 tests de la couche d’orchestration : parcours réel
+La suite comprend désormais 65 tests, dont 18 tests de la couche d’orchestration : parcours réel
 avec fournisseur factice, dépendances, limites simultanées, timeout/annulation, coûts inconnus,
-modèle inattendu, sortie de périmètre, modification par le relecteur et preuve/code altérés.
+modèle inattendu, sortie de périmètre, modification par le relecteur et preuve/code altérés et checkout Git avec conversion CRLF.
 `python3 examples/orchestration_demo.py` démontre le parcours hors ligne : trois appels simulés,
 tests produit réellement exécutés, coût fictif marqué comme estimation. Les constructions de
 commandes et normalisations natives sont testées ; aucun appel payant réel n’a été effectué.

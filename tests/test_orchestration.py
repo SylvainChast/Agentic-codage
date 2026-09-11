@@ -11,7 +11,9 @@ BRIDGE = '''import json, sys, pathlib, time
 request = json.load(sys.stdin)
 role, payload = request['role'], request['payload']
 mode = sys.argv[1] if len(sys.argv) > 1 else 'ok'
-if mode == 'timeout': time.sleep(5)
+if mode == 'timeout':
+    pathlib.Path(__file__).parent.joinpath('.git','fixture-started').touch()
+    time.sleep(10)
 if role == 'orchestrator':
     result = dict(summary='Fixture plan', items=[dict(id='write', title='Write value', scope=['src/app.py'], criteria=['value 2'], depends_on=[])])
 elif role == 'worker':
@@ -173,14 +175,12 @@ class OrchestrationTests(ProjectCase):
         thread = threading.Thread(target=lambda: results.append(engine.run(self.store, task['id'])))
         thread.start()
         try:
-            deadline = time.monotonic() + 5
+            deadline = time.monotonic() + 15
             session = None
             while time.monotonic() < deadline:
                 sessions = self.store.all('orchestrations')
-                if sessions:
+                if sessions and (self.root / '.git/fixture-started').exists():
                     session = sessions[0]
-                    # Allow subprocess to start; cancel-before-dispatch is also valid but has no run.
-                    time.sleep(.2)
                     break
                 time.sleep(.02)
             self.assertIsNotNone(session)
@@ -222,3 +222,12 @@ class OrchestrationTests(ProjectCase):
         data = json.dumps(dict(structured_output={'summary':'ok'}, modelUsage={'exact-model':{}}, total_cost_usd=.125, usage={'input_tokens':10}))
         self.assertEqual(adapters.decode('claude', 'worker', data, scratch, 'USD')['llm_cost_minor'], 13)
         self.assertIsNone(adapters.decode('claude', 'worker', data, scratch, 'EUR')['llm_cost_minor'])
+
+    def test_clean_autocrlf_checkout_keeps_exact_candidate_bytes(self):
+        self.git('config', 'core.autocrlf', 'true')
+        task = self.setup_profile()
+        (self.root / 'src/app.py').write_bytes(b'value = 1\r\n')
+        result = engine.run(self.store, task['id'])
+        self.assertTrue(result['ok'], result['message'])
+        engine.integrate(self.store, result['id'], 'human')
+        self.assertTrue(check(self.store)['ok'])

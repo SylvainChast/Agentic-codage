@@ -1,0 +1,20 @@
+{
+  "actor": "codex-orchestration",
+  "cost_note": "Coût de session indisponible. Reprise de validation après le premier échec CI Windows ; aucun appel LLM via les adaptateurs.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-11T15:19:42+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-bed59eddd67d",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "gpt-6-astra",
+  "next_step": "Validation complète puis nouvelle CI multi-OS ; revue indépendante de la construction encore à effectuer.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Correction du candidat avec conversion Git CRLF et du test d’annulation sur signal de démarrage réel ; 18 tests ciblés passent.",
+  "task": "T-63d5fdcc82a0"
+}

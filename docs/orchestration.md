@@ -50,7 +50,9 @@ un écart `mismatch` bloque la session. Le profil est figé dans chaque session 
 Installer/configurer les CLI et leurs comptes avant tout lancement. Lire les tests de la politique,
 enregistrer le contrat de tâche et prévoir les appels de coordination/revue dans `max_runs`.
 Committer le code, la politique, le profil et le contrat. Les statuts et journaux peuvent rester non
-committés. Les worktrees ne recopient pas les dépendances ignorées ni les secrets du checkout :
+committés. Le candidat conserve les octets du checkout propre, y compris lorsque Git convertit
+les fins de ligne. Les projets avec liens symboliques dans les sources ne sont pas pris en charge
+par le lancement automatique. Les worktrees ne recopient pas les dépendances ignorées ni les secrets du checkout :
 préparer une vérification reproductible qui fonctionne dans un checkout neuf.
 
 ```bash

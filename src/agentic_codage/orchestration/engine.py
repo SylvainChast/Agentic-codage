@@ -66,6 +66,7 @@ def run(store, task_id):
         evidence=None, review=None, message='Starting', completed_items=[])
     with lock(store, task_id):
         candidate = ws.workspace(store, session['id'], 'candidate', base)
+        ws.prepare_candidate(store, candidate, base)
         if candidate.fingerprint() != session['base_fingerprint']:
             raise FrameworkError('Commit source/config changes before orchestration; lifecycle records may remain dirty')
         leases.acquire(store, task, task['owner'], 86400)

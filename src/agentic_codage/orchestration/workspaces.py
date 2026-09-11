@@ -99,3 +99,21 @@ def seal(store):
         if path.is_file():
             digest.update(path.read_bytes())
     return digest.hexdigest()
+
+
+def prepare_candidate(source, target, base):
+    """Preserve a clean checkout's exact bytes despite Git EOL/smudge conversion."""
+    from ..store import KINDS
+    def runtime(name):
+        return (name == 'docs/carte-du-code.html' or name.startswith('.framework/local/')
+                or any(name.startswith(f'.framework/{kind}/') for kind in KINDS if kind != 'decisions'))
+    if any(not runtime(name) for name in changes(source, base)):
+        raise FrameworkError('Commit source/config changes before orchestration; lifecycle records may remain dirty')
+    for name in source.git('ls-files', '--cached', '-z').split('\0'):
+        if not name or runtime(name):
+            continue
+        original = source._contained(source.root / name)
+        destination = target._contained(target.root / name)
+        if original.is_file():
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(original, destination)
