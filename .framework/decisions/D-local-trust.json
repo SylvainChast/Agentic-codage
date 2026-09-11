@@ -1,0 +1,21 @@
+{
+  "alternatives": [
+    "Présenter un hash local comme une attestation infalsifiable"
+  ],
+  "checks": [
+    "tests"
+  ],
+  "context": "Un agent disposant des fichiers peut modifier les déclarations et les contrôles.",
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "decision": "Lier les preuves au contenu, déclarer une revue distincte et confier l’autorité aux protections Git/CI.",
+  "id": "D-local-trust",
+  "owner": "SylvainChast",
+  "paths": [
+    "src/agentic_codage/evidence.py",
+    "SECURITY.md",
+    ".github"
+  ],
+  "status": "active",
+  "superseded_by": null,
+  "title": "Preuves locales et autorité de plateforme"
+}

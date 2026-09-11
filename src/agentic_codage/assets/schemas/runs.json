@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "runs",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "R-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "implementation",
+        "review",
+        "coordination"
+      ]
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "failed",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[A-Z]{3}"
+    },
+    "llm_cost_minor": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "infra_cost_minor": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "human_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "human_rate_minor": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "cost_source": {
+      "type": "string",
+      "enum": [
+        "actual",
+        "estimate",
+        "unknown"
+      ]
+    },
+    "cost_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_tokens": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "output_tokens": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "task",
+    "actor",
+    "model",
+    "purpose",
+    "outcome",
+    "currency",
+    "llm_cost_minor",
+    "infra_cost_minor",
+    "human_seconds",
+    "human_rate_minor",
+    "cost_source",
+    "cost_note",
+    "summary",
+    "next_step",
+    "input_tokens",
+    "output_tokens"
+  ],
+  "additionalProperties": false
+}

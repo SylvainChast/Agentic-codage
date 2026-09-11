@@ -1,0 +1,22 @@
+{
+  "alternatives": [
+    "Orchestrateur propriétaire imposant un fournisseur"
+  ],
+  "checks": [
+    "tests",
+    "adapters"
+  ],
+  "context": "Le même projet doit fonctionner avec plusieurs agents et éditeurs.",
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "decision": "Utiliser une CLI Python et des contrats JSON, avec des adaptateurs générés.",
+  "id": "D-portable-core",
+  "owner": "SylvainChast",
+  "paths": [
+    "src/agentic_codage",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
+  "status": "active",
+  "superseded_by": null,
+  "title": "Un socle portable indépendant des fournisseurs"
+}

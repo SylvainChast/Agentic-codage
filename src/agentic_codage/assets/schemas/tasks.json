@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "tasks",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "T-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "budget_minor": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_runs": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "submitted",
+        "accepted",
+        "cancelled"
+      ]
+    },
+    "acceptance": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "review": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fingerprint": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "[a-f0-9]{64}"
+        },
+        "contract": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "[a-f0-9]{64}"
+        },
+        "accepted_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accepted_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "review",
+        "evidence",
+        "fingerprint",
+        "contract",
+        "accepted_by",
+        "accepted_at"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "title",
+    "owner",
+    "scope",
+    "resources",
+    "decisions",
+    "depends_on",
+    "criteria",
+    "deliverables",
+    "budget_minor",
+    "max_runs",
+    "status",
+    "acceptance"
+  ],
+  "additionalProperties": false
+}

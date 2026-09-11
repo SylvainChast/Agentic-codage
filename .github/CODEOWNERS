@@ -1,0 +1,9 @@
+# Ownership requests do not enforce review without branch protection.
+/.github/ @SylvainChast
+/.framework/policy.json @SylvainChast
+/.framework/OPERATING.md @SylvainChast
+/src/agentic_codage/assets/ @SylvainChast
+/SECURITY.md @SylvainChast
+/.framework/tasks/ @SylvainChast
+/.framework/decisions/ @SylvainChast
+/scripts/ci_scope.py @SylvainChast

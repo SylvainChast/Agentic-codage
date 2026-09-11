@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-codage"
+version = "0.1.0"
+description = "Model-independent agent coordination, quality evidence and delivery economics"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Sylvain Chastang"}]
+classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
+
+[project.scripts]
+framework = "agentic_codage.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+agentic_codage = ["assets/*", "assets/schemas/*.json"]

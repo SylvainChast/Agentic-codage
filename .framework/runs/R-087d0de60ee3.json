@@ -1,0 +1,20 @@
+{
+  "actor": "codex-framework-v1",
+  "cost_note": "Facturation et tokens indisponibles dans la session. Infrastructure et temps humain non imputés. Budget de suivi initial configurable : 100 EUR ; aucune dépense API engagée par le framework.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-087d0de60ee3",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact et consommation non mesurés",
+  "next_step": "Terminer les contrôles de paquet, HTML et CI puis transmettre à une vraie revue indépendante.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Construction du socle et de sa documentation ; tests locaux et démonstration réussis. La revue indépendante de cette livraison reste à faire.",
+  "task": "T-9c2d90a53f42"
+}

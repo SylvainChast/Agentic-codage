@@ -1,0 +1,56 @@
+{
+  "acceptance": null,
+  "budget_minor": 10000,
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "criteria": [
+    "Le parcours de mission et ses principaux refus sont testés",
+    "Les coûts par tâche et livrable accepté distinguent montants connus et inconnus",
+    "Le paquet inclut les adaptateurs, skills, schémas et carte HTML",
+    "Le README et les guides permettent l’installation et l’exploitation"
+  ],
+  "decisions": [
+    "D-portable-core",
+    "D-html-reference",
+    "D-cost-provenance",
+    "D-local-trust"
+  ],
+  "deliverables": [
+    "Socle CLI et contrôles",
+    "Carte HTML et suivi des coûts",
+    "Adaptateurs multi-outils et skills",
+    "Documentation et démonstration testée"
+  ],
+  "depends_on": [],
+  "id": "T-9c2d90a53f42",
+  "max_runs": 5,
+  "owner": "codex-framework-v1",
+  "resources": [
+    "framework:v0.1"
+  ],
+  "scope": [
+    "src",
+    "tests",
+    "docs",
+    "examples",
+    "scripts",
+    "bin",
+    ".github",
+    ".framework",
+    ".agents",
+    ".claude",
+    ".cursor",
+    ".windsurf",
+    ".gitignore",
+    "pyproject.toml",
+    "README.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    ".gitattributes"
+  ],
+  "status": "submitted",
+  "title": "Construire et documenter le framework portable v0.1"
+}

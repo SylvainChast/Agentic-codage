@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "name": "tests",
+      "argv": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "timeout_seconds": 180
+    },
+    {
+      "name": "adapters",
+      "argv": [
+        "{python}",
+        "bin/framework",
+        "adapters",
+        "--check"
+      ],
+      "timeout_seconds": 30
+    }
+  ],
+  "currency": "EUR",
+  "currency_minor_digits": 2,
+  "max_active_tasks": 2,
+  "max_file_lines": 400,
+  "project": "Agentic Codage",
+  "schema_version": 1
+}

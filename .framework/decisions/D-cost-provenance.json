@@ -1,0 +1,20 @@
+{
+  "alternatives": [
+    "Compter les commits ou assimiler une absence de facture à zéro"
+  ],
+  "checks": [
+    "tests"
+  ],
+  "context": "Les échecs et les montants inconnus ne doivent pas disparaître des ratios.",
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "decision": "Enregistrer chaque exécution, distinguer facturé/estimé/inconnu et compter uniquement les livrables acceptés.",
+  "id": "D-cost-provenance",
+  "owner": "SylvainChast",
+  "paths": [
+    "src/agentic_codage/costs.py",
+    "docs/costs.md"
+  ],
+  "status": "active",
+  "superseded_by": null,
+  "title": "Coûts explicites et livraison acceptée"
+}

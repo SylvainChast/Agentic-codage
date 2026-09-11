@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Agentic Codage · Carte du projet</title>
+    <style>
+      __MAP_STYLE__
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="logo">agentic<span> / </span>codage</div>
+        <div class="tag">Découper · Trancher · Garder</div>
+        <nav aria-label="Vues du projet" id="navigation"></nav>
+        <div class="aside-foot">
+          <b>Une mémoire commune.</b>Des missions bornées.<br />Des preuves
+          consultables.<br />Des coûts explicites.
+          <p>Instantané hors ligne · v0.1</p>
+        </div>
+      </aside>
+      <main>
+        <header>
+          <div>
+            <div class="eyebrow">Carte de référence</div>
+            <h1 id="project"></h1>
+            <p class="sub" id="subtitle"></p>
+          </div>
+          <span class="pill" id="health"></span>
+        </header>
+        <div class="toolbar">
+          <input
+            id="search"
+            type="search"
+            aria-label="Rechercher dans les fiches"
+            placeholder="Rechercher une mission, une décision, un risque…"
+          /><span class="count" id="count" aria-live="polite"></span>
+        </div>
+        <div id="view" aria-live="polite"></div>
+        <footer id="footer"></footer>
+      </main>
+    </div>
+    <script id="map-data" type="application/json">
+      __MAP_DATA__
+    </script>
+    <script>
+      __MAP_SCRIPT__;
+    </script>
+  </body>
+</html>

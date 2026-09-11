@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Agentic Codage · Carte du projet</title>
+    <style>
+      :root {
+  color-scheme: light;
+  --bg: #f4f5f2;
+  --paper: #fff;
+  --ink: #182b28;
+  --muted: #5d6d68;
+  --line: #dce3de;
+  --accent: #126448;
+  --soft: #e9f3ed;
+  --warn: #946318;
+  --bad: #a32f35;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font:
+    15px/1.55 system-ui,
+    -apple-system,
+    sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: var(--accent);
+}
+.layout {
+  display: grid;
+  grid-template-columns: 238px 1fr;
+  min-height: 100vh;
+}
+aside {
+  padding: 32px 20px;
+  background: var(--ink);
+  color: #eef7ef;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.logo {
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  font-weight: 750;
+}
+.logo span {
+  color: #94d1ab;
+}
+.tag {
+  font:
+    10px ui-monospace,
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #aec8bb;
+  margin: 8px 0 42px;
+}
+nav {
+  display: grid;
+  gap: 7px;
+}
+nav button {
+  background: transparent;
+  color: #b9cdc4;
+  border: 0;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 7px;
+}
+nav button[aria-current="true"] {
+  background: #30483f;
+  color: #fff;
+}
+nav button:hover {
+  background: #30483f;
+}
+.aside-foot {
+  margin-top: 44px;
+  color: #b9cdc4;
+  font-size: 12px;
+}
+.aside-foot b {
+  display: block;
+  color: #e2efe7;
+  margin-bottom: 7px;
+}
+main {
+  padding: 38px 5vw 60px;
+  max-width: 1440px;
+  width: 100%;
+}
+.eyebrow {
+  font:
+    11px ui-monospace,
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 25px;
+}
+h1 {
+  font-size: 32px;
+  letter-spacing: -1px;
+  margin: 8px 0 0;
+}
+h2 {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  margin: 0 0 8px;
+}
+h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.sub {
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.pill {
+  display: inline-block;
+  border-radius: 30px;
+  padding: 4px 10px;
+  font-size: 11px;
+  background: var(--soft);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.pill.warn {
+  color: var(--warn);
+  background: #fff1d6;
+}
+.pill.bad {
+  color: var(--bad);
+  background: #fceaea;
+}
+.toolbar {
+  margin: 24px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.toolbar input {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: var(--ink);
+}
+.count {
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 12px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 26px 0;
+}
+.metric,
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+}
+.metric .value {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -1px;
+  margin: 10px 0 2px;
+}
+.metric .label {
+  font-size: 12px;
+  color: var(--muted);
+}
+.metric .hint {
+  font-size: 11px;
+  color: var(--muted);
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 20px;
+}
+.card + .card {
+  margin-top: 14px;
+}
+.grid > .card + .card {
+  margin-top: 0;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.row:last-child {
+  border: 0;
+}
+.row small {
+  display: block;
+  color: var(--muted);
+}
+.section-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.empty {
+  padding: 35px 20px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+.task-title {
+  font-weight: 650;
+}
+code {
+  font:
+    12px ui-monospace,
+    monospace;
+  overflow-wrap: anywhere;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    12px/1.6 ui-monospace,
+    monospace;
+  background: var(--bg);
+  padding: 16px;
+  border-radius: 6px;
+  max-height: 500px;
+  overflow: auto;
+}
+details {
+  margin-top: 12px;
+}
+summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--accent);
+}
+.table-wrap {
+  overflow-x: auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  text-align: left;
+}
+th {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+td,
+th {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--line);
+}
+td.number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+footer {
+  margin-top: 36px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.legend {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+.notice {
+  border-left: 3px solid var(--accent);
+  padding: 10px 15px;
+  background: var(--soft);
+  font-size: 13px;
+  margin: 20px 0;
+}
+.error {
+  border-color: var(--bad);
+  background: #fceaea;
+}
+.bar {
+  height: 7px;
+  background: var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.bar i {
+  height: 100%;
+  display: block;
+  background: var(--accent);
+}
+:focus-visible {
+  outline: 3px solid #d49831;
+  outline-offset: 3px;
+}
+@media (max-width: 1000px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .layout {
+    display: block;
+  }
+  aside {
+    position: static;
+    height: auto;
+    padding: 20px;
+  }
+  .tag,
+  .aside-foot {
+    display: none;
+  }
+  nav {
+    display: flex;
+    overflow: auto;
+    gap: 3px;
+    margin-top: 16px;
+  }
+  nav button {
+    white-space: nowrap;
+    padding: 9px;
+  }
+  main {
+    padding: 25px 18px;
+  }
+  header {
+    align-items: start;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  .metrics {
+    gap: 10px;
+  }
+  .metric {
+    padding: 16px;
+  }
+  .metric .value {
+    font-size: 25px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="logo">agentic<span> / </span>codage</div>
+        <div class="tag">Découper · Trancher · Garder</div>
+        <nav aria-label="Vues du projet" id="navigation"></nav>
+        <div class="aside-foot">
+          <b>Une mémoire commune.</b>Des missions bornées.<br />Des preuves
+          consultables.<br />Des coûts explicites.
+          <p>Instantané hors ligne · v0.1</p>
+        </div>
+      </aside>
+      <main>
+        <header>
+          <div>
+            <div class="eyebrow">Carte de référence</div>
+            <h1 id="project"></h1>
+            <p class="sub" id="subtitle"></p>
+          </div>
+          <span class="pill" id="health"></span>
+        </header>
+        <div class="toolbar">
+          <input
+            id="search"
+            type="search"
+            aria-label="Rechercher dans les fiches"
+            placeholder="Rechercher une mission, une décision, un risque…"
+          /><span class="count" id="count" aria-live="polite"></span>
+        </div>
+        <div id="view" aria-live="polite"></div>
+        <footer id="footer"></footer>
+      </main>
+    </div>
+    <script id="map-data" type="application/json">
+      {"generated_at": "2026-09-11T14:36:50+00:00", "observed_head": "unborn", "content": {"policy": {"checks": [{"name": "tests", "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"], "timeout_seconds": 180}, {"name": "adapters", "argv": ["{python}", "bin/framework", "adapters", "--check"], "timeout_seconds": 30}], "currency": "EUR", "currency_minor_digits": 2, "max_active_tasks": 2, "max_file_lines": 400, "project": "Agentic Codage", "schema_version": 1}, "fingerprint": "ce8adf3f09064ec7a66446811f6821806c23d3f9efc4c3fbea3cb09c7c4ef8f4", "records": {"tasks": [{"acceptance": null, "budget_minor": 10000, "created_at": "2026-09-11T14:32:37+00:00", "criteria": ["Le parcours de mission et ses principaux refus sont testés", "Les coûts par tâche et livrable accepté distinguent montants connus et inconnus", "Le paquet inclut les adaptateurs, skills, schémas et carte HTML", "Le README et les guides permettent l’installation et l’exploitation"], "decisions": ["D-portable-core", "D-html-reference", "D-cost-provenance", "D-local-trust"], "deliverables": ["Socle CLI et contrôles", "Carte HTML et suivi des coûts", "Adaptateurs multi-outils et skills", "Documentation et démonstration testée"], "depends_on": [], "id": "T-9c2d90a53f42", "max_runs": 5, "owner": "codex-framework-v1", "resources": ["framework:v0.1"], "scope": ["src", "tests", "docs", "examples", "scripts", "bin", ".github", ".framework", ".agents", ".claude", ".cursor", ".windsurf", ".gitignore", "pyproject.toml", "README.md", "AGENTS.md", "CLAUDE.md", "GEMINI.md", "CONTRIBUTING.md", "SECURITY.md", "CHANGELOG.md", ".gitattributes"], "status": "submitted", "title": "Construire et documenter le framework portable v0.1"}], "runs": [{"actor": "codex-framework-v1", "cost_note": "Facturation et tokens indisponibles dans la session. Infrastructure et temps humain non imputés. Budget de suivi initial configurable : 100 EUR ; aucune dépense API engagée par le framework.", "cost_source": "unknown", "created_at": "2026-09-11T14:32:37+00:00", "currency": "EUR", "human_rate_minor": 0, "human_seconds": 0, "id": "R-087d0de60ee3", "infra_cost_minor": 0, "input_tokens": null, "llm_cost_minor": null, "model": "Codex — identifiant exact et consommation non mesurés", "next_step": "Terminer les contrôles de paquet, HTML et CI puis transmettre à une vraie revue indépendante.", "outcome": "succeeded", "output_tokens": null, "purpose": "implementation", "summary": "Construction du socle et de sa documentation ; tests locaux et démonstration réussis. La revue indépendante de cette livraison reste à faire.", "task": "T-9c2d90a53f42"}], "decisions": [{"alternatives": ["Compter les commits ou assimiler une absence de facture à zéro"], "checks": ["tests"], "context": "Les échecs et les montants inconnus ne doivent pas disparaître des ratios.", "created_at": "2026-09-11T14:32:37+00:00", "decision": "Enregistrer chaque exécution, distinguer facturé/estimé/inconnu et compter uniquement les livrables acceptés.", "id": "D-cost-provenance", "owner": "SylvainChast", "paths": ["src/agentic_codage/costs.py", "docs/costs.md"], "status": "active", "superseded_by": null, "title": "Coûts explicites et livraison acceptée"}, {"alternatives": ["Édition concurrente du HTML par les agents"], "checks": ["tests"], "context": "Des écritures concurrentes dans un HTML central créeraient des conflits.", "created_at": "2026-09-11T14:32:37+00:00", "decision": "Un fichier par entité ; le HTML autonome est assemblé par un générateur déterministe.", "id": "D-html-reference", "owner": "SylvainChast", "paths": ["src/agentic_codage/map.py", "src/agentic_codage/assets/map.html"], "status": "active", "superseded_by": null, "title": "Une carte HTML générée depuis les fiches"}, {"alternatives": ["Présenter un hash local comme une attestation infalsifiable"], "checks": ["tests"], "context": "Un agent disposant des fichiers peut modifier les déclarations et les contrôles.", "created_at": "2026-09-11T14:32:37+00:00", "decision": "Lier les preuves au contenu, déclarer une revue distincte et confier l’autorité aux protections Git/CI.", "id": "D-local-trust", "owner": "SylvainChast", "paths": ["src/agentic_codage/evidence.py", "SECURITY.md", ".github"], "status": "active", "superseded_by": null, "title": "Preuves locales et autorité de plateforme"}, {"alternatives": ["Orchestrateur propriétaire imposant un fournisseur"], "checks": ["tests", "adapters"], "context": "Le même projet doit fonctionner avec plusieurs agents et éditeurs.", "created_at": "2026-09-11T14:32:37+00:00", "decision": "Utiliser une CLI Python et des contrats JSON, avec des adaptateurs générés.", "id": "D-portable-core", "owner": "SylvainChast", "paths": ["src/agentic_codage", "AGENTS.md", "CLAUDE.md"], "status": "active", "superseded_by": null, "title": "Un socle portable indépendant des fournisseurs"}], "findings": [], "exceptions": [], "evidence": [{"checks": [{"argv": ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"], "duration_ms": 7239, "exit_code": 0, "log": ".framework/evidence/E-4848d555bfe6-0.log", "log_sha256": "50b2eb568991c171d53774e38bc48c20909244824ac0457b5ddc63d0b6349078", "name": "tests"}, {"argv": ["{python}", "bin/framework", "adapters", "--check"], "duration_ms": 75, "exit_code": 0, "log": ".framework/evidence/E-4848d555bfe6-1.log", "log_sha256": "2f8772fefc9b8bf2be9e51d210f3899982254beaa39363514ce12c72e3d583f9", "name": "adapters"}], "contract": "295ae5be1b102857fd60b7d792195d6b5bf01e6aeb981a9b2e0c44adfcb1d02d", "created_at": "2026-09-11T14:36:42+00:00", "fingerprint": "ce8adf3f09064ec7a66446811f6821806c23d3f9efc4c3fbea3cb09c7c4ef8f4", "head": "unborn", "id": "E-4848d555bfe6", "passed": true, "task": "T-9c2d90a53f42"}, {"checks": [{"argv": ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"], "duration_ms": 7589, "exit_code": 0, "log": ".framework/evidence/E-a845932f3582-0.log", "log_sha256": "452052f22d5c1d78463d4e06463f0640a6b70cb6b66526d9820951fe510e56f3", "name": "tests"}, {"argv": ["{python}", "bin/framework", "adapters", "--check"], "duration_ms": 82, "exit_code": 0, "log": ".framework/evidence/E-a845932f3582-1.log", "log_sha256": "2f8772fefc9b8bf2be9e51d210f3899982254beaa39363514ce12c72e3d583f9", "name": "adapters"}], "contract": "b9db63442e6f5c1997fd1f460742b47fb7ed7f4bae513645f89866a19879dcd3", "created_at": "2026-09-11T14:35:17+00:00", "fingerprint": "0332a82c888e7d800284d4062557add70b290c43b3a2c5e56fe81fae5fe82831", "head": "unborn", "id": "E-a845932f3582", "passed": true, "task": "T-9c2d90a53f42"}], "reviews": []}, "costs": {"currency": "EUR", "tasks": [{"task": "T-9c2d90a53f42", "title": "Construire et documenter le framework portable v0.1", "status": "submitted", "runs": 1, "failed_runs": 0, "known_cost_minor": 0, "missing_cost_runs": 1, "estimated_cost_runs": 0, "complete": false, "budget_minor": 10000, "over_budget": false, "accepted_deliverables": 0, "cost_per_accepted_deliverable_minor": null}], "total_known_cost_minor": 0, "run_count": 1, "executed_tasks": 1, "accepted_tasks": 0, "accepted_deliverables": 0, "complete": false, "estimated_cost_runs": 0, "missing_cost_runs": 1, "cost_per_executed_task_minor": null, "cost_per_accepted_task_minor": null, "cost_per_accepted_deliverable_minor": null}, "validation": {"ok": true, "errors": [], "warnings": ["Some execution costs are unknown; unit costs are incomplete"]}}}
+    </script>
+    <script>
+      "use strict";
+const payload = JSON.parse(document.getElementById("map-data").textContent),
+  data = payload.content,
+  records = data.records,
+  costs = data.costs;
+const $ = (id) => document.getElementById(id),
+  el = (tag, text, cls) => {
+    const n = document.createElement(tag);
+    if (text !== undefined) n.textContent = text;
+    if (cls) n.className = cls;
+    return n;
+  };
+const labels = {
+  planned: "Planifiée",
+  active: "En cours",
+  submitted: "En revue",
+  accepted: "Acceptée",
+  cancelled: "Annulée",
+  proposed: "Proposée",
+  superseded: "Remplacée",
+  open: "Ouvert",
+  resolved: "Résolu",
+  approve: "Approuvée",
+  request_changes: "À reprendre",
+};
+const money = (n) =>
+  n === null
+    ? "Non calculable"
+    : new Intl.NumberFormat("fr-FR", {
+        style: "currency",
+        currency: costs.currency,
+      }).format(n / 100);
+const filtered = (items) =>
+  items.filter((x) =>
+    JSON.stringify(x)
+      .toLocaleLowerCase()
+      .includes($("search").value.toLocaleLowerCase()),
+  );
+const badge = (text, type = "") => el("span", text, "pill " + type);
+function details(record) {
+  const d = el("details"),
+    s = el("summary", "Voir la fiche source et ses références");
+  d.append(s, el("pre", JSON.stringify(record, null, 2)));
+  return d;
+}
+function notice(text, bad = false) {
+  return el("div", text, "notice" + (bad ? " error" : ""));
+}
+function empty(text) {
+  return el("div", text, "empty");
+}
+function metric(label, value, hint) {
+  const n = el("div", undefined, "metric");
+  n.append(
+    el("div", label, "label"),
+    el("div", value, "value"),
+    el("div", hint, "hint"),
+  );
+  return n;
+}
+function section(title, note) {
+  const f = document.createDocumentFragment();
+  f.append(el("h2", title), el("p", note, "section-note"));
+  return f;
+}
+function cardList(items, titleFor, statusFor) {
+  const frag = document.createDocumentFragment(),
+    shown = filtered(items);
+  $("count").textContent = shown.length + " fiche(s)";
+  if (!shown.length)
+    frag.append(
+      empty(
+        "Aucune fiche dans cette vue. Les agents alimentent les sources ; la carte est régénérée.",
+      ),
+    );
+  for (const r of shown) {
+    const c = el("article", undefined, "card"),
+      row = el("div", undefined, "row");
+    row.append(el("h3", titleFor(r)), badge(statusFor(r)));
+    c.append(row, el("code", r.id), details(r));
+    frag.append(c);
+  }
+  return frag;
+}
+function overview() {
+  const f = document.createDocumentFragment(),
+    metrics = el("div", undefined, "metrics");
+  metrics.append(
+    metric(
+      "Missions exécutées",
+      costs.executed_tasks,
+      costs.run_count + " exécutions enregistrées",
+    ),
+    metric(
+      "Livrables acceptés",
+      costs.accepted_deliverables,
+      costs.accepted_tasks + " missions acceptées",
+    ),
+    metric(
+      "Coût connu",
+      money(costs.total_known_cost_minor),
+      costs.missing_cost_runs + " montant(s) inconnu(s)",
+    ),
+    metric(
+      "Coût / livrable accepté",
+      money(costs.cost_per_accepted_deliverable_minor),
+      costs.estimated_cost_runs
+        ? "Inclut des estimations"
+        : "Échecs et reprises inclus",
+    ),
+  );
+  f.append(metrics);
+  const grid = el("div", undefined, "grid"),
+    left = el("div", undefined, "card"),
+    right = el("div", undefined, "card");
+  left.append(el("h2", "Travail en cours"));
+  const tasks = filtered(records.tasks).filter((t) =>
+    ["active", "submitted", "planned"].includes(t.status),
+  );
+  if (!tasks.length)
+    left.append(el("p", "Aucune mission en attente ou en cours.", "sub"));
+  for (const t of tasks) {
+    const row = el("div", undefined, "row"),
+      label = el("div", t.title, "task-title");
+    label.append(el("small", t.owner + " · " + t.id));
+    row.append(label, badge(labels[t.status]));
+    left.append(row);
+  }
+  right.append(el("h2", "État des contrôles"));
+  right.append(
+    notice(
+      data.validation.ok
+        ? "Structure des fiches vérifiée. Les tests produit restent des preuves distinctes."
+        : "Des incohérences de fiches demandent une correction.",
+      !data.validation.ok,
+    ),
+  );
+  for (const text of [...data.validation.errors, ...data.validation.warnings])
+    right.append(el("p", text, "section-note"));
+  right.append(
+    el(
+      "p",
+      records.evidence.length +
+        " vérification(s) exécutée(s) · " +
+        records.reviews.length +
+        " revue(s) déclarée(s)",
+      "sub",
+    ),
+  );
+  grid.append(left, right);
+  f.append(
+    grid,
+    notice(
+      "Réservations actives : consulter « framework lease list ». Elles sont locales au clone et ne sont pas incluses dans cet instantané.",
+    ),
+  );
+  $("count").textContent = records.tasks.length + " missions";
+  return f;
+}
+function economics() {
+  const f = section(
+    "Économie des livraisons",
+    "Montants dans la devise du projet. Chaque tentative, échec, revue et coordination est comptabilisé.",
+  );
+  if (!costs.complete)
+    f.append(
+      notice(
+        "Coûts incomplets : les ratios concernés restent non calculables. Un montant inconnu ne vaut pas zéro.",
+      ),
+    );
+  if (costs.estimated_cost_runs)
+    f.append(
+      notice(
+        "Certains coûts sont estimés. Ces ratios ne sont pas des coûts entièrement facturés.",
+      ),
+    );
+  const metrics = el("div", undefined, "metrics");
+  metrics.append(
+    metric(
+      "Coût connu total",
+      money(costs.total_known_cost_minor),
+      "Portefeuille complet",
+    ),
+    metric(
+      "Par mission exécutée",
+      money(costs.cost_per_executed_task_minor),
+      "Toutes les tentatives incluses",
+    ),
+    metric(
+      "Par mission acceptée",
+      money(costs.cost_per_accepted_task_minor),
+      "Échecs des autres missions inclus",
+    ),
+    metric(
+      "Par livrable accepté",
+      money(costs.cost_per_accepted_deliverable_minor),
+      "Nombre de livrables du contrat",
+    ),
+  );
+  f.append(metrics);
+  const wrap = el("div", undefined, "table-wrap card"),
+    table = el("table"),
+    head = el("tr");
+  for (const h of [
+    "Mission",
+    "Exécutions",
+    "Coût connu",
+    "Budget",
+    "Livrables acceptés",
+    "Mesure",
+  ])
+    head.append(el("th", h));
+  const thead = el("thead");
+  thead.append(head);
+  table.append(thead);
+  const tbody = el("tbody"),
+    rows = filtered(costs.tasks);
+  for (const r of rows) {
+    const row = el("tr");
+    for (const v of [
+      r.title,
+      r.runs,
+      money(r.known_cost_minor),
+      money(r.budget_minor),
+      r.accepted_deliverables,
+      r.complete
+        ? r.estimated_cost_runs
+          ? "Estimée"
+          : "Renseignée"
+        : "Incomplète",
+    ])
+      row.append(el("td", v));
+    if (r.over_budget) row.lastChild.append(badge("Budget dépassé", "warn"));
+    tbody.append(row);
+  }
+  table.append(tbody);
+  wrap.append(table);
+  f.append(wrap);
+  $("count").textContent = rows.length + " missions";
+  return f;
+}
+function proof() {
+  const f = section(
+    "Preuves et revues",
+    "Une vérification est liée à une empreinte du contenu et du contrat. Les identités des revues sont déclaratives.",
+  );
+  const legend = el("div", undefined, "legend");
+  legend.append(
+    badge("Déclaré par un agent"),
+    badge("Vérification exécutée"),
+    badge("Acceptation enregistrée"),
+  );
+  f.append(legend);
+  f.append(
+    cardList(
+      [...records.evidence, ...records.reviews],
+      (r) => r.task + " · " + r.id,
+      (r) =>
+        (r.verdict
+          ? labels[r.verdict] + " · déclarée"
+          : r.passed
+            ? "Vérification réussie"
+            : "Vérification échouée") +
+        (r.fingerprint !== data.fingerprint ? " · contenu ancien" : ""),
+    ),
+  );
+  return f;
+}
+const views = [
+  ["overview", "Vue d’ensemble", overview],
+  [
+    "tasks",
+    "Missions",
+    () =>
+      cardList(
+        records.tasks,
+        (r) => r.title,
+        (r) => labels[r.status],
+      ),
+  ],
+  [
+    "decisions",
+    "Décisions",
+    () =>
+      cardList(
+        records.decisions,
+        (r) => r.title,
+        (r) =>
+          r.status === "active" ? "Active" : labels[r.status] || r.status,
+      ),
+  ],
+  [
+    "risks",
+    "Risques",
+    () =>
+      cardList(
+        [...records.findings, ...records.exceptions],
+        (r) => r.title || r.reason,
+        (r) =>
+          r.severity
+            ? labels[r.status] + " · " + r.severity
+            : "Exception déclarée",
+      ),
+  ],
+  ["proof", "Preuves", proof],
+  ["costs", "Coûts", economics],
+  [
+    "memory",
+    "Journaux",
+    () =>
+      cardList(
+        records.runs,
+        (r) => r.task + " · " + r.model,
+        (r) => r.outcome + " · " + r.cost_source,
+      ),
+  ],
+];
+let active = "overview";
+function render() {
+  const selected = views.find((v) => v[0] === active);
+  $("view").replaceChildren(selected[2]());
+  for (const button of $("navigation").children)
+    button.setAttribute("aria-current", String(button.dataset.view === active));
+}
+for (const [id, label] of views) {
+  const b = el("button", label);
+  b.dataset.view = id;
+  b.onclick = () => {
+    active = id;
+    render();
+  };
+  $("navigation").append(b);
+}
+$("project").textContent = data.policy.project;
+$("subtitle").textContent =
+  "Du besoin au livrable accepté, avec les décisions et les preuves.";
+$("health").textContent = data.validation.ok
+  ? "Fiches cohérentes"
+  : "À examiner";
+if (!data.validation.ok) $("health").classList.add("bad");
+$("footer").textContent =
+  "Générée le " +
+  payload.generated_at +
+  " · Commit observé " +
+  payload.observed_head +
+  " · Empreinte " +
+  data.fingerprint +
+  " · Régénérer : framework map";
+$("search").addEventListener("input", render);
+render();
+;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "alternatives": [
+    "Édition concurrente du HTML par les agents"
+  ],
+  "checks": [
+    "tests"
+  ],
+  "context": "Des écritures concurrentes dans un HTML central créeraient des conflits.",
+  "created_at": "2026-09-11T14:32:37+00:00",
+  "decision": "Un fichier par entité ; le HTML autonome est assemblé par un générateur déterministe.",
+  "id": "D-html-reference",
+  "owner": "SylvainChast",
+  "paths": [
+    "src/agentic_codage/map.py",
+    "src/agentic_codage/assets/map.html"
+  ],
+  "status": "active",
+  "superseded_by": null,
+  "title": "Une carte HTML générée depuis les fiches"
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "evidence",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "E-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fingerprint": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[a-f0-9]{64}"
+    },
+    "contract": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[a-f0-9]{64}"
+    },
+    "head": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "argv": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "log": {
+            "type": "string",
+            "minLength": 1
+          },
+          "log_sha256": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-f0-9]{64}"
+          }
+        },
+        "required": [
+          "name",
+          "argv",
+          "exit_code",
+          "duration_ms",
+          "log",
+          "log_sha256"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "passed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "task",
+    "fingerprint",
+    "contract",
+    "head",
+    "checks",
+    "passed"
+  ],
+  "additionalProperties": false
+}
