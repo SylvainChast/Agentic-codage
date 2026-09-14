@@ -1,0 +1,25 @@
+{
+  "acceptance": null,
+  "budget_minor": 2000,
+  "created_at": "2026-09-14T07:03:35+00:00",
+  "criteria": [
+    "La notice explique les agents, les contrôles, le HTML et les limites de la version 0.2",
+    "Les deux parcours sont documentés avec des commandes cohérentes avec la CLI",
+    "Les bénéfices sont reliés aux problèmes concrets sans garantie de qualité inventée"
+  ],
+  "decisions": [],
+  "deliverables": [
+    "Notice détaillée reliée au README et carte actualisée"
+  ],
+  "depends_on": [],
+  "id": "T-d8ac73aa628d",
+  "max_runs": 3,
+  "owner": "codex-notice",
+  "resources": [],
+  "scope": [
+    "docs",
+    "README.md"
+  ],
+  "status": "submitted",
+  "title": "Rédiger une notice pratique du codage agentique"
+}

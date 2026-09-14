@@ -79,3 +79,25 @@ La CLI n’authentifie pas le rôle du signataire ; les droits Git et les revues
 contrat/base, plan, travaux terminés, appels liés aux runs, candidat et preuve/revue. Les états sont
 `running`, `blocked`, `cancelled`, `ready`, `integrated`. Les métadonnées optionnelles des runs
 assurent la compatibilité des anciennes fiches. Les identités de modèles sont déclaratives.
+
+## Documents de cadrage et revues de story
+
+- `artifacts/A-….json` : type (`prd`, `stories`, `plan`…), chemin Markdown, auteur, tâche de
+  création, empreinte du fichier et identifiants/empreintes des documents d’entrée. Une nouvelle
+  révision crée une nouvelle fiche. Les fiches participent à l’empreinte des sources.
+- `artifact_reviews/Q-….json` : tâche, document examiné, empreinte de cette révision et du contrat,
+  relecteur, verdict et blocages. Ces traces de cycle de vie sont exclues de l’empreinte des sources.
+- `task.method` : parcours, besoin UI, documents sélectionnés et éventuelle story avec identifiant,
+  complexité et notes. L’absence de ce champ conserve le fonctionnement des tâches existantes.
+- `run.stage` : étape facultative pour ventiler les coûts. Les anciens runs restent valides et
+  apparaissent comme non ventilés par étape.
+
+Les Markdown PRD/story portent `Document: prd@1` ou `Document: stories@1`. Le parseur normalise
+leurs rubriques vers les schémas `document-prd.json` et `document-stories.json` embarqués. Ce format
+versionné est distinct de la fiche `A-…`, qui en atteste la révision. `method template` expose
+ensemble le schéma et sa représentation Markdown. Voir [la méthode](methodologie.md).
+
+`task.method.architecture` est un choix facultatif (`boilerplate`, `custom`, `existing`) avec sa
+source, révision, stack et contraintes. Une fiche d'architecture enregistrée après ce choix porte
+`architecture_basis`, son empreinte. Le changement de choix invalide ce document et la revue des
+stories liées ; les anciens contrats sans ce champ conservent leur fonctionnement.

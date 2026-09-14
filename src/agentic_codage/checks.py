@@ -11,16 +11,32 @@ from .store import FrameworkError, Store, covers, parse_time, task_contract
 def check(store: Store, base: str | None = None, task_id: str | None = None) -> dict:
     policy = store.policy()
     records = {kind: {r["id"]: r for r in store.all(kind)} for kind in
-               ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations")}
+               ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations", "interfaces")}
     errors, warnings = [], []
 
     def require(condition, message):
         if not condition:
             errors.append(message)
 
+    from .interfaces import validate_interfaces, for_task
+    try:
+        validate_interfaces(store)
+    except FrameworkError as exc:
+        errors.append(str(exc))
+    from .method.workflow import validate_records
+    try:
+        validate_records(store)
+    except FrameworkError as exc:
+        errors.append(str(exc))
     tasks, decisions = records["tasks"], records["decisions"]
     for task in tasks.values():
         ident = task["id"]
+        try:
+            pinned = for_task(store, task)
+            require(all(f"interface:{i['name']}" in task['resources'] for i in pinned),
+                    f"{ident}: missing shared interface reservation")
+        except FrameworkError as exc:
+            errors.append(str(exc))
         for dependency in task["depends_on"]:
             require(dependency in tasks and dependency != ident, f"{ident}: invalid dependency {dependency}")
             if task["status"] in ("active", "submitted", "accepted") and dependency in tasks:
@@ -93,6 +109,12 @@ def check(store: Store, base: str | None = None, task_id: str | None = None) -> 
                             (("role", "role"), ("item", "work_item"), ("requested_model", "requested_model"),
                              ("observed_models", "observed_models"), ("identity", "identity_status"),
                              ("outcome", "outcome"))), f"{session['id']}: invocation/run disagreement")
+        if session.get('coordination_version'):
+            from .orchestration.coordination import validate_session
+            try:
+                validate_session(session)
+            except FrameworkError as exc:
+                errors.append(f"{session['id']}: {exc}")
         if session['status'] in ('ready', 'integrated'):
             proof = records['evidence'].get(session['evidence'])
             rev = records['reviews'].get(session['review'])
@@ -178,7 +200,7 @@ def check_scope(store: Store, base: str, task: dict) -> list[str]:
     for name in sorted(changed - {""}):
         if name == f".framework/tasks/{task['id']}.json" or name == "docs/carte-du-code.html":
             continue
-        if name.startswith((".framework/runs/", ".framework/reviews/", ".framework/evidence/", ".framework/orchestrations/")):
+        if name.startswith((".framework/runs/", ".framework/reviews/", ".framework/evidence/", ".framework/orchestrations/", ".framework/artifact_reviews/")):
             kind = name.split("/")[1]
             if name.endswith(".json"):
                 record = store.get(kind, name.rsplit("/", 1)[1][:-5])

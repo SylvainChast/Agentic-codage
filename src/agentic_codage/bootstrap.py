@@ -23,6 +23,8 @@ def adapter_files() -> dict[str, str]:
                         ("swarm-orchestrate", "orchestrate-skill.md")):
         for directory in (".agents/skills", ".claude/skills", ".cursor/skills"):
             files[f"{directory}/{name}/SKILL.md"] = (ASSETS / asset).read_text(encoding="utf-8")
+    from .method.catalog import adapter_files as method_adapters
+    files.update(method_adapters())
     return files
 
 

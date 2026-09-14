@@ -14,12 +14,14 @@ mode = sys.argv[1] if len(sys.argv) > 1 else 'ok'
 if mode == 'timeout':
     pathlib.Path(__file__).parent.joinpath('.git','fixture-started').touch()
     time.sleep(10)
-if role == 'orchestrator':
+if role == 'orchestrator' and payload.get('phase') == 'checkpoint':
+    result = dict(summary='Fixture checkpoint', verdict='continue', acknowledged_interfaces=payload['interface_references'])
+elif role == 'orchestrator':
     result = dict(summary='Fixture plan', items=[dict(id='write', title='Write value', scope=['src/app.py'], criteria=['value 2'], depends_on=[])])
 elif role == 'worker':
     pathlib.Path('src/app.py').write_text('value = 2\\n')
     if mode == 'escape': pathlib.Path('outside.txt').write_text('bad')
-    result = dict(summary='Fixture implemented')
+    result = dict(summary='Fixture implemented', acknowledged_interfaces=payload['interface_references'], change_requests=[])
 elif role == 'reviewer':
     if mode == 'edit': pathlib.Path('src/app.py').write_text('value = 3\\n')
     result = dict(summary='Fixture review', verdict='request_changes' if mode == 'reject' else 'approve', criteria=payload['task']['criteria'])
@@ -43,14 +45,14 @@ class OrchestrationTests(ProjectCase):
         result = engine.run(self.store, task['id'])
         self.assertTrue(result['ok'], result['message'])
         self.assertEqual((self.root / 'src/app.py').read_text(), 'value = 1\n')
-        self.assertEqual(len(result['steps']), 3)
+        self.assertEqual(len(result['steps']), 4)
         self.assertTrue(check(self.store)['ok'], check(self.store))
         engine.integrate(self.store, result['id'], 'human')
         self.assertEqual((self.root / 'src/app.py').read_text(), 'value = 2\n')
         self.assertTrue(check(self.store)['ok'], check(self.store))
         costs = report(self.store)
         self.assertEqual(costs['accepted_deliverables'], 1)
-        self.assertEqual(costs['total_known_cost_minor'], 9)
+        self.assertEqual(costs['total_known_cost_minor'], 12)
         self.assertEqual(len(costs['by_role']), 3)
 
     def test_scope_escape_never_integrates(self):
@@ -83,7 +85,7 @@ class OrchestrationTests(ProjectCase):
         self.assertFalse(result['ok'])
         self.assertEqual(result['round'], 2)
         self.assertIn('Round limit', result['message'])
-        self.assertEqual([s['role'] for s in result['steps']], ['orchestrator', 'worker', 'reviewer', 'arbiter', 'orchestrator', 'worker', 'reviewer'])
+        self.assertEqual([s['role'] for s in result['steps']], ['orchestrator', 'worker', 'orchestrator', 'reviewer', 'arbiter', 'orchestrator', 'worker', 'orchestrator', 'reviewer'])
         self.assertEqual(len(self.store.all('reviews')), 2)
 
     def test_stale_source_blocks_integration(self):
@@ -165,7 +167,7 @@ class OrchestrationTests(ProjectCase):
         self.assertTrue(result['ok'], result['message'])
         self.assertEqual(set(result['completed_items']), {'a','b','app'})
         engine.integrate(self.store, result['id'], 'human')
-        self.assertEqual(report(self.store)['run_count'], 5)
+        self.assertEqual(report(self.store)['run_count'], 7)
 
     def test_cancellation_stops_process_and_records_attempt(self):
         import threading

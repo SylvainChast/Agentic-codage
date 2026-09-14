@@ -67,3 +67,18 @@ natives dépendent de la CLI. Les budgets sont contrôlés avant appel sur les m
 auprès du fournisseur. Les coûts absents restent inconnus. Les permissions, dépendances de test et
 comptes doivent être configurés par l’opérateur. Le guide détaillé est dans le dépôt du framework :
 https://github.com/SylvainChast/Agentic-codage/blob/main/docs/orchestration.md
+
+## Product and development method
+
+`framework method catalog` lists the procedures. Activate Express, Feature or Product with
+`method init TASK --track express|feature|product`; add --ui for a shared UI foundation.
+Use the generated skills (such as `$swarm-prd`, `$swarm-stories`) or your editor's short commands.
+`method prompt STEP --task TASK` supplies the same procedure and focused context in any host.
+Reference existing product documents using `method use` instead of copying their content.
+Feature/Product tasks select one story using `method story --id --complexity --note`; a score
+of 5 blocks planning. Register artifacts with `method record`, their actual readiness review
+with `method review`, and inspect `method status`/`method gate` before coding.
+The checks validate declared links and freshness, not the semantic truth of a specification.
+Each execution can record its stage with `run record --stage`; missing billing is never zero.
+`method ship --base TRUSTED_BASE --review REVIEW` prepares a local PR body; the ship skill
+guides authorized publication through the available Git host tool. It does not merge or deploy.

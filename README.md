@@ -8,6 +8,81 @@ Version **0.2.0** · Python **3.11+** · Git · aucune dépendance Python d’ex
 
 > Le framework coordonne le travail et conserve les preuves. Il peut lancer des modèles via vos CLI configurées ; ces appels utilisent vos comptes et peuvent être facturés. Il ne garantit pas une certification et ne remplace pas les protections du dépôt. Son périmètre exact est décrit dans [les limites](docs/limitations.md).
 
+**Première lecture : [notice détaillée — agents, HTML, commandes, bénéfices et limites](docs/notice-utilisation.md).**
+
+[Ouvrir la notice en HTML, avec sommaire et impression PDF](docs/notice-utilisation.html).
+
+## Du besoin à la PR avec des skills
+
+La [méthode produit et développement](docs/methodologie.md) fournit onze procédures :
+`research`, `prd`, `architecture`, `design-system`, `stories`, `story-review`, `design`,
+`plan`, `execute`, `review` et `ship`. Les skills sont générés pour les agents, avec des adaptateurs
+Claude, Cursor, Copilot, Gemini et Cascade. Exemple : `/prd` ou `/stories` dans Claude/Cursor ;
+`$swarm-prd` ou `$swarm-stories` dans Codex. Les noms réservés de l'hôte peuvent nécessiter la sélection
+du skill dans son interface ; `framework method prompt` reste le point d'entrée universel.
+
+Choisir le parcours **Express**, **Feature** ou **Product** selon le besoin. Le socle produit est
+réutilisé ; les stories sélectionnées ont des critères testables, des notes pour l'agent et une
+complexité déclarée. Une story de niveau 5 doit être découpée avant planification. La convention
+est une story livrable par tâche, branche et PR. Les contrôles relient les documents et leurs
+révisions, détectent le cadrage périmé et exigent une revue distincte des stories en Feature/Product.
+
+```bash
+python3 bin/framework method catalog
+python3 bin/framework method init T-IDENTIFIANT --track feature
+python3 bin/framework method prompt stories --task T-IDENTIFIANT
+python3 bin/framework method status T-IDENTIFIANT
+python3 examples/method_demo.py
+```
+
+Les [gabarits PRD](.framework/method/templates/prd.md) et
+[user story](.framework/method/templates/stories.md) imposent une structure commune versionnée.
+`method scaffold` crée une copie à remplir ; `method record` refuse les rubriques absentes,
+les champs non remplis et les identifiants de critères manquants. Les schémas JSON sont la
+source de cette structure : [PRD](src/agentic_codage/assets/schemas/document-prd.json) et
+[story](src/agentic_codage/assets/schemas/document-stories.json). Voir le
+[mode d'emploi des gabarits](docs/methodologie.md#gabarits-prd-et-user-story).
+
+`method ship` prépare localement la description de PR après vérification. Le skill de shipping
+explique à l'agent comment publier ensuite une PR brouillon avec l'outil et l'autorisation disponibles.
+Le cadrage, les revues et le codage sont imputables par étape dans `costs --task`.
+
+## Choisir le socle de son SaaS
+
+Le [catalogue de boilerplates libres](docs/boilerplates.md) propose `nextjs-saas`, `open-saas`
+et `fastapi-react` (code sous MIT). Le skill d'architecture accepte une base publique, une
+stack sur mesure ou l'examen d'un projet existant. Aucun modèle ni stack n'est imposé.
+
+```bash
+python3 bin/framework method starters
+python3 bin/framework method architecture T-IDENTIFIANT --boilerplate nextjs-saas
+python3 bin/framework method architecture T-IDENTIFIANT --custom --stack Django --stack PostgreSQL
+python3 bin/framework method architecture T-IDENTIFIANT --existing
+```
+
+Ces lignes illustrent trois choix alternatifs sur une tâche dont la méthode est configurée.
+La commande enregistre le choix et les contraintes ; elle ne clone ni n'installe un SaaS.
+Le commit inspecté d'une boilerplate doit être épinglé avant l'enregistrement de l'architecture.
+Un changement du choix invalide le cadrage associé. La [notice](docs/notice-utilisation.html)
+explique le passage du profil choisi à une tâche de fondation vérifiée.
+
+## Coordonner les agents et mesurer une livraison
+
+Un dashboard, un module ou une fonctionnalité correspond à une tâche à accepter. Tous les appels
+qui y contribuent sont imputés à cette tâche : planification, développement, échecs, corrections,
+points de contrôle et revue. `framework costs --task T-IDENTIFIANT` donne son coût de livraison,
+les montants inconnus ou estimés et la ventilation par rôle, modèle et session.
+
+Les [contrats d’interface versionnés](docs/coordination.md) précisent les unités, signatures et
+formats partagés. Les travailleurs reçoivent le plan et les comptes rendus déjà intégrés. Un point
+de contrôle du modèle orchestrateur autorise ou bloque chaque lot avant les travaux suivants.
+Une demande de changement d’interface bloque la session jusqu’à révision explicite du contrat.
+La carte HTML expose les interfaces et le coût de chaque résultat accepté.
+
+Ces ajouts sont dans la version de travail, non encore publiée. Les ponts de commande doivent
+respecter le protocole 2 et le schéma de réponse fourni à chaque appel. Voir la
+[coordination](docs/coordination.md) et les [règles de coût](docs/costs.md).
+
 ## Démarrer en cinq minutes
 
 ```bash
@@ -157,7 +232,7 @@ src/agentic_codage/assets/      Instructions canoniques, skills, HTML et schéma
 .framework/                    Politique et mémoire versionnée de ce dépôt
 .agents/ .claude/ .cursor/      Adaptateurs et skills générés
 .github/                       Instructions Copilot, CI et protection proposée
-.windsurf/                     Règle générée
+.gemini/ .windsurf/             Commandes, workflows et règles générées
 bin/framework                  Lancement direct sans installation
 examples/                      Petit produit et parcours exécutable
 tests/                        Tests des invariants et parcours CLI
@@ -170,6 +245,8 @@ Les réservations vivantes sont dans le répertoire Git commun (`git rev-parse -
 
 | Lire pour… | Document |
 |---|---|
+| Comprendre le fonctionnement et apprendre à utiliser le framework | [Notice détaillée](docs/notice-utilisation.md) |
+| Cadrer un produit, créer un PRD ou une story | [Méthode et gabarits](docs/methodologie.md) |
 | Choisir les modèles et déléguer automatiquement | [Orchestration](docs/orchestration.md) |
 | Suivre une mission de bout en bout | [Workflow](docs/workflow.md) |
 | Trouver une commande et ses erreurs | [CLI](docs/cli.md) |

@@ -95,3 +95,60 @@ Chaque appel reçoit `orchestration`, `role`, `work_item`, `requested_model`, `o
 Les appels de planification, revue et arbitrage comptent dans le budget de la même tâche et dans
 le coût de ses livrables. Un modèle inattendu peut avoir coûté : son montant déclaré reste conservé.
 Un timeout, arrêt ou échec de transport sans réponse exploitable reste de coût inconnu.
+
+## Coût de livraison d'une fonctionnalité précise
+
+Créer **une tâche par résultat à accepter** : « Dashboard commercial », « Module de facturation »
+ou « Export PDF ». Les travaux internes du plan sont des sous-travaux de cette tâche ; chaque appel
+reste imputé au même identifiant, même après plusieurs sessions ou tentatives ratées.
+Les dépendances entre tâches ne constituent pas une règle d'imputation : le coût d'une bibliothèque
+partagée ne se répartit pas automatiquement entre les fonctionnalités qui l'utilisent.
+
+```bash
+framework costs --task T-IDENTIFIANT
+```
+
+Le rapport ciblé donne les composantes LLM, infrastructure et temps humain, et les ventilations par
+finalité, rôle, modèle, travail et session. `delivery.known_cost_minor` est le cumul connu de la
+livraison ; `delivery.total_cost_minor` n'est renseigné que pour un résultat accepté dont tous les
+coûts LLM enregistrés sont disponibles. Avant acceptation, il vaut `null` : le cumul est un encours.
+
+Exemple fictif pour un dashboard :
+
+| Activité | Coût imputé |
+|---|---:|
+| Cadrage et planification | 2 EUR |
+| Développement initial | 8 EUR |
+| Tentative échouée et correction | 4 EUR |
+| Points de contrôle et revue | 3 EUR |
+| Infrastructure et intervention humaine | 5 EUR |
+| **Coût de livraison accepté** | **22 EUR** |
+
+Le rapport ne réduit pas cette mesure au coût de la dernière tentative ni au seul développeur.
+`state` distingue `in_progress`, `cancelled`, `incomplete`, `estimated` et `recorded`.
+`recorded` veut dire « coûts LLM renseignés », pas « audit financier réalisé ».
+Une estimation suffit pour calculer un total estimé, jamais pour le qualifier d'entièrement facturé.
+
+Lors d'une nouvelle acceptation, `acceptance.run_ids` fige les exécutions constituant la livraison.
+Les runs ajoutés ensuite apparaissent dans `later_recorded_runs` et `later_known_cost_minor` ; ils
+restent dans le coût global de la tâche et du portefeuille, mais ne changent pas le périmètre de
+sa livraison acceptée. Pour corriger le montant d'un run déjà inclus, utiliser la procédure de
+correction comptable avec revue ci-dessus : la liste est figée, les montants ne sont pas une facture
+inaltérable. Une réparation produit doit faire l'objet d'une nouvelle tâche.
+
+Pour une ancienne acceptation sans `run_ids`, `frozen_run_scope` vaut false : le rapport utilise
+les runs de la tâche et indique l'absence de photographie historique. Il ne reconstruit pas une date
+limite supposée. Ne pas confondre ce cas avec une nouvelle livraison dont les exécutions sont figées.
+
+Dans le HTML, la colonne **Coût de livraison accepté** affiche le total par fonctionnalité.
+Les ratios du portefeuille conservent leur sens initial, avec les coûts des autres tâches annulées
+ou en cours : ils mesurent l'efficacité d'ensemble, pas le prix de ce dashboard particulier.
+
+## Étapes de la méthode
+
+`run record --stage` attribue une exécution à research, prd, architecture, design-system, stories,
+story-review, design, plan, execute, review ou ship. `costs --task` donne `by_stage` et signale
+les anciens runs sans étape via `unstaged_runs` et `unstaged_known_cost_minor`. Ces champs
+complètent les groupes par rôle et session, ils n'ajoutent aucune dépense une deuxième fois.
+La préparation partagée conserve sa tâche de production ; `method use` ne duplique pas son coût.
+Voir la [méthode](methodologie.md) pour la frontière entre acceptation du candidat et shipping.

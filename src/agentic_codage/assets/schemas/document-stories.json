@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "stories",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "stories"
+      ]
+    },
+    "story": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Identité et résultat utilisateur",
+      "description": "S-001 — En tant que utilisateur, je veux un comportement, afin de produire un résultat observable."
+    },
+    "traceability": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Traçabilité du besoin",
+      "description": "Référencer les REQ du PRD ou le besoin direct validé ; identifier les entrées A utilisées."
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Périmètre et exclusions",
+      "description": "Définir une tranche livrable bornée, les chemins concernés et les exclusions."
+    },
+    "criteria": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Critères d’acceptation",
+      "description": "AC-001 — Étant donné un état, quand un événement arrive, alors un résultat observable se produit. Ajouter les cas d’erreur pertinents."
+    },
+    "dependencies": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Dépendances et prérequis",
+      "description": "Référencer les tâches préalables, interfaces et fondations transversales. Justifier Aucune si indépendant."
+    },
+    "agent_notes": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Notes pour les agents",
+      "description": "Expliciter composants à réutiliser, unités, timezone, permissions, conventions et pièges connus."
+    },
+    "verification": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Vérifications prévues",
+      "description": "Relier chaque critère à un test exécutable ou une inspection définie. Ne pas annoncer des tests déjà exécutés."
+    },
+    "complexity": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Complexité et découpage",
+      "description": "Complexité: 1/5 — Justifier le score. À 5, découper ou résoudre l’incertitude avant planification."
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "story",
+    "traceability",
+    "scope",
+    "criteria",
+    "dependencies",
+    "agent_notes",
+    "verification",
+    "complexity"
+  ],
+  "additionalProperties": false
+}

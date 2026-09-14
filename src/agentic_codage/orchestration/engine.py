@@ -9,6 +9,7 @@ from ..lifecycle import transition
 from ..store import FrameworkError, Store, now, task_contract, uid
 from . import profiles, protocol, workspaces as ws
 from .calls import Calls
+from . import coordination
 
 
 @contextmanager
@@ -24,12 +25,14 @@ def lock(store, task):
         path.rmdir()
 
 
-def readonly(calls, role, payload, target):
+def readonly(calls, role, payload, target, finish=None):
     before = ws.seal(target)
-    def finish(result):
+    def validate(result):
         if before != ws.seal(target):
             raise FrameworkError(f'{role} modified its read-only candidate')
-    return calls.invoke(role, payload, target, finish=finish)
+        if finish:
+            finish(result)
+    return calls.invoke(role, payload, target, finish=validate)
 
 
 def feedback(store, ident, message=None, cancel=False):
@@ -48,6 +51,8 @@ def feedback(store, ident, message=None, cancel=False):
 
 def run(store, task_id):
     task = store.get('tasks', task_id)
+    from ..method.workflow import require_ready
+    require_ready(store, task)
     profile = profiles.load(store)
     if not profiles.doctor(store)["ok"]:
         raise FrameworkError("Adapter executable unavailable; run orchestration doctor")
@@ -64,6 +69,7 @@ def run(store, task_id):
         contract=task_contract(task), base_commit=base, base_fingerprint=store.fingerprint(), status='running',
         round=0, steps=[], plan=None, candidate_commit=None, candidate_fingerprint=None,
         evidence=None, review=None, message='Starting', completed_items=[])
+    coordination.initialize(store, task, session)
     with lock(store, task_id):
         candidate = ws.workspace(store, session['id'], 'candidate', base)
         ws.prepare_candidate(store, candidate, base)
@@ -90,21 +96,32 @@ def execute_rounds(store, task, session, candidate, calls):
         session['round'] = number
         messages = [p.read_text(encoding='utf-8') for p in sorted((ws.local(store) / session['id']).glob('feedback-*.txt'))]
         planner = ws.workspace(store, session['id'], f'plan-{number}', candidate.head())
-        payload = dict(task=task, guidance=guidance, user_feedback=messages)
+        coordination.assert_current(store, session)
+        payload = dict(task=task, guidance=guidance, user_feedback=messages,
+                       coordination=coordination.snapshot(session))
         plan = readonly(calls, 'orchestrator', payload, planner)
         protocol.validate_plan(plan, task, session['profile']['max_items'])
         session['plan'], session['completed_items'] = plan, []
+        session['plans'].append(dict(round=number, plan=plan))
         store.put('orchestrations', session)
         done = set()
         while len(done) < len(plan['items']):
             items = protocol.batch(plan['items'], done, session['profile']['max_parallel'])
+            coordination.assert_current(store, session)
             base = candidate.head()
+            shared = coordination.snapshot(session)
             targets = [(item, ws.workspace(store, session['id'], f"r{number}-{item['id']}", base)) for item in items]
             def worker(pair):
                 item, target = pair
-                calls.invoke('worker', dict(task=task, item=item), target, item['id'],
-                             finish=lambda result: ws.commit_worker(target, base, item['scope']))
-                return target.head()
+                def finish(result):
+                    from ..interfaces import validate_handoff
+                    validate_handoff(result, session['interfaces'])
+                    if not result['change_requests']:
+                        ws.commit_worker(target, base, item['scope'])
+                result = calls.invoke('worker', dict(task=task, item=item, coordination=shared,
+                    interface_references=shared['interface_references']), target, item['id'], finish=finish)
+                return coordination.handoff(session, item, result,
+                    None if result['change_requests'] else target.head())
             # Wait for all dispatched calls even when one fails; retain every cost.
             with ThreadPoolExecutor(max_workers=len(targets)) as pool:
                 futures = [pool.submit(worker, pair) for pair in targets]
@@ -116,14 +133,19 @@ def execute_rounds(store, task, session, candidate, calls):
                     except Exception as exc:
                         heads.append(None)
                         errors.append(str(exc))
+                session['handoffs'].extend(h for h in heads if h is not None)
+                store.put('orchestrations', session)
                 if errors:
                     raise FrameworkError('; '.join(errors))
+                if any(h['change_requests'] for h in heads):
+                    raise FrameworkError('Interface change requested; revise the pinned contract before restarting')
             for (item, target), head in zip(targets, heads):
-                ws.apply(candidate, ws.patch(target, base, head))
+                ws.apply(candidate, ws.patch(target, base, head['commit']))
                 ws.commit_worker(candidate, candidate.head(), item['scope'], managed=True)
                 done.add(item['id'])
             session['completed_items'] = sorted(done)
             store.put('orchestrations', session)
+            coordination.checkpoint(store, task, session, candidate, calls, items, base, readonly)
         ws.sync_records(store, candidate)
         proof = verify(candidate, task['id'])
         ws.copy_evidence(candidate, store, proof)
@@ -133,7 +155,7 @@ def execute_rounds(store, task, session, candidate, calls):
         else:
             task = transition(store, store.get('tasks', task['id']), 'submit', task['owner'])
             candidate.put('tasks', task)
-            payload = dict(task=task, evidence=proof, base_commit=session['base_commit'],
+            payload = dict(task=task, evidence=proof, coordination=coordination.snapshot(session), base_commit=session['base_commit'],
                            diff=ws.patch(candidate, session['base_commit'], candidate.head()).decode(errors='replace'))
             verdict = readonly(calls, 'reviewer', payload, candidate)
             record = review(candidate, task, f"{session['id']}:reviewer:main", verdict['verdict'],
@@ -159,6 +181,7 @@ def integrate(store, ident, actor):
         task = store.get('tasks', session['task'])
         if session['status'] != 'ready' or task_contract(task) != session['contract']:
             raise FrameworkError('Session is not ready or task contract changed')
+        coordination.assert_current(store, session)
         if store.head() != session['base_commit'] or store.fingerprint() != session['base_fingerprint']:
             raise FrameworkError('Source changed since launch; create a fresh session')
         candidate = Store(ws.local(store) / ident / 'candidate')

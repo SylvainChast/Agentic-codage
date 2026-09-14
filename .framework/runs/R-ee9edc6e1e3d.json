@@ -1,0 +1,21 @@
+{
+  "actor": "codex-method",
+  "cost_note": "Facturation et tokens de session indisponibles. Tests et démonstration avec ponts simulés ; aucun appel fournisseur par les adaptateurs. Infrastructure et temps humain non imputés.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T12:06:52+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-ee9edc6e1e3d",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Terminer la revue indépendante puis transférer les changements vérifiés vers le dépôt principal et transmettre les résultats.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "stage": "execute",
+  "summary": "Méthode portable implémentée : 11 procédures, 3 parcours, documents versionnés, revue de story, gabarits PRD/story validés, coûts par étape, notice HTML. Les 86 tests et 94 adaptateurs passent ; 41 skills valides et paquet installé dans un projet temporaire.",
+  "task": "T-6281659aad20"
+}

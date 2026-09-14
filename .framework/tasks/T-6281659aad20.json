@@ -1,0 +1,43 @@
+{
+  "acceptance": null,
+  "budget_minor": 30000,
+  "created_at": "2026-09-14T11:38:39+00:00",
+  "criteria": [
+    "Les parcours Express, Feature et Produit relient les documents de cadrage au cycle de développement et à la préparation de PR",
+    "Les documents versionnés, leurs entrées et leurs revues empêchent l’exécution avec un cadrage manquant ou périmé",
+    "Les procédures sont utilisables par commandes ou skills dans plusieurs outils avec un contexte ciblé",
+    "Les coûts du cadrage et du développement sont imputables par étape sans double compter les coûts communs",
+    "Les refus, la compatibilité et un parcours complet sont testés et documentés dans le README et la notice"
+  ],
+  "decisions": [],
+  "deliverables": [
+    "Méthode portable, commandes, contrôles, coûts et documentation"
+  ],
+  "depends_on": [],
+  "id": "T-6281659aad20",
+  "max_runs": 12,
+  "owner": "codex-method",
+  "resources": [
+    "framework:method"
+  ],
+  "scope": [
+    "src",
+    "tests",
+    "docs",
+    "examples",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "pyproject.toml",
+    ".framework/OPERATING.md",
+    ".framework/method",
+    ".agents",
+    ".claude",
+    ".cursor",
+    ".github/prompts",
+    ".gemini",
+    ".windsurf/workflows"
+  ],
+  "status": "submitted",
+  "title": "Intégrer la méthode produit et développement portable"
+}

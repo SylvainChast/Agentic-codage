@@ -52,3 +52,42 @@ class CostTests(ProjectCase):
         self.store.put("tasks", task)
         with self.assertRaises(FrameworkError):
             report(self.store)
+
+    def test_delivery_total_freezes_attempts_and_separates_other_tasks(self):
+        from agentic_codage.costs import task_report
+        from agentic_codage.evidence import verify, review, accept
+        from agentic_codage.lifecycle import transition
+        task = self.active(max_runs=10)
+        self.run_record(task, outcome='failed', llm_cost_minor=200)
+        self.run_record(task, llm_cost_minor=300, human_seconds=60, human_rate_minor=6000)
+        self.run_record(task, actor='planner', purpose='coordination', llm_cost_minor=50)
+        self.run_record(task, actor='reviewer', purpose='review', llm_cost_minor=25)
+        before = task_report(self.store, task['id'])
+        self.assertIsNone(before['delivery']['total_cost_minor'])
+        proof = verify(self.store, task['id'])
+        task = transition(self.store, task, 'submit', task['owner'])
+        verdict = review(self.store, task, 'reviewer', 'approve', 'Fixture', task['criteria'], proof['id'])
+        task = accept(self.store, task, verdict['id'], 'human')
+        self.run_record(task, llm_cost_minor=10, purpose='coordination')
+        other = self.active(scope=['other'])
+        self.run_record(other, llm_cost_minor=900)
+        result = task_report(self.store, task['id'])
+        self.assertEqual(result['delivery']['total_cost_minor'], 675)
+        self.assertEqual(result['delivery']['later_known_cost_minor'], 10)
+        self.assertEqual(result['components']['human_minor'], 100)
+        self.assertEqual(result['delivery']['runs'], 4)
+        self.assertEqual(len(result['by_purpose']), 3)
+
+    def test_accepted_unknown_and_estimated_totals_remain_honest(self):
+        from agentic_codage.costs import delivery_cost
+        task = self.active()
+        run = self.run_record(task, cost_source='unknown', llm_cost_minor=None)
+        task.update(status='accepted', acceptance=dict(accepted_at='fixture', run_ids=[run['id']]))
+        result = delivery_cost(task, [run])
+        self.assertIsNone(result['total_cost_minor'])
+        self.assertEqual(result['state'], 'incomplete')
+        run.update(cost_source='estimate', llm_cost_minor=42)
+        result = delivery_cost(task, [run])
+        self.assertEqual(result['total_cost_minor'], 42)
+        self.assertEqual(result['state'], 'estimated')
+        with self.assertRaises(FrameworkError): delivery_cost(task, [])

@@ -24,6 +24,7 @@
 | `context.py` | Extraction des décisions, risques et journaux liés à un chemin |
 | `map.py` | Instantané et rendu HTML, détection des données périmées |
 | `orchestration/` | Profils, protocoles, transports, appels comptabilisés, worktrees et contrôleur |
+| `method/` | Catalogue, gabarits, documents liés, revues de cadrage, contexte et préparation de PR |
 | `assets/` | Schémas, instructions, skills et interface HTML autonome |
 
 `store.py` fournit les primitives. Les modules métier les composent. La CLI ne contient pas les
@@ -46,6 +47,9 @@ statuts ou de résultats calculés par un autre modèle.
   evidence/E-….json
   evidence/E-…-0.log
   reviews/V-….json
+  artifacts/A-….json            # documents de cadrage et entrées
+  artifact_reviews/Q-….json    # revues de cadrage
+  method/                      # procédures et gabarits générés
 ```
 
 Les identifiants utilisent des UUID tronqués à 48 bits, sans compteur central ; la création exclusive
@@ -60,7 +64,7 @@ les fichiers non suivis et non ignorés. Les suppressions sont représentées. L
 empreintés comme liens, sans suivre leur cible ; les sous-modules ne sont pas pris en charge.
 
 Sont exclus : les fiches de cycle de vie (tâches, runs, preuves, revues, findings, exceptions),
-`.framework/local/` et le HTML généré. Les décisions et la politique sont incluses. Le contrat propre
+`.framework/local/` et le HTML généré. Les décisions, interfaces, documents de cadrage et la politique sont inclus. Les revues de cadrage sont des traces de cycle de vie exclues. Le contrat propre
 à la tâche est empreinté séparément, hors statut et acceptation. Les fichiers ignorés, dépendances
 installées et ressources externes ne sont pas attestés : verrouiller les dépendances et utiliser une
 CI contrôlée pour la livraison. L’empreinte est volontairement globale : une modification indépendante
@@ -98,3 +102,18 @@ n’est pas une topologie AST complète ; `scope`, `paths` et les décisions mat
 construit les appels natifs/génériques ; `transport` surveille délai, annulation et sorties ; `calls`
 réserve les places et comptabilise ; `workspaces` isole et applique les patchs ; `engine` pilote les
 tours, preuves, revues et intégration explicite. Voir [le guide](orchestration.md).
+
+## Préparation avant délégation
+
+`method.catalog` définit les parcours et procédures ; `templates` génère et valide les PRD/story ;
+`artifacts` enregistre les révisions et les revues ; `workflow` vérifie leur fraîcheur et prépare
+le contexte pertinent ; `shipping` produit un corps de PR local. Le moteur applique la condition
+`require_ready` avant chaque appel et avant intégration ; la vérification la réévalue aussi.
+Le contrat et le contexte figés doivent toujours correspondre au cadrage courant. Les documents
+Markdown enregistrés sont protégés des écritures des travailleurs. Il conserve le contexte de cadrage
+dans la session puis transmet les documents sélectionnés aux rôles concernés.
+
+Les contrôles portent sur des références et des déclarations vérifiables localement. Ils ne
+mesurent pas la justesse d’une exigence, l’authenticité d’une identité ou l’obéissance d’un modèle.
+Les fichiers de cadrage appartiennent à la base approuvée ; une revue `Q-…` ne permet pas de
+modifier le périmètre d’implémentation. Voir [la méthode](methodologie.md).

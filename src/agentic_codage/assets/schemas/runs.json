@@ -136,6 +136,22 @@
     "identity_source": {
       "type": "string",
       "minLength": 1
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "research",
+        "prd",
+        "architecture",
+        "design-system",
+        "stories",
+        "story-review",
+        "design",
+        "plan",
+        "execute",
+        "review",
+        "ship"
+      ]
     }
   },
   "required": [

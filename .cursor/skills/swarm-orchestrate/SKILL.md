@@ -32,3 +32,18 @@ acceptance. Use it within the user's existing authority after reviewing the resu
 source freshness; it does not commit, push or deploy. Generate `framework map` afterward.
 Report limitations, unknown billing and missing model observations; never fabricate independence,
 provider identity or a live provider test from an offline fixture.
+
+## Interface coordination and delivery cost
+
+Define shared signatures, units and schemas in versioned `.framework/interfaces/I-*.json` records.
+Import with `framework import interfaces FILE`; pin revisions with `task create --interface ID`.
+Never overwrite a revision to unblock a worker. Read the task's interfaces and predecessor handoffs.
+In controller-managed work, acknowledge all supplied interface references exactly; report required
+changes in `change_requests` and stop rather than implement an incompatible change. Each batch
+requires the user-selected orchestrator's checkpoint before dependents proceed. Budget that call.
+In accompanied work, the pilot must explicitly transmit handoffs and arrange these checkpoints.
+
+Use one task for one result to accept (dashboard, module, feature); keep every attempt, correction,
+coordination and review attached to it. `framework costs --task ID` reports its delivery cost and
+breakdowns. Unknown billing remains unknown. Acceptance freezes the included run ids; later runs
+are separate from that delivery's total. Never claim that a recorded cost proves complete billing.

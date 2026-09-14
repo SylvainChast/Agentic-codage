@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "A-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "research",
+        "prd",
+        "architecture",
+        "design-system",
+        "stories",
+        "design",
+        "plan"
+      ]
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "[a-f0-9]{64}"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "artifact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "[a-f0-9]{64}"
+          }
+        },
+        "required": [
+          "artifact",
+          "digest"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "architecture_basis": {
+      "type": "string",
+      "pattern": "[a-f0-9]{64}"
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "task",
+    "kind",
+    "path",
+    "sha256",
+    "author",
+    "inputs"
+  ],
+  "additionalProperties": false
+}

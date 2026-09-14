@@ -65,3 +65,25 @@ Formats principaux consultés le 11 septembre 2026 :
 Les fichiers sont générés et vérifiés localement ; une session réelle dans chaque éditeur n’est pas
 couverte par les tests automatisés du framework. Les adaptateurs complémentaires Gemini et Windsurf
 restent des entrées simples ; leur comportement dépend de la version installée.
+
+## Skills et commandes de méthode
+
+Les onze procédures de cadrage et développement sont maintenues dans `assets/method/`, installées
+sous `.framework/method/`. Les entrées de chaque outil renvoient à cette source et au contexte
+ciblé fourni par la CLI. Les gabarits PRD/story sont générés depuis leurs schémas, sans copie des
+rubriques à maintenir dans chaque adaptateur.
+
+| Hôte | Entrées de méthode générées |
+| --- | --- |
+| Codex / Agent Skills | `.agents/skills/swarm-ETAPE/SKILL.md` ; le skill `swarm-review` existant est conservé et complété |
+| Claude Code | `.claude/skills/ETAPE/SKILL.md` |
+| Cursor | `.cursor/skills/ETAPE/SKILL.md` |
+| VS Code / Copilot | `.github/prompts/ETAPE.prompt.md` |
+| Gemini CLI | `.gemini/commands/ETAPE.toml` |
+| Cascade / Windsurf | `.windsurf/workflows/ETAPE.md` |
+
+La prise en charge des commandes natives varie selon l’hôte et les noms réservés. Le format de
+prompt VS Code n’est pas une garantie de commande slash dans Visual Studio ; utiliser ses
+instructions projet et la CLI lorsque nécessaire. Les formats ont été vérifiés avec leurs
+sources officielles, sans simuler une session utilisateur dans chaque IDE. Voir le
+[guide, les commandes et leurs sources](methodologie.md#commandes-dans-les-agents).

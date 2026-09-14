@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Notice détaillée du framework Agentic Codage : agents, orchestration, carte HTML, contrôles, coûts et utilisation pratique.">
+<title>Agentic Codage — Notice d’utilisation</title><style>
+:root{color-scheme:light;--ink:#15283a;--muted:#526477;--paper:#fff;--bg:#f3f5f6;--line:#dce4e9;--teal:#096b66;--navy:#102b42}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--teal);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de9a32;outline-offset:4px}
+.skip{position:absolute;top:-100px;left:20px;background:white;padding:12px;z-index:10}.skip:focus{top:10px}
+.masthead{background:var(--navy);color:white;padding:22px 4vw;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:750;letter-spacing:.04em;font-size:18px}.edition{color:#bfced9;font-size:13px}.print{border:1px solid #7891a5;background:transparent;color:white;border-radius:6px;padding:10px 15px;font:inherit;font-size:13px;cursor:pointer}.print:hover{background:#284559}
+.layout{max-width:1460px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:38px;padding:38px 32px 70px}
+aside{align-self:start;position:sticky;top:24px;max-height:calc(100vh - 48px);overflow:auto;font-size:13px;padding:8px 8px 20px 0}aside summary{font-weight:750;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-size:11px;cursor:pointer;margin-bottom:18px}.toc ul{list-style:none;margin:0;padding:0}.toc a{display:block;padding:8px 10px;text-decoration:none;border-left:2px solid transparent;color:var(--muted);line-height:1.5}.toc a:hover{color:var(--teal);border-color:var(--teal);background:#e8efef}.side-note{border-top:1px solid var(--line);margin-top:22px;padding-top:18px;color:var(--muted);font-size:12px;line-height:1.7}
+main{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:clamp(25px,4vw,65px);box-shadow:0 10px 35px #102b4205}.kicker{font-size:11px;font-weight:750;letter-spacing:.18em;color:var(--teal);text-transform:uppercase}h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,3.4vw,48px);font-weight:500;line-height:1.15;letter-spacing:-.035em;margin:18px 0 25px;max-width:850px}h1+p{color:var(--muted);font-size:13px;margin-bottom:27px}h1+p+p{font-size:18px;color:var(--muted);line-height:1.8;border-bottom:1px solid var(--line);padding-bottom:35px}
+h2{font-size:27px;line-height:1.3;letter-spacing:-.025em;margin:60px 0 24px;padding-top:20px;border-top:1px solid var(--line);color:var(--navy)}h3{font-size:19px;line-height:1.4;margin:34px 0 16px;color:var(--teal)}h4{font-size:17px}p{margin:15px 0}li{margin:8px 0}strong{font-weight:700}blockquote{margin:25px 0;padding:8px 24px;border-left:4px solid var(--teal);background:#f0f7f5;font-size:17px}blockquote p{margin:10px 0}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em;background:#edf2f5;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}pre{background:#102b42;color:#e3f2f6;border-radius:8px;padding:22px 24px;line-height:1.65;overflow-x:auto;tab-size:2;font-size:13px;margin:24px 0}pre code{padding:0;border-radius:0;background:none;color:inherit;overflow-wrap:normal;font-size:inherit;white-space:pre}
+.table-scroll{width:100%;overflow-x:auto;margin:25px 0;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.65;min-width:530px}th{text-align:left;color:var(--navy);background:#edf3f5;font-weight:700}th,td{padding:15px 17px;vertical-align:top;border-bottom:1px solid var(--line)}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fafcfc}
+footer{margin-top:48px;padding-top:25px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}.top{white-space:nowrap}
+@media(max-width:1000px){.layout{grid-template-columns:220px minmax(0,1fr);gap:22px;padding:25px 20px}main{padding:30px}}
+@media(max-width:760px){.masthead{padding:18px 20px}.edition{font-size:11px}.print{padding:8px 10px;font-size:12px}.layout{display:block;padding:18px 12px 40px}aside{position:static;max-height:none;background:white;border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:18px}aside summary{margin-bottom:10px}.side-note{display:none}.toc a{padding:6px 8px}.toc ul{columns:2;column-gap:12px}.toc li{break-inside:avoid}main{padding:25px 20px}h2{font-size:24px;margin-top:45px}h1+p+p{font-size:16px}pre{padding:17px;font-size:12px}.table-scroll{margin:20px 0}footer{display:block}}
+@media(max-width:420px){.toc ul{columns:1}.brand{font-size:16px}.edition{max-width:180px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:17mm 15mm}
+@media print{html{scroll-behavior:auto}body{background:white;color:#111;font-size:10pt;line-height:1.5}.masthead{background:none;color:#15283a;border-bottom:1px solid #ccc;padding:0 0 12pt}.edition{color:#555}.print,aside,.skip,.top{display:none!important}.layout{display:block;max-width:none;margin:0;padding:0}main{border:0;border-radius:0;box-shadow:none;padding:18pt 0 0}.kicker{font-size:8pt}h1{font-size:29pt}h1+p+p{font-size:11pt;padding-bottom:12pt}h2{font-size:18pt;margin-top:24pt;padding-top:12pt}h3{font-size:13pt}h1,h2,h3,h4{break-after:avoid}p,li{orphans:3;widows:3}pre{background:#f2f4f5;color:#111;border:1px solid #ddd;font-size:8pt;white-space:pre-wrap;padding:10pt;overflow:visible;break-inside:auto}pre code{white-space:pre-wrap;overflow-wrap:anywhere}.table-scroll{overflow:visible;border-radius:0}table{min-width:0;font-size:9pt;table-layout:auto}thead{display:table-header-group}tr{break-inside:avoid}th,td{padding:7pt}code{overflow-wrap:anywhere}a{color:inherit;text-decoration:underline}footer{font-size:8pt}blockquote{break-inside:avoid}}
+</style></head>
+<body id="haut"><a class="skip" href="#notice">Aller à la notice</a>
+<header class="masthead"><div><div class="brand">AGENTIC CODAGE</div><div class="edition">Guide pratique · Version 0.2.0 · 14 septembre 2026</div></div><button class="print" type="button" onclick="window.print()">Imprimer / PDF</button></header>
+<div class="layout"><aside aria-label="Sommaire"><details open><summary>Dans cette notice</summary><div class="toc">
+<ul>
+<li><a href="#1-pourquoi-ce-framework-est-utile">1. Pourquoi ce framework est utile</a></li>
+<li><a href="#2-qui-fait-quoi">2. Qui fait quoi ?</a></li>
+<li><a href="#3-les-objets-a-connaitre">3. Les objets à connaître</a></li>
+<li><a href="#4-a-quoi-sert-exactement-le-fichier-html">4. À quoi sert exactement le fichier HTML ?</a></li>
+<li><a href="#5-installer-le-framework-dans-une-application">5. Installer le framework dans une application</a></li>
+<li><a href="#6-choisir-le-mode-de-travail">6. Choisir le mode de travail</a></li>
+<li><a href="#7-parcours-orchestre-du-besoin-au-code-integre">7. Parcours orchestré : du besoin au code intégré</a></li>
+<li><a href="#8-parcours-accompagne-travailler-dans-son-ide">8. Parcours accompagné : travailler dans son IDE</a></li>
+<li><a href="#9-comprendre-les-couts-et-les-limites">9. Comprendre les coûts et les limites</a></li>
+<li><a href="#10-intervenir-lorsquune-mission-rencontre-un-probleme">10. Intervenir lorsqu’une mission rencontre un problème</a></li>
+<li><a href="#11-les-garanties-a-ne-pas-confondre">11. Les garanties à ne pas confondre</a></li>
+<li><a href="#12-routine-conseillee-pour-une-equipe">12. Routine conseillée pour une équipe</a></li>
+<li><a href="#13-du-besoin-au-code-la-methode-et-les-skills">13. Du besoin au code : la méthode et les skills</a></li>
+<li><a href="#pour-approfondir">Pour approfondir</a></li>
+</ul>
+</div>
+</details><p class="side-note">Lecture autonome, sans serveur ni ressource externe.<br><br>Les liens internes nécessitent de conserver la structure du dépôt. Les références externes nécessitent une connexion.</p></aside>
+<main id="notice"><div class="kicker">Comprendre · organiser · vérifier</div><h1 id="notice-dutilisation-developper-avec-des-agents-ia">Notice d’utilisation — développer avec des agents IA</h1>
+<p><strong>Agentic Codage 0.2.0 · Notice du 14 septembre 2026 · évolutions de coordination en version de travail</strong></p>
+<p>Cette notice explique le fonctionnement livré, ses bénéfices et ses limites. Elle s’adresse au responsable produit qui pilote les agents et au développeur qui configure leur environnement. Les exemples de modèles, budgets et résultats ne constituent pas des mesures de performance.</p>
+<h2 id="1-pourquoi-ce-framework-est-utile">1. Pourquoi ce framework est utile</h2>
+<p>Un agent de codage associe un modèle de langage à des outils : lire des fichiers, modifier du code, consulter Git et, selon ses permissions, exécuter des commandes. Le modèle propose les actions ; son outil d’exécution les réalise. La qualité du modèle compte, mais elle ne définit pas à elle seule le périmètre autorisé, les preuves attendues ou la coordination entre plusieurs agents.</p>
+<p>Agentic Codage organise cette activité autour d’un résultat vérifiable. Sa force est de relier <strong>besoin → contrat → exécutions → contrôles → revue → acceptation → coût</strong>. Le projet conserve ces liens lorsque la conversation se termine ou lorsque l’on change d’outil.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Problème fréquent</th>
+<th>Réponse du framework</th>
+<th>Limite à comprendre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L’agent étend le chantier sans prévenir</td>
+<td>Contrat avec chemins modifiables et critères ; contrôle du plan et du diff</td>
+<td>Les contrôles de fichiers ne détectent pas toute dérive fonctionnelle</td>
+</tr>
+<tr>
+<td>Deux agents modifient les mêmes fichiers</td>
+<td>Réservations entre tâches et worktrees séparés ; travaux recouvrants sérialisés dans le contrôleur</td>
+<td>Des fichiers différents peuvent modifier la même interface métier</td>
+</tr>
+<tr>
+<td>Une nouvelle session oublie les décisions</td>
+<td>Décisions versionnées, journaux, contrats et extraction de contexte</td>
+<td>L’agent doit consulter cette mémoire ; ce n’est pas un apprentissage automatique du modèle</td>
+</tr>
+<tr>
+<td>L’agent annonce « terminé » trop tôt</td>
+<td>Vérification exécutée, revue et acceptation distinctes</td>
+<td>La pertinence des tests et de la revue reste déterminante</td>
+</tr>
+<tr>
+<td>Une ancienne preuve est réutilisée après modification</td>
+<td>Empreinte du contenu et du contrat ; contrôle de fraîcheur</td>
+<td>Les fichiers ignorés et services externes ne sont pas attestés</td>
+</tr>
+<tr>
+<td>Les tentatives se multiplient sans mesure</td>
+<td>Limites d’appels, de tours et de temps ; coûts conservés</td>
+<td>Le prix d’un appel en cours n’est pas prédit ni plafonné chez le fournisseur</td>
+</tr>
+<tr>
+<td>Une solution semble économique en oubliant les échecs</td>
+<td>Tous les runs restent imputés, y compris coordination, revue et reprises</td>
+<td>Une facturation absente reste inconnue</td>
+</tr>
+<tr>
+<td>Le projet dépend d’un seul outil</td>
+<td>Contrats communs, règles d’éditeurs, CLI et pont JSON</td>
+<td>Chaque outil doit effectivement charger les consignes et posséder les capacités nécessaires</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cela peut rendre le développement plus contrôlable et les transmissions plus fiables. Le gain de vitesse ou d’argent doit être mesuré sur vos missions : davantage d’agents peut aussi ajouter du coût et du travail d’intégration.</p>
+<h2 id="2-qui-fait-quoi">2. Qui fait quoi ?</h2>
+<p>Il faut distinguer le <strong>modèle</strong>, le <strong>rôle</strong>, l’<strong>outil qui exécute ses actions</strong> et le <strong>contrôleur du framework</strong>.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Acteur</th>
+<th>Travail attendu</th>
+<th>Ce qu’il ne décide pas seul</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utilisateur ou responsable produit</td>
+<td>Définir le besoin, les critères, les modèles, les budgets et les autorisations</td>
+<td>La réussite technique sans examiner les preuves</td>
+</tr>
+<tr>
+<td>Orchestrateur LLM</td>
+<td>Décomposer une mission en travaux avec dépendances et sous-périmètres</td>
+<td>Élargir le contrat ou modifier lui-même le produit dans ce parcours</td>
+</tr>
+<tr>
+<td>Exécutant <code>worker</code></td>
+<td>Réaliser un travail attribué dans son worktree</td>
+<td>Réécrire les règles, s’auto-accepter ou lancer récursivement un nouvel essaim</td>
+</tr>
+<tr>
+<td>Relecteur <code>reviewer</code></td>
+<td>Examiner le diff, les tests et chaque critère ; approuver ou demander une correction</td>
+<td>Modifier le candidat pendant la revue</td>
+</tr>
+<tr>
+<td>Arbitre <code>arbiter</code></td>
+<td>Orienter la reprise après un échec des contrôles ou un refus de revue</td>
+<td>Dépasser les budgets ou résoudre automatiquement tout conflit Git</td>
+</tr>
+<tr>
+<td>Contrôleur Python</td>
+<td>Valider les réponses, réserver, ordonnancer, lancer les processus, mesurer, vérifier et enregistrer les états</td>
+<td>Remplacer le jugement métier par une certitude automatique</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>L’orchestrateur LLM construit le plan ; le contrôleur logiciel applique les règles d’exécution.</strong> Cette séparation évite de faire reposer les limites uniquement sur une promesse écrite dans un prompt.</p>
+<p>Vous choisissez chaque modèle. Astra, Fable, Sol et Opus sont des exemples évoqués dans le projet, pas une liste autorisée ni une table d’identifiants. Fournir l’identifiant exact reconnu par la CLI choisie. Il n’y a pas de substitution silencieuse vers un modèle supposé meilleur ou moins cher.</p>
+<p>Le même modèle peut occuper plusieurs rôles. Le contrôleur ouvre des sessions distinctes, mais cette séparation ne garantit pas une diversité de raisonnement. L’identité du relecteur reste déclarative ; une revue authentifiée sur votre plateforme Git complète le dispositif pour les livraisons importantes.</p>
+<h2 id="3-les-objets-a-connaitre">3. Les objets à connaître</h2>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Objet</th>
+<th>Exemple</th>
+<th>Fonction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tâche ou mission</td>
+<td><code>T-…</code></td>
+<td>Contrat : résultat, propriétaire, périmètre, critères, livrables, budget et dépendances</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td><code>I-…</code></td>
+<td>Convention versionnée de signature, unité ou schéma partagée entre agents</td>
+</tr>
+<tr>
+<td>Exécution</td>
+<td><code>R-…</code></td>
+<td>Tentative d’implémentation, de coordination ou de revue avec résultat et coût</td>
+</tr>
+<tr>
+<td>Session d’orchestration</td>
+<td><code>O-…</code></td>
+<td>Un lancement du contrôleur, son profil figé, son plan et ses appels</td>
+</tr>
+<tr>
+<td>Travail délégué</td>
+<td>Identifiant local comme <code>calcul</code></td>
+<td>Sous-travail d’un plan ; ce n’est pas automatiquement une nouvelle tâche <code>T-…</code></td>
+</tr>
+<tr>
+<td>Preuve</td>
+<td><code>E-…</code></td>
+<td>Résultats des commandes, logs, empreinte du code et du contrat</td>
+</tr>
+<tr>
+<td>Revue</td>
+<td><code>V-…</code></td>
+<td>Verdict lié à une preuve et aux critères exacts de la tâche</td>
+</tr>
+<tr>
+<td>Décision</td>
+<td><code>D-…</code></td>
+<td>Choix durable, justification, chemins concernés et contrôles associés</td>
+</tr>
+<tr>
+<td>Finding</td>
+<td><code>F-…</code></td>
+<td>Problème identifié et suivi jusqu’à sa résolution</td>
+</tr>
+<tr>
+<td>Exception</td>
+<td><code>X-…</code></td>
+<td>Dérogation documentée avec propriétaire et échéance, sans désactivation automatique des contrôles</td>
+</tr>
+</tbody>
+</table></div>
+<p>Une tâche peut avoir plusieurs sessions et beaucoup d’exécutions. Les coûts des sessions abandonnées restent attachés à cette tâche. Son acceptation porte sur tous ses livrables : pour accepter deux résultats séparément, créer deux tâches.</p>
+<h2 id="4-a-quoi-sert-exactement-le-fichier-html">4. À quoi sert exactement le fichier HTML ?</h2>
+<p><code>docs/carte-du-code.html</code> est la <strong>vue humaine de référence</strong> du projet. Il permet de comprendre le travail sans lire chaque JSON ni retrouver les conversations d’origine.</p>
+<p>Les agents alimentent les fiches de <code>.framework/</code>, généralement via la CLI. Le générateur les lit, les valide et assemble une page autonome :</p>
+<pre><code class="language-text">Code Git + politique + décisions + contrats + runs + preuves + revues
+                              ↓
+                        framework map
+                              ↓
+                    docs/carte-du-code.html
+</code></pre>
+<p>Cette architecture évite que plusieurs agents réécrivent simultanément un grand fichier HTML. Les JSON sont les sources structurées ; le HTML est leur présentation. <strong>Une modification manuelle du HTML n’actualise pas les fiches et sera perdue à la régénération.</strong></p>
+<h3 id="ce-que-lon-peut-y-lire">Ce que l’on peut y lire</h3>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Vue</th>
+<th>Question à laquelle elle répond</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vue d’ensemble</td>
+<td>Quelles missions restent ouvertes ? Les fiches sont-elles cohérentes ?</td>
+</tr>
+<tr>
+<td>Missions</td>
+<td>Quel résultat est attendu, par qui, dans quel périmètre ?</td>
+</tr>
+<tr>
+<td>Décisions</td>
+<td>Quels choix doivent être respectés et pourquoi ?</td>
+</tr>
+<tr>
+<td>Risques</td>
+<td>Quels problèmes et exceptions sont enregistrés ?</td>
+</tr>
+<tr>
+<td>Orchestration</td>
+<td>Quel modèle a été choisi, quel plan a tourné, quels appels et quel état ?</td>
+</tr>
+<tr>
+<td>Preuves</td>
+<td>Quels contrôles ont réellement tourné et quelles revues sont enregistrées ?</td>
+</tr>
+<tr>
+<td>Interfaces</td>
+<td>Quelles versions et conventions les agents doivent-ils respecter ?</td>
+</tr>
+<tr>
+<td>Coûts</td>
+<td>Combien connaît-on de dépenses et que vaut le coût par résultat accepté ?</td>
+</tr>
+<tr>
+<td>Journaux</td>
+<td>Qu’ont fait les sessions et quelle suite ont-elles laissée ?</td>
+</tr>
+</tbody>
+</table></div>
+<p>La recherche filtre les fiches. Le détail de chaque fiche expose ses références. Les logs complets restent dans le dépôt : le HTML n’est pas un export complet de tous les artefacts.</p>
+<h3 id="les-gestes-utiles">Les gestes utiles</h3>
+<pre><code class="language-bash">framework map
+framework map --check
+framework lease list
+</code></pre>
+<p>La première commande régénère la page ; la deuxième vérifie que ses données correspondent encore au projet. Ouvrir ensuite le fichier dans un navigateur et actualiser la page après régénération. Aucun serveur ni CDN n’est nécessaire. Sur GitHub, le lien vers le fichier affiche généralement son code source.</p>
+<p>Les réservations vivantes sont consultables avec <code>lease list</code>, pas dans l’instantané. Le HTML ne lance ni n’arrête les agents. Ce n’est ni un tableau de bord temps réel ni une analyse automatique de toutes les classes et fonctions du code.</p>
+<p>Pour un agent, <code>framework context src/pricing.py</code> est souvent plus pertinent que l’ingestion du HTML entier : la commande sélectionne les tâches, décisions, problèmes et transmissions concernant ce chemin. Dans le contrôleur, les appels reçoivent leur contrat et les informations propres au rôle ; une lecture exhaustive de toute la mémoire n’est pas injectée automatiquement.</p>
+<p>Le fichier HTML peut embarquer des informations internes du projet. Le partager revient à partager ces informations ; il n’effectue pas de filtrage de confidentialité pour chaque destinataire.</p>
+<h2 id="5-installer-le-framework-dans-une-application">5. Installer le framework dans une application</h2>
+<p>Le dépôt du framework contient déjà sa propre installation. <strong>Ne pas y relancer <code>init</code>.</strong> Pour équiper votre application :</p>
+<pre><code class="language-bash"># Dans le dépôt Agentic-Codage :
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+framework --help
+
+# Dans le dépôt Git de votre application :
+cd /chemin/vers/application
+framework init --name &quot;Mon application&quot; --currency EUR
+</code></pre>
+<p>Sous Windows, utiliser <code>py -3 -m venv .venv</code>, puis <code>.venv\Scripts\Activate.ps1</code>. Les exemples multilignes suivants utilisent la syntaxe d’un shell Unix ; sous PowerShell, les saisir sur une ligne ou adapter leur continuation.</p>
+<p>Sans installation, depuis les sources du framework, <code>python3 bin/framework</code> remplace <code>framework</code>. Pour cibler un autre projet depuis ces sources, ajouter l’option globale <code>--root /chemin/vers/application</code> avant la sous-commande.</p>
+<p>L’initialisation refuse d’écraser des instructions existantes. Réconcilier celles du projet avec le contrat commun. Les points d’entrée sont <code>AGENTS.md</code>, <code>CLAUDE.md</code>, les règles Cursor, les instructions Copilot et les autres adaptateurs. Les skills <code>swarm-deliver</code>, <code>swarm-review</code> et <code>swarm-orchestrate</code> décrivent les procédures spécialisées.</p>
+<h3 id="configurer-les-vrais-controles">Configurer les vrais contrôles</h3>
+<p>Dans <code>.framework/policy.json</code>, remplacer la vérification d’amorçage, volontairement en échec, par les commandes pertinentes pour votre application. Exemple de <strong>champ <code>checks</code></strong>, à intégrer dans la politique complète :</p>
+<pre><code class="language-json">&quot;checks&quot;: [
+  {
+    &quot;name&quot;: &quot;tests&quot;,
+    &quot;argv&quot;: [&quot;{python}&quot;, &quot;-m&quot;, &quot;unittest&quot;, &quot;discover&quot;, &quot;-s&quot;, &quot;tests&quot;, &quot;-v&quot;],
+    &quot;timeout_seconds&quot;: 180
+  }
+]
+</code></pre>
+<p>Choisir les tests adaptés au produit : comportement métier, régressions, intégration, analyse statique et contrôles de sécurité selon la stack. Une commande est un tableau d’arguments ; <code>&amp;&amp;</code>, les pipes et les variables shell ne sont pas interprétés automatiquement. <code>{python}</code> en première position désigne l’interpréteur du framework.</p>
+<p>Les dépendances ignorées par Git ne sont pas copiées dans les worktrees. Prévoir une procédure de vérification reproductible depuis un checkout neuf. Les commandes de test doivent aussi éviter de modifier les sources et de rendre elles-mêmes la preuve obsolète.</p>
+<h2 id="6-choisir-le-mode-de-travail">6. Choisir le mode de travail</h2>
+<p><strong>Mode accompagné :</strong> vous travaillez avec un agent dans votre outil habituel. Les agents ou l’opérateur exécutent les commandes du cycle de vie. La CLI ne lance pas le modèle pour eux. Ce mode convient aussi aux modifications des instructions, de la CI et du framework lui-même.</p>
+<p><strong>Mode orchestré :</strong> le contrôleur lance explicitement les processus des modèles configurés, distribue les travaux, enregistre les appels, vérifie et demande la revue. Il nécessite une CLI Codex ou Claude fonctionnelle, ou un pont JSON développé pour un autre outil.</p>
+<p>Les règles pour Cursor, Copilot ou Gemini permettent de suivre le protocole accompagné ; leur présence ne constitue pas un adaptateur de lancement automatique pour ces outils. Un modèle sans accès aux fichiers ni aux commandes peut préparer une proposition, mais ne peut pas prétendre avoir exécuté les contrôles.</p>
+<p>Pour une petite correction évidente, le mode accompagné peut être plus économique. L’orchestration devient intéressante lorsque la mission a plusieurs sous-problèmes, des interfaces explicites et une vérification fiable.</p>
+<h2 id="7-parcours-orchestre-du-besoin-au-code-integre">7. Parcours orchestré : du besoin au code intégré</h2>
+<h3 id="etape-1-rediger-un-contrat-precis">Étape 1 — Rédiger un contrat précis</h3>
+<p>Exemple : ajouter un calcul TTC avec refus des valeurs négatives.</p>
+<pre><code class="language-bash">framework task create --title &quot;Ajouter le calcul TTC&quot; --owner equipe-pricing \
+  --scope src/pricing.py --scope tests/test_pricing.py --resource api:pricing \
+  --criterion &quot;Le total de 100 à 20 pour cent vaut 120&quot; \
+  --criterion &quot;Un montant négatif est refusé&quot; \
+  --deliverable &quot;Calcul TTC testé&quot; --budget-minor 2500 --max-runs 12
+</code></pre>
+<p>Conserver l’identifiant retourné. <code>T-IDENTIFIANT</code> dans les exemples doit être remplacé par cet identifiant, sans en inventer un. Ici, <code>2500</code> signifie 25 EUR ; c’est un budget d’exemple à adapter, pas un prix estimé.</p>
+<p>Les chemins sont littéraux, sans joker. <code>src/pricing</code> couvre ses descendants, pas <code>src/pricing-old</code>. Une ressource comme <code>api:pricing</code> exprime une interface partagée entre tâches. Les ressources sont réservées au niveau de la tâche ; les travaux internes du plan sont ordonnancés selon leurs chemins et dépendances.</p>
+<h3 id="etape-2-choisir-les-modeles">Étape 2 — Choisir les modèles</h3>
+<pre><code class="language-bash">framework orchestration init --adapter codex --model IDENTIFIANT_CHOISI
+framework orchestration set-role worker --adapter codex --model IDENTIFIANT_EXECUTANT
+framework orchestration set-role reviewer --adapter claude --model IDENTIFIANT_RELECTEUR
+framework orchestration config
+framework orchestration doctor
+</code></pre>
+<p><code>init</code> attribue le choix initial aux quatre rôles ; les commandes <code>set-role</code> changent uniquement le rôle nommé. L’arbitre conserve donc ici le modèle initial. Les noms en majuscules sont à remplacer par des identifiants disponibles dans vos comptes.</p>
+<p><code>doctor</code> vérifie la présence des exécutables. Il ne valide pas les comptes, permissions ou modèles auprès des fournisseurs et ne fait pas d’appel payant.</p>
+<p>Le profil <code>.framework/orchestration.json</code> définit par défaut 2 travailleurs simultanés, 2 tours, 8 travaux maximum par plan et 600 secondes par appel. Consulter <a href="orchestration.md">le guide d’orchestration</a> pour les plafonds et l’exigence facultative de modèle observé.</p>
+<h3 id="etape-3-enregistrer-la-base-dans-git">Étape 3 — Enregistrer la base dans Git</h3>
+<p>Examiner puis committer le code de départ, les tests, les instructions, la politique, le profil et le contrat. Le contrôleur exige une base committée ; un dossier non enregistré en cours de modification n’est pas une base de lancement.</p>
+<p>Dans un dépôt protégé, intégrer d’abord le contrat par une PR de cadrage. Le contrôle <code>framework check --base SHA --task T-IDENTIFIANT</code> vérifie le périmètre contre ce contrat de référence. Il n’est pas automatiquement transformé en règle obligatoire de votre hébergeur Git par l’installation.</p>
+<h3 id="etape-4-lancer">Étape 4 — Lancer</h3>
+<pre><code class="language-bash">framework orchestration run T-IDENTIFIANT
+</code></pre>
+<p>Cette commande utilise les comptes configurés des CLI et peut engager des coûts. Elle reste au premier plan : le framework n’est pas un service permanent fonctionnant indépendamment de ce processus.</p>
+<h3 id="etape-5-comprendre-ce-qui-se-deroule">Étape 5 — Comprendre ce qui se déroule</h3>
+<ol>
+<li>Le contrôleur vérifie la configuration et la base, verrouille la tâche et acquiert son bail.</li>
+<li>Il crée un candidat Git isolé et demande un plan à l’orchestrateur dans un autre worktree.</li>
+<li>Il contrôle les identifiants, le nombre de travaux, les dépendances sans cycle et les sous-périmètres.</li>
+<li>Il lance les travailleurs prêts dans leurs propres worktrees. Les chemins recouvrants ne sont pas traités dans le même groupe parallèle.</li>
+<li>Il contrôle les fichiers modifiés et le HEAD Git, puis crée lui-même les commits privés et applique les patchs au candidat. Le travailleur ne doit pas committer.</li>
+<li>Après chaque lot, l’orchestrateur inspecte le candidat et doit autoriser la suite au point de contrôle. Les travaux dépendants reçoivent ensuite le code, le plan, les interfaces figées et les comptes rendus de leurs prédécesseurs.</li>
+<li>Il exécute les commandes de la politique sur le candidat assemblé et conserve leurs logs.</li>
+<li>Si elles passent, une session de relecture examine le diff, la preuve et chaque critère exact.</li>
+<li>Une approbation produit l’état <code>ready</code>. Un échec des contrôles ou un refus peut déclencher un arbitrage puis un nouveau plan, dans les limites restantes.</li>
+</ol>
+<p>Une erreur de transport, un modèle inattendu, une sortie de périmètre ou un conflit de patch bloque la session. Le moteur ne corrige pas indistinctement toutes les erreurs et ne lance pas une conversation libre entre agents : il organise des transmissions structurées.</p>
+<p>Les instructions et métadonnées du framework, les entrées d’agents protégées, les chemins commençant par <code>.git</code> — dont <code>.github</code> et <code>.gitignore</code> — et le HTML de référence sont exclus des écritures déléguées. Leur évolution passe par un parcours accompagné avec revue.</p>
+<h3 id="exemple-de-parallelisme-utile">Exemple de parallélisme utile</h3>
+<pre><code class="language-text">Plan
+ ├─ A : calcul métier, src/pricing.py
+ └─ B : formatage de facture, src/invoice_format.py
+             ↓ A et B terminés
+      Point de contrôle orchestrateur
+             ↓ continuer
+      C : tests d’intégration du parcours
+             ↓
+      Point de contrôle → contrôles du produit → revue
+</code></pre>
+<p>A et B peuvent avancer ensemble si leur contrat d’interface est clair. C dépend des deux. Le planificateur choisit ce découpage ; le framework ne découvre pas automatiquement toutes les dépendances sémantiques. Si tous les travaux réclament <code>src</code>, ils seront sérialisés : un périmètre trop large supprime le bénéfice du parallélisme.</p>
+<h3 id="contrats-dinterface-et-points-de-controle">Contrats d’interface et points de contrôle</h3>
+<p>Avant de déléguer un dashboard relié à une API, préciser dans un contrat <code>I-…</code> les champs, unités,
+formats, signatures et erreurs attendus. Importer sa fiche avec <code>framework import interfaces prix-v1.json</code>
+et référencer sa version avec <code>task create --interface I-prix-v1</code>. Un exemple complet figure dans
+le <a href="coordination.md">guide de coordination</a>. Les contrôles nommés dans cette fiche doivent exister
+dans la politique ; ils s’exécutent à la vérification finale.</p>
+<p>Chaque travailleur reçoit exactement les mêmes versions pour sa tâche et doit renvoyer leurs
+références avec empreintes dans <code>acknowledged_interfaces</code>. Il reçoit aussi le plan et les comptes
+rendus des lots précédents. Une ancienne version ou une référence manquante bloque le lot.</p>
+<p>S’il estime qu’une interface doit changer, il renseigne <code>change_requests</code>. Le contrôleur conserve
+la demande et bloque avant intégration du lot ; le pilote révise le contrat et lance une nouvelle
+session sur la base commitée. Une version 2 est une nouvelle fiche qui référence sa version 1.
+Les agents ne doivent pas changer silencieusement les unités pour faciliter leur propre travail.</p>
+<p>Après chaque lot intégré, le modèle choisi pour l’orchestrateur inspecte les modifications et
+renvoie <code>continue</code> ou <code>block</code>. C’est un appel supplémentaire facturé à la tâche. Ce contrôle
+intermédiaire est une inspection par le modèle ; les tests automatiques et la revue finale restent
+nécessaires. Les points de contrôle et comptes rendus sont conservés dans la fiche de session.</p>
+<p>Les JSON des worktrees restent des copies locales. La transmission se fait par le contrôleur
+entre les lots ; ce n’est pas une messagerie instantanée. En mode accompagné, le pilote doit
+organiser lui-même ces transmissions. Une interface non déclarée peut encore être oubliée :
+aucun protocole ne remplace un cadrage clair et des tests utiles.</p>
+<h3 id="etape-6-examiner-le-resultat">Étape 6 — Examiner le résultat</h3>
+<pre><code class="language-bash">framework orchestration list
+framework orchestration show O-IDENTIFIANT
+framework costs
+framework map
+</code></pre>
+<p>Dans un second terminal, <code>list</code> permet de retrouver une session en cours. Examiner ses appels, son plan, son message final et ses références de preuve/revue. <code>git worktree list</code> permet de localiser les candidats conservés.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>État de session</th>
+<th>Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>running</code></td>
+<td>Contrôleur actif, ou état resté ainsi après un crash brutal à diagnostiquer</td>
+</tr>
+<tr>
+<td><code>blocked</code></td>
+<td>Une limite ou un échec empêche la suite ; lire <code>message</code> et les traces</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>Le contrôleur a enregistré l’annulation</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>Le candidat a passé les contrôles et reçu une revue favorable ; il n’est pas intégré</td>
+</tr>
+<tr>
+<td><code>integrated</code></td>
+<td>Le candidat a été appliqué au checkout et la tâche acceptée localement</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="etape-7-integrer-explicitement">Étape 7 — Intégrer explicitement</h3>
+<p>Après examen du résultat et dans le cadre de votre autorisation :</p>
+<pre><code class="language-bash">framework orchestration integrate O-IDENTIFIANT --actor responsable-produit
+framework map
+</code></pre>
+<p>Le contrôleur vérifie que le code de départ, le contrat, le candidat et les preuves sont toujours compatibles. Il applique le patch à votre répertoire de travail et enregistre l’acceptation. <strong>Il ne committe pas sur votre branche, ne pousse pas, ne crée pas de PR et ne déploie pas.</strong> Terminer ensuite le processus Git et la CI prévus par votre équipe.</p>
+<p>Éviter de modifier ce checkout pendant la session. Même une modification indépendante peut invalider sa base ou ses preuves. Garder les worktrees jusqu’à l’intégration et conserver les traces utiles avant tout nettoyage.</p>
+<h2 id="8-parcours-accompagne-travailler-dans-son-ide">8. Parcours accompagné : travailler dans son IDE</h2>
+<p>Créer le même contrat, le committer selon votre workflow et travailler dans un worktree dédié. Après lecture des consignes et du contexte :</p>
+<pre><code class="language-bash">framework lease acquire T-IDENTIFIANT --owner equipe-pricing --ttl 3600
+framework task start T-IDENTIFIANT --actor equipe-pricing
+framework context src/pricing.py
+</code></pre>
+<p>Demande type à l’agent :</p>
+<blockquote>
+<p>Réalise la tâche T-IDENTIFIANT. Lis les instructions et les décisions pertinentes. Respecte les chemins et les critères du contrat. Enregistre les résultats et les coûts disponibles, exécute les contrôles et prépare une transmission à un relecteur distinct.</p>
+</blockquote>
+<p>Après son travail, enregistrer les faits réellement observés :</p>
+<pre><code class="language-bash">framework run record T-IDENTIFIANT --actor equipe-pricing --model &quot;MODELE_OBSERVE&quot; \
+  --purpose implementation --outcome succeeded --cost-source unknown \
+  --cost-note &quot;Montant de facturation indisponible&quot; \
+  --summary &quot;Décrire ici les changements réellement réalisés&quot; \
+  --next-step &quot;Vérification puis revue distincte&quot;
+framework check
+framework verify T-IDENTIFIANT
+framework task submit T-IDENTIFIANT --actor equipe-pricing
+</code></pre>
+<p>Ne pas copier l’état <code>succeeded</code> si la tentative a échoué : enregistrer <code>failed</code>, <code>blocked</code> ou <code>cancelled</code> selon les faits. Une nouvelle tentative crée un nouveau run ; rappeler <code>task start</code> pour vérifier les limites avant de la lancer.</p>
+<p>Un vrai relecteur distinct inspecte ensuite le diff et les critères. Comptabiliser également son exécution via <code>run record --purpose review</code> avec ses résultats et coûts réels. <strong>Après une revue favorable effective</strong>, enregistrer son verdict avec la preuve retournée par <code>verify</code> :</p>
+<pre><code class="language-bash">framework review record T-IDENTIFIANT --reviewer relecteur-b --verdict approve \
+  --evidence E-IDENTIFIANT \
+  --criterion &quot;Le total de 100 à 20 pour cent vaut 120&quot; \
+  --criterion &quot;Un montant négatif est refusé&quot; \
+  --summary &quot;Décrire les vérifications et conclusions réelles de la revue&quot;
+framework task accept T-IDENTIFIANT --review V-IDENTIFIANT --actor responsable-produit
+framework map
+</code></pre>
+<p>Ces commandes enregistrent une revue ; elles ne l’effectuent pas à la place du relecteur. Si elle demande des changements, utiliser <code>request_changes</code>. Toute correction requiert une nouvelle preuve et une nouvelle revue. La CLI exige une preuve passée même pour enregistrer ce verdict structuré ; conserver d’abord les diagnostics de tests échoués dans les runs ou findings.</p>
+<p>Ne pas doubler ces enregistrements dans une session orchestrée : le contrôleur y gère déjà les baux, appels, coûts et preuves.</p>
+<h2 id="9-comprendre-les-couts-et-les-limites">9. Comprendre les coûts et les limites</h2>
+<p>Pour mesurer la livraison d’un dashboard, d’un module ou d’une feature, créer une tâche pour ce
+résultat et conserver tous ses travaux et reprises sous cet identifiant. Utiliser :</p>
+<pre><code class="language-bash">framework costs --task T-IDENTIFIANT
+</code></pre>
+<p>Le rapport ventile les dépenses par finalité, rôle, modèle, travail et session. Il additionne
+l’implémentation, les échecs, les corrections, la coordination, les points de contrôle et la revue,
+ainsi que l’infrastructure et le temps humain imputés. Le coût d’une autre tâche n’y est pas ajouté.</p>
+<p>Avant acceptation, le montant connu est un encours et <code>delivery.total_cost_minor</code> reste vide.
+À l’acceptation, la liste des exécutions est figée : le total de livraison est calculable si leurs
+coûts LLM sont tous renseignés. Les estimations restent signalées, les montants inconnus ne valent
+jamais zéro. Les exécutions ajoutées ensuite apparaissent séparément. Les anciennes acceptations
+sans liste figée sont signalées comme telles. Voir les <a href="costs.md">détails de calcul</a>.</p>
+<p>La carte affiche ce montant dans <strong>Coût de livraison accepté</strong>. Il permet de comparer le coût
+complet enregistré pour plusieurs résultats, en tenant compte de leur taille et de leur qualité.</p>
+<p>Le budget n’est pas le coût. Il borne le lancement de nouveaux appels sur la base des montants déjà connus. Un abonnement n’équivaut pas à une consommation gratuite.</p>
+<ul>
+<li><code>actual</code> : montant rapporté ou relevé comme réel, avec provenance ; il ne constitue pas une facture certifiée par le framework.</li>
+<li><code>estimate</code> : allocation calculée selon une méthode explicite.</li>
+<li><code>unknown</code> : montant absent ; les ratios concernés deviennent non calculables.</li>
+</ul>
+<p>Les montants sont des entiers en unités mineures, dans une seule devise à deux décimales. Les coûts humains et d’infrastructure ne sont pas mesurés automatiquement ; leurs valeurs par défaut correspondent à une absence d’imputation.</p>
+<p>Exemple fictif : une tâche acceptée a coûté 8 EUR pour ses travailleurs, 2 EUR de planification, 3 EUR de revue et 4 EUR de reprises. Son coût connu est <strong>17 EUR</strong>, pas 8 EUR. Si elle livre deux éléments acceptés ensemble, le ratio est 8,50 EUR par élément. Une autre tâche abandonnée à 6 EUR fait monter le ratio global du portefeuille à <strong>23 / 2 = 11,50 EUR</strong>. Si un appel n’a pas de coût renseigné, ce ratio global reste inconnu.</p>
+<p><code>framework costs</code> expose aussi <code>by_role</code> et <code>by_orchestration</code>. Les livrables comptés sont ceux du contrat accepté : multiplier artificiellement les livrables fausse la métrique. Définir des unités comparables et utiles au produit.</p>
+<p><code>max_runs</code> compte les exécutions, y compris coordination et revue. Un tour avec un planificateur, trois travailleurs et un relecteur consomme cinq appels. Un second tour semblable précédé d’un arbitrage porte le total à onze. <code>max_rounds</code> borne les cycles ; <code>max_parallel</code> borne les travailleurs simultanés. Ce sont trois limites différentes.</p>
+<p>Le contrôleur réserve les places d’appels en cours pour <code>max_runs</code>, mais il ne réserve pas un prix futur. Des appels simultanés peuvent dépasser le montant restant. Un plafond financier strict doit aussi être configuré chez le fournisseur.</p>
+<h2 id="10-intervenir-lorsquune-mission-rencontre-un-probleme">10. Intervenir lorsqu’une mission rencontre un problème</h2>
+<pre><code class="language-bash">framework orchestration feedback O-IDENTIFIANT --message &quot;Précision pour le prochain plan&quot;
+framework orchestration cancel O-IDENTIFIANT
+</code></pre>
+<p>Le feedback est lu au prochain tour de planification. Il ne modifie ni l’appel déjà en cours ni le contrat. S’il n’y a pas de nouveau tour, il ne sera pas exploité par un nouveau plan.</p>
+<p>L’annulation est surveillée pendant les appels et avant les nouveaux appels. Un contrôle produit déjà lancé reste borné par son propre délai. Elle n’efface pas les coûts engagés. Sous Windows, la terminaison concerne le processus direct ; l’isolation des descendants dépend de l’environnement.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Conduite utile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exécutable absent</td>
+<td>Corriger PATH ou le chemin explicite de la commande, puis <code>doctor</code></td>
+</tr>
+<tr>
+<td>Modèle refusé ou inattendu</td>
+<td>Vérifier l’identifiant et l’accès du compte ; autoriser explicitement une version observée si c’est bien le choix voulu</td>
+</tr>
+<tr>
+<td>Coût inconnu</td>
+<td>Conserver <code>unknown</code> ; compléter ensuite avec une provenance et sans double comptage</td>
+</tr>
+<tr>
+<td>Périmètre insuffisant</td>
+<td>Revoir et committer le contrat, puis lancer une nouvelle session</td>
+</tr>
+<tr>
+<td>Tests en échec</td>
+<td>Lire les logs, corriger la cause dans le budget ; ne pas affaiblir les tests pour obtenir le vert</td>
+</tr>
+<tr>
+<td>Base modifiée après lancement</td>
+<td>Examiner le candidat conservé et repartir d’une nouvelle base ; pas de rebase automatique des preuves</td>
+</tr>
+<tr>
+<td>Session bloquée</td>
+<td>Lire sa cause et conserver les tentatives ; un nouveau <code>run TASK</code> repart du code committé</td>
+</tr>
+<tr>
+<td>Crash brutal</td>
+<td>Inspecter les processus, l’état, les worktrees et les verrous ; ne retirer un verrou orphelin qu’après avoir vérifié qu’aucun contrôleur ne tourne</td>
+</tr>
+</tbody>
+</table></div>
+<p>Une reprise interne après refus travaille sur le candidat du tour précédent. Un <strong>nouveau lancement après blocage</strong> crée une nouvelle session depuis le checkout committé : il ne récupère pas implicitement le travail partiel. Les budgets de la tâche, eux, restent cumulatifs.</p>
+<h2 id="11-les-garanties-a-ne-pas-confondre">11. Les garanties à ne pas confondre</h2>
+<ul>
+<li><code>check</code> valide les fiches et leurs liens ; il ne teste pas le comportement du produit.</li>
+<li><code>verify</code> exécute les commandes configurées ; il ne choisit pas à votre place les bons tests.</li>
+<li>Une revue examine le résultat ; une identité différente dans un JSON n’authentifie pas son indépendance.</li>
+<li><code>accepted</code> signifie une acceptation locale appuyée sur les preuves ; ce n’est pas un déploiement ni une certification.</li>
+<li>Une réservation est coopérative et locale au clone ; elle n’est pas un verrou universel entre ordinateurs.</li>
+<li>Un worktree isole le candidat Git ; il n’isole pas les secrets, le réseau et tout le système de fichiers.</li>
+<li>Le pont JSON générique et les commandes de test sont du code de confiance exécuté avec les droits du processus. Les restrictions natives dépendent des CLI utilisées.</li>
+<li>Les projets contenant des liens symboliques dans les sources ne sont pas pris en charge par le lancement automatique actuel.</li>
+<li>Les adaptateurs natifs ont été validés sur commandes et réponses représentatives, sans démonstration payante de bout en bout avec des comptes fournisseurs.</li>
+</ul>
+<p>Le framework apporte des éléments utiles à une revue technique : traçabilité des décisions, tests exécutés, provenance des coûts et historique des résultats. Une due diligence exige aussi des preuves adaptées au produit : architecture, dépendances, sécurité, exploitation, propriété intellectuelle et continuité opérationnelle. Le nombre de tests ou de lignes de code ne constitue pas une certification « Grade A ».</p>
+<h2 id="12-routine-conseillee-pour-une-equipe">12. Routine conseillée pour une équipe</h2>
+<p><strong>Avant :</strong> préciser un résultat, ses critères et ses interfaces ; choisir le mode adapté ; préparer les contrôles, modèles, autorisations et budgets ; enregistrer la base Git.</p>
+<p><strong>Pendant :</strong> surveiller les états et les transmissions ; traiter les ambiguïtés de contrat ; conserver les échecs ; intervenir sur une cause concrète sans multiplier automatiquement les agents.</p>
+<p><strong>Après :</strong> examiner le diff, la preuve et la revue ; accepter et intégrer selon le parcours ; terminer la CI et la livraison du produit ; régénérer le HTML ; comparer coût, délai, reprises et effort humain.</p>
+<p>Le premier indicateur utile est le nombre de résultats acceptés avec peu de corrections. La taille de l’essaim et le nombre d’appels sont des moyens, pas des objectifs.</p>
+<h2 id="13-du-besoin-au-code-la-methode-et-les-skills">13. Du besoin au code : la méthode et les skills</h2>
+<p>Le framework fournit maintenant des procédures pour préparer le travail des agents. L'objectif
+est de faire circuler un besoin précis, des décisions traçables et des critères vérifiables,
+sans imposer un PRD complet à chaque petite correction.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Parcours</th>
+<th>Quand l'utiliser</th>
+<th>Documents nécessaires avant le code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Express</td>
+<td>Correction claire et limitée</td>
+<td>Plan</td>
+</tr>
+<tr>
+<td>Feature</td>
+<td>Fonctionnalité dans un produit existant</td>
+<td>Story revue, conception et plan</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Nouveau produit ou cadrage substantiel</td>
+<td>PRD, architecture, story revue, conception et plan</td>
+</tr>
+</tbody>
+</table></div>
+<p>L'option <code>--ui</code> ajoute un design system. Réutiliser celui du produit quand il existe. Le créer
+comme prérequis, souvent appelé « story 0 », quand les écrans n'ont pas encore de base commune.
+La recherche est ciblée sur une incertitude ; elle n'est pas imposée pour chaque tâche.</p>
+<h3 id="les-onze-procedures">Les onze procédures</h3>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Travail confié à l'agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>research</code></td>
+<td>Répondre à une incertitude avec des sources et une conclusion limitée aux preuves</td>
+</tr>
+<tr>
+<td><code>prd</code></td>
+<td>Définir le problème, les utilisateurs, les exigences et les critères de succès</td>
+</tr>
+<tr>
+<td><code>architecture</code></td>
+<td>Fixer les responsabilités, interfaces, contraintes et décisions structurantes</td>
+</tr>
+<tr>
+<td><code>design-system</code></td>
+<td>Définir les composants, états et règles visuelles partagés</td>
+</tr>
+<tr>
+<td><code>stories</code></td>
+<td>Découper le besoin en résultats livrables avec critères testables et notes pour l'agent</td>
+</tr>
+<tr>
+<td><code>story-review</code></td>
+<td>Faire relire le cadrage par un acteur distinct de ses auteurs</td>
+</tr>
+<tr>
+<td><code>design</code></td>
+<td>Concevoir la solution de la story choisie dans l'architecture existante</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>Décrire les changements, dépendances et vérifications nécessaires</td>
+</tr>
+<tr>
+<td><code>execute</code></td>
+<td>Coder dans le périmètre et le worktree réservés</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td>Examiner le diff, les critères et les preuves de vérification</td>
+</tr>
+<tr>
+<td><code>ship</code></td>
+<td>Préparer la PR, puis suivre sa publication et sa CI avec les outils autorisés</td>
+</tr>
+</tbody>
+</table></div>
+<p>Dans Codex, sélectionner par exemple <code>$swarm-prd</code> ou <code>$swarm-stories</code>. Dans Claude/Cursor,
+les entrées correspondantes sont <code>/prd</code> et <code>/stories</code>. Copilot, Gemini et Cascade disposent
+aussi de fichiers d'adaptation. La disponibilité dans le menu dépend de l'hôte et de ses noms
+réservés ; tous les agents capables de lire des fichiers et d'utiliser le terminal peuvent
+utiliser <code>framework method prompt ETAPE --task T-IDENTIFIANT</code>.</p>
+<p>Un skill est une procédure chargée par l'agent courant. Il ne lance pas automatiquement onze
+modèles, ne sélectionne pas un fournisseur et ne change pas votre modèle. Le moteur d'orchestration
+reste le mécanisme distinct qui délègue le développement, avec les modèles que vous avez choisis.</p>
+<h3 id="choisir-une-boilerplate-libre-ou-son-architecture">Choisir une boilerplate libre ou son architecture</h3>
+<p>La commande d'architecture permet maintenant de sélectionner un socle public sous licence MIT,
+de définir sa propre stack ou de conserver un projet existant. L'utilisateur garde le choix.</p>
+<div class="table-scroll" role="region" aria-label="Tableau défilant horizontalement" tabindex="0"><table>
+<thead>
+<tr>
+<th>Profil</th>
+<th>Usage envisagé</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nextjs-saas</code></td>
+<td>Base Next.js/PostgreSQL avec authentification, équipes, abonnements et dashboard ; à compléter selon le produit</td>
+</tr>
+<tr>
+<td><code>open-saas</code></td>
+<td>Base React/Node.js avec Wasp, authentification, paiements, emails et tâches de fond</td>
+</tr>
+<tr>
+<td><code>fastapi-react</code></td>
+<td>Base FastAPI/Python et React, avec authentification, tests et outillage ; logique SaaS spécifique à ajouter</td>
+</tr>
+</tbody>
+</table></div>
+<p>Dans les hôtes compatibles, demander <code>/architecture --boilerplate nextjs-saas</code>,
+<code>/architecture --custom "Django, PostgreSQL"</code> ou <code>/architecture --existing</code>.
+Dans Codex, utiliser <code>$swarm-architecture</code> en précisant le choix. L'agent traduit la demande
+vers la CLI et l'enregistre sur la tâche :</p>
+<pre><code class="language-bash">framework method starters
+framework method architecture T-IDENTIFIANT --boilerplate nextjs-saas
+framework method prompt architecture --task T-IDENTIFIANT
+</code></pre>
+<p>La sélection ne crée pas d'application. Elle prépare un choix traçable. Pour une boilerplate,
+l'agent examine le dépôt réel, note le commit choisi avec <code>--revision</code>, puis enregistre le document
+d'architecture correspondant. Une modification de stack, de révision ou de contraintes exige
+une révision du cadrage. Une tâche de fondation prend ensuite en charge l'importation, la
+configuration et la validation du SaaS dans le projet applicatif.</p>
+<p>On peut aussi construire notre propre boilerplate à partir d'un socle MIT ou d'une architecture
+originale. Cela nécessite un livrable de développement distinct : la commande ne génère pas
+à elle seule un équivalent complet de ShipSaaS. Le coût du socle est suivi dans sa tâche, puis
+ses documents sont réutilisés par les features. Le code libre peut s'appuyer sur des services
+externes payants ; ces frais restent à configurer et mesurer.</p>
+<p>Voir le <a href="boilerplates.md">catalogue, les sources et le mode d'emploi</a>. Le contenu des projets
+publics est présenté d'après leur documentation ; leur sélection ne vaut pas audit de qualité.</p>
+<h3 id="un-schema-commun-pour-chaque-prd-et-chaque-story">Un schéma commun pour chaque PRD et chaque story</h3>
+<p>Les modèles Markdown sont installés dans <code>.framework/method/templates/</code>. Les schémas JSON
+versionnés définissent leurs rubriques obligatoires. Les skills les utilisent systématiquement.</p>
+<p>Le <strong>PRD</strong> décrit le problème, les utilisateurs, le périmètre, les exigences <code>REQ-…</code>, les contraintes,
+les critères de succès <code>AC-…</code> et les décisions encore ouvertes. La <strong>story</strong> décrit un résultat
+utilisateur précis, sa traçabilité, son périmètre, ses critères <code>AC-…</code>, ses dépendances, les notes
+pour l'agent, les vérifications attendues et sa complexité.</p>
+<p>Après création et démarrage d'une tâche réservée, les commandes suivantes créent les copies
+à rédiger dans son périmètre :</p>
+<pre><code class="language-bash">framework method init T-IDENTIFIANT --track product --ui
+framework method scaffold T-IDENTIFIANT --kind prd --file docs/produit/prd.md
+framework method scaffold T-IDENTIFIANT --kind stories --file docs/produit/stories.md
+</code></pre>
+<p>Le fichier créé est un gabarit, pas un document terminé. L'agent remplace les champs à compléter,
+conserve les titres obligatoires et précise les inconnues. L'enregistrement refuse les rubriques
+manquantes ou vides et les champs de gabarit restants. La revue évalue ensuite la qualité du contenu.
+Le <a href="methodologie.md">guide de la méthode</a> détaille le schéma et la manière de le faire évoluer.</p>
+<h3 id="une-story-correspond-a-une-livraison">Une story correspond à une livraison</h3>
+<p>La convention est <strong>une story exécutable = une tâche = une branche = une PR</strong>. Une feature trop
+grosse se décompose en plusieurs stories reliées par leurs dépendances. Le CLI contrôle la story
+sélectionnée et sa complexité ; le respect effectif du découpage en PR fait aussi partie de la revue.</p>
+<pre><code class="language-bash">framework method story T-IDENTIFIANT --id S-dashboard-periode --complexity 3 \
+  --note &quot;Réutiliser le composant de période et les contrôles de droits existants&quot;
+</code></pre>
+<p>Les notes donnent à l'agent le contexte implicite : composants existants, unités, conventions,
+permissions, cas limites. La complexité va de 1, changement local simple, à 5, travail trop large
+ou encore incertain. <strong>Le niveau 5 bloque la planification et l'exécution</strong> jusqu'à découpage ou
+résolution justifiée de l'incertitude. Changer arbitrairement la note ne réduit pas le travail.</p>
+<h3 id="comment-les-documents-protegent-le-developpement">Comment les documents protègent le développement</h3>
+<p>Après rédaction, <code>method record</code> enregistre une fiche <code>A-…</code> avec l'empreinte du fichier et les
+révisions de ses documents d'entrée. <code>method use</code> réutilise un document commun. Une revue de
+story crée une fiche <code>Q-…</code>, liée à cette révision et au contrat de la tâche.</p>
+<p>En Product, la chaîne relie PRD, architecture, story, conception et plan. Si le PRD change,
+le framework détecte que les documents dépendants sont périmés. L'agent doit réexaminer les
+conséquences, enregistrer les révisions à jour et renouveler les revues concernées. Une ancienne
+revue ne valide pas automatiquement de nouvelles exigences.</p>
+<pre><code class="language-bash">framework method status T-IDENTIFIANT
+framework method gate T-IDENTIFIANT
+framework method prompt execute --task T-IDENTIFIANT
+</code></pre>
+<p><code>status</code> explique les manques ; <code>gate</code> autorise ou refuse le passage au développement selon les
+contrôles déclarés. Le moteur vérifie ce prérequis avant son lancement, avant chaque nouvel appel et avant
+intégration ; <code>verify</code> le contrôle à nouveau. Un refus de revue intervenu pendant la session
+bloque donc la suite. Les travailleurs ne peuvent pas modifier les documents de cadrage enregistrés. Chaque agent reçoit un contexte adapté à l'étape. Les extraits sont limités par défaut
+à 12 000 caractères de documents, avec les chemins vers le détail et un signal de troncature.
+Cette limite ne mesure ni tous les tokens du prompt ni les coûts réels du modèle.</p>
+<p>La carte HTML possède une vue <strong>Cadrage</strong> pour retrouver les documents enregistrés et leurs revues.
+Elle reste un instantané régénéré par <code>framework map</code> ; la commande <code>method status</code> calcule l'état
+courant. Les fichiers JSON assurent les liens et les contrôles, le Markdown expose le contenu,
+et le HTML permet à l'humain de consulter ces informations.</p>
+<h3 id="le-cadrage-fait-partie-du-cout-de-livraison">Le cadrage fait partie du coût de livraison</h3>
+<p>Chaque exécution peut porter une étape avec <code>run record --stage prd</code>, <code>--stage stories</code>,
+<code>--stage execute</code>, etc. <code>framework costs --task T-IDENTIFIANT</code> ventile ainsi les coûts du cadrage,
+du développement, des corrections et des revues. Les coûts absents restent inconnus.</p>
+<p>Le PRD commun à plusieurs features conserve son coût dans sa tâche de cadrage : réutiliser son
+identifiant n'ajoute pas plusieurs fois la même facture. Le total du projet inclut ce coût commun.
+Le coût d'une feature ne lui en réalloue pas automatiquement une quote-part. Pour un dashboard
+découpé en plusieurs tâches, cette version expose les coûts de chaque livraison et le total projet ;
+elle ne fournit pas encore un agrégat financier nommé regroupant plusieurs tâches.</p>
+<p>L'acceptation fige les exécutions incluses dans le coût de livraison. Une opération de shipping
+réalisée après cette acceptation figure séparément. En mode accompagné, enregistrer les étapes
+à inclure avant l'acceptation ; l'intégration orchestrée conserve sa propre séquence d'acceptation.</p>
+<p><code>method ship</code> prépare une description locale de PR avec critères, preuves et coûts. La publication,
+la CI, la fusion et le déploiement restent des opérations distinctes. Le skill guide l'agent dans
+leur exécution selon votre demande et les outils disponibles. Un fichier de PR préparé ne prouve
+pas qu'une PR a été ouverte ou que la CI a réussi.</p>
+<h2 id="pour-approfondir">Pour approfondir</h2>
+<ul>
+<li><a href="boilerplates.md">Bases SaaS libres et choix d’architecture</a></li>
+<li><a href="methodologie.md">Méthode, skills et gabarits PRD/story</a></li>
+<li><a href="orchestration.md">Guide des commandes d’orchestration</a></li>
+<li><a href="workflow.md">Parcours accompagné détaillé</a></li>
+<li><a href="costs.md">Formules et provenance des coûts</a></li>
+<li><a href="architecture.md">Architecture et empreintes</a></li>
+<li><a href="adapters.md">Compatibilité des outils</a></li>
+<li><a href="operations.md">Exploitation et protections Git</a></li>
+<li><a href="quality.md">Qualité et preuves</a></li>
+<li><a href="limitations.md">Limites de la version</a></li>
+<li><a href="carte-du-code.html">Carte HTML du dépôt</a></li>
+</ul>
+<p>Pour essayer le mécanisme sans appeler de modèle, depuis le dépôt du framework :</p>
+<pre><code class="language-bash">python3 examples/demo.py
+python3 examples/orchestration_demo.py
+python3 examples/method_demo.py
+</code></pre>
+<p>Les modèles, verdicts et montants de ces démonstrations sont simulés explicitement. Les modifications Git et contrôles locaux de leur parcours sont réellement exécutés dans des projets temporaires.</p><footer><span>Agentic Codage · Notice d’utilisation · Générée depuis la source Markdown.</span><a class="top" href="#haut">Retour en haut ↑</a></footer></main></div>
+</body></html>

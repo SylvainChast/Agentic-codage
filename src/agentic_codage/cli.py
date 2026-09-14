@@ -24,6 +24,8 @@ def parser() -> argparse.ArgumentParser:
     commands = p.add_subparsers(dest="command", required=True)
     from .orchestration.cli import register
     register(commands)
+    from .method.cli import register as method_register
+    method_register(commands)
     init = commands.add_parser("init", help="Initialize safely; never replace existing instructions")
     init.add_argument("--name", required=True)
     init.add_argument("--currency", default="EUR", help="Single project currency, two decimal minor units")
@@ -32,11 +34,12 @@ def parser() -> argparse.ArgumentParser:
     schema = commands.add_parser("schema", help="Print a bundled JSON Schema")
     schema.add_argument("kind", choices=("policy", *KINDS))
     imp = commands.add_parser("import", help="Validate and append a decision/finding/exception JSON record")
-    imp.add_argument("kind", choices=("decisions", "findings", "exceptions"))
+    imp.add_argument("kind", choices=("decisions", "findings", "exceptions", "interfaces"))
     imp.add_argument("file", type=Path)
     ctx = commands.add_parser("context", help="Get relevant tasks, decisions, risks and handoffs")
     ctx.add_argument("path")
-    commands.add_parser("costs", help="Per-task and portfolio costs, including failures and unknowns")
+    costs = commands.add_parser("costs", help="Per-task and portfolio costs, including failures and unknowns")
+    costs.add_argument("--task", help="Delivery cost and breakdown for one task")
     mapper = commands.add_parser("map", help="Build the offline HTML snapshot")
     mapper.add_argument("--check", action="store_true", help="Fail if snapshot data differs from current records")
     validator = commands.add_parser("check", help="Validate records; optionally enforce a trusted diff scope")
@@ -51,7 +54,7 @@ def parser() -> argparse.ArgumentParser:
         create.add_argument(f"--{field}", required=True)
     for field in ("scope", "criterion", "deliverable"):
         create.add_argument(f"--{field}", action="append", required=True)
-    for field in ("resource", "decision", "depends-on"):
+    for field in ("resource", "decision", "depends-on", "interface"):
         create.add_argument(f"--{field}", action="append", default=[])
     create.add_argument("--budget-minor", type=int, required=True, help="Budget in cents (e.g. 2000 = EUR 20)")
     create.add_argument("--max-runs", type=int, default=5)
@@ -79,6 +82,8 @@ def parser() -> argparse.ArgumentParser:
     record.add_argument("task")
     for field in ("actor", "model", "summary", "next-step", "cost-note"):
         record.add_argument(f"--{field}", required=True)
+    from .method.catalog import STEPS
+    record.add_argument("--stage", choices=STEPS)
     record.add_argument("--purpose", choices=("implementation", "review", "coordination"), default="implementation")
     record.add_argument("--outcome", choices=("succeeded", "failed", "blocked", "cancelled"), required=True)
     record.add_argument("--currency", help="Defaults to project currency")
@@ -108,16 +113,25 @@ def dispatch(args) -> object:
     if command == "adapters":
         return sync_adapters(store, args.check)
     store.policy()
+    if command == "method":
+        from .method.cli import dispatch as method_dispatch
+        return method_dispatch(store, args)
     if command == "orchestration":
         from .orchestration.cli import dispatch as orchestration_dispatch
         return orchestration_dispatch(store, args)
     if command == "import":
         data = read_json(args.file)
+        if args.kind == "interfaces":
+            from .interfaces import import_interface
+            return import_interface(store, data)
         store.put(args.kind, data, new=True)
         return data
     if command == "context":
         return context(store, args.path)
     if command == "costs":
+        if args.task:
+            from .costs import task_report
+            return task_report(store, args.task)
         return report(store)
     if command == "check":
         return check(store, args.base, args.task)
@@ -134,7 +148,8 @@ def dispatch(args) -> object:
             return create_task(store, title=args.title, owner=args.owner, scope=args.scope,
                                criteria=args.criterion, deliverables=args.deliverable,
                                budget_minor=args.budget_minor, max_runs=args.max_runs,
-                               resources=args.resource, decisions=args.decision, depends_on=args.depends_on)
+                               resources=args.resource, decisions=args.decision, depends_on=args.depends_on,
+                               interfaces=args.interface)
         if args.action == "list":
             return store.all("tasks")
         task = store.get("tasks", args.task)
@@ -157,6 +172,8 @@ def dispatch(args) -> object:
         return {"ok": True, "released": args.task}
     if command == "run":
         fields = {key: value for key, value in vars(args).items() if key not in ("root", "command", "action")}
+        if fields.get("stage") is None:
+            fields.pop("stage", None)
         fields["currency"] = args.currency or store.policy()["currency"]
         return record_run(store, **fields)
     if command == "review":

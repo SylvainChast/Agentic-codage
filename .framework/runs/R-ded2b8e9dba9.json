@@ -1,0 +1,21 @@
+{
+  "actor": "codex-architecture-profiles",
+  "cost_note": "Tokens et facturation de cette préparation indisponibles ; coût inconnu, aucun montant inventé.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T12:38:08+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-ded2b8e9dba9",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Créer le commit des changements validés, pousser main sur origin puis vérifier le SHA distant et la CI.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "coordination",
+  "stage": "ship",
+  "summary": "Préparation de la publication autorisée par l’utilisateur : preuve E-9f6a10b6eb2c toujours courante (95 tests et 94 adaptateurs), fiches et liens documentaires valides, diff sans erreur de format et récupération du distant réussie. Aucun changement de source depuis la revue indépendante.",
+  "task": "T-6b0a3a1d068b"
+}

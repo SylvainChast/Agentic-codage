@@ -9,7 +9,7 @@ utiliser `python3 bin/framework` à la place de `framework` si la commande n’e
 Le coordinateur découpe le besoin selon des résultats testables et des interfaces stables. Une tâche
 peut livrer plusieurs éléments, mais son acceptation est globale. Pour accepter séparément deux
 éléments, créer deux tâches. Commencer avec au plus deux réservations simultanées ; la politique
-`max_active_tasks` permet d’ajuster cette limite. Aucun modèle n’est lancé automatiquement.
+`max_active_tasks` permet d’ajuster cette limite. Ce guide décrit le mode accompagné : ses commandes ne lancent pas de modèle. Le lancement automatique optionnel est décrit dans [le guide d’orchestration](orchestration.md).
 
 ## Déclarer et réserver
 

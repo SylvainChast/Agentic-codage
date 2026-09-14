@@ -15,18 +15,18 @@ def request(profile, role, payload, root, scratch):
     text = prompt(role, payload)
     if config['adapter'] == 'codex':
         schema_path = scratch / 'schema.json'
-        schema_path.write_text(canonical(schema(role)), encoding='utf-8')
+        schema_path.write_text(canonical(schema(role, payload.get("phase"))), encoding='utf-8')
         argv += ['exec', '--model', model, '--sandbox', 'workspace-write' if writable else 'read-only',
                  '--ephemeral', '--ignore-user-config', '--json', '--output-schema', str(schema_path),
                  '--output-last-message', str(scratch / 'result.json'), '-c', 'approval_policy="never"', '-']
     elif config['adapter'] == 'claude':
-        argv += ['-p', '--model', model, '--output-format', 'json', '--json-schema', json.dumps(schema(role)),
+        argv += ['-p', '--model', model, '--output-format', 'json', '--json-schema', json.dumps(schema(role, payload.get("phase"))),
                  '--no-session-persistence', '--permission-mode', 'acceptEdits' if writable else 'plan',
                  '--tools', 'Read,Glob,Grep,Edit,Write' if writable else 'Read,Glob,Grep',
                  '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}']
     else:
-        text = canonical(dict(protocol_version=1, role=role, model=model, payload=payload,
-                              prompt=text, response_schema=schema(role)))
+        text = canonical(dict(protocol_version=2, role=role, model=model, payload=payload,
+                              prompt=text, response_schema=schema(role, payload.get("phase"))))
     return argv, text
 
 
@@ -80,7 +80,7 @@ def decode(adapter, role, output, scratch, currency):
                 cost_source=source, **tokens)
 
 
-def validate_response(profile, role, decoded):
+def validate_response(profile, role, decoded, phase=None):
     models = decoded['observed_models']
     identity = 'reported' if models else 'unverified'
     if set(models) - set(profile['roles'][role]['accepted_models']):
@@ -89,7 +89,7 @@ def validate_response(profile, role, decoded):
     if identity == 'mismatch' or (not models and profile['require_model_report']):
         error = 'Selected model could not be confirmed against explicit accepted_models'
     try:
-        validate(decoded['result'], schema(role))
+        validate(decoded['result'], schema(role, phase))
     except FrameworkError as exc:
         error = str(exc)
     return identity, error

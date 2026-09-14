@@ -1,0 +1,20 @@
+{
+  "actor": "codex-notice",
+  "cost_note": "Facturation indisponible ; conversion locale, sans appel LLM par les adaptateurs.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T08:05:38+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-fa08b5a06212",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Vérifier le dépôt et transmettre le fichier HTML ; inspection visuelle navigateur non réalisée.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Notice HTML autonome générée avec sommaire, styles responsive et impression. Intégralité du texte, tableaux, blocs de code et ancres vérifiés statiquement. Aperçu navigateur local refusé par sa politique de sécurité.",
+  "task": "T-d8ac73aa628d"
+}

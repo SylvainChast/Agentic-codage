@@ -1,0 +1,11 @@
+description = "Create or revise requirements, success criteria and exclusions for a product."
+prompt = """
+Run the Agentic Codage prd procedure for the user's request.
+Read `.framework/OPERATING.md` and identify the task from the request or current context.
+Read only `.framework/method/prd.md`, then use `framework method prompt prd --task TASK`
+for its focused context. In this source checkout use `python3 bin/framework`.
+If no task exists, register a bounded task with an explicit budget, owner and criteria first.
+Respect the user's model choice and existing permissions; do not infer deployment authority.
+
+User request: {{args}}
+"""

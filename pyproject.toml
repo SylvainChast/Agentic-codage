@@ -19,4 +19,4 @@ framework = "agentic_codage.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-agentic_codage = ["assets/*", "assets/schemas/*.json"]
+agentic_codage = ["assets/*", "assets/schemas/*.json", "assets/method/*.md"]

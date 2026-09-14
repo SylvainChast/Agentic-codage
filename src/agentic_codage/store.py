@@ -13,8 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 ASSETS = Path(__file__).parent / "assets"
-KINDS = ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations")
-PREFIXES = dict(zip(KINDS, ("T", "R", "D", "F", "X", "E", "V", "O")))
+KINDS = ("tasks", "runs", "decisions", "findings", "exceptions", "evidence", "reviews", "orchestrations", "interfaces", "artifacts", "artifact_reviews")
+PREFIXES = dict(zip(KINDS, ("T", "R", "D", "F", "X", "E", "V", "O", "I", "A", "Q")))
 
 
 class FrameworkError(Exception):
@@ -204,7 +204,7 @@ class Store:
     def fingerprint(self) -> str:
         """Hash Git-visible candidate files, excluding lifecycle records and map."""
         raw = self.git("ls-files", "-z", "--cached", "--others", "--exclude-standard")
-        excluded = tuple(f".framework/{kind}/" for kind in KINDS if kind != "decisions")
+        excluded = tuple(f".framework/{kind}/" for kind in KINDS if kind not in ("decisions", "interfaces", "artifacts"))
         result = []
         for name in sorted(set(raw.split("\x00")) - {""}):
             if name.startswith(excluded) or name.startswith(".framework/local/") or name == "docs/carte-du-code.html":

@@ -8,7 +8,7 @@ la vue **Orchestration** de la carte HTML montre les sessions, profils, appels e
 
 | Rôle | Responsabilité | Écriture produit |
 |---|---|---|
-| `orchestrator` | Décomposer le contrat en travaux bornés et dépendances | Non |
+| `orchestrator` | Décomposer le contrat et autoriser chaque lot au point de contrôle | Non |
 | `worker` | Implémenter un travail dans son worktree | Périmètre attribué |
 | `reviewer` | Examiner le candidat, les preuves et tous les critères | Non |
 | `arbiter` | Donner une orientation après échec des tests ou refus de revue | Non |
@@ -69,7 +69,9 @@ framework map
 `<git-common-dir>/agentic-codage/orchestration/O-…/`. Le plan est vérifié : identifiants uniques,
 dépendances sans cycle, sous-périmètres du contrat. Les travaux prêts ayant des chemins disjoints
 peuvent s’exécuter ensemble. Les périmètres recouvrants sont sérialisés. Les travailleurs suivants
-partent du candidat intégrant leurs prédécesseurs. Des chemins disjoints ne garantissent pas une
+partent du candidat intégrant leurs prédécesseurs, après un point de contrôle obligatoire du modèle orchestrateur.
+Ils reçoivent le plan, les interfaces figées et les comptes rendus intégrés. Voir le
+[protocole de coordination](coordination.md). Des chemins disjoints ne garantissent pas une
 indépendance sémantique : le plan et les tests doivent couvrir les interfaces communes.
 
 Le contrôleur refuse les modifications hors périmètre, les changements de HEAD par le travailleur
@@ -135,7 +137,7 @@ Le pont reçoit sur stdin un objet avec `protocol_version: 1`, `role`, `model`, 
 et `response_schema`. Son cwd est le worktree. Il écrit exactement un objet JSON sur stdout :
 
 ```json
-{"result":{"summary":"Résumé"},"model":"modele-prive","usage":{"currency":"EUR","cost_minor":12,"cost_source":"actual","input_tokens":300,"output_tokens":120}}
+{"result":{"summary":"Résumé","acknowledged_interfaces":[],"change_requests":[]},"model":"modele-prive","usage":{"currency":"EUR","cost_minor":12,"cost_source":"actual","input_tokens":300,"output_tokens":120}}
 ```
 
 `result` doit suivre le schéma reçu : un plan contient `items`, une revue `verdict` et la liste exacte
@@ -165,3 +167,7 @@ La suite teste réellement processus, worktrees, contrôles et intégration avec
 identifié. Les adaptateurs natifs sont testés sur construction des commandes et réponses représentatives ;
 aucun compte Codex/Claude ni appel payant n’est validé de bout en bout par ces tests. Un refus natif
 de permission bloque la session ; le framework n’ajoute pas de contournement automatique.
+
+Le pont utilise désormais `protocol_version: 2`. La phase `checkpoint` du rôle orchestrateur
+possède un schéma distinct du plan. Toujours suivre `response_schema` ; les deux tableaux de la
+réponse du travailleur sont obligatoires, même sans interface. Voir [coordination](coordination.md).

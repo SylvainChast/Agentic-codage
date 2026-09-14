@@ -5,10 +5,30 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "acknowledged_interfaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "change_requests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
     }
   },
   "required": [
-    "summary"
+    "summary",
+    "acknowledged_interfaces",
+    "change_requests"
   ],
   "additionalProperties": false
 }

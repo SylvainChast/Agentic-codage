@@ -1,0 +1,37 @@
+{
+  "acceptance": null,
+  "budget_minor": 20000,
+  "created_at": "2026-09-14T08:17:53+00:00",
+  "criteria": [
+    "Les contrats d’interface sont versionnés, transmis aux agents et vérifiés avant de poursuivre les dépendances",
+    "Chaque lot passe un point de contrôle orchestrateur et une demande de changement bloque la poursuite",
+    "Le coût total par tâche acceptée inclut les tentatives, corrections, revues et coordinations avec provenance explicite",
+    "Les commandes, limites et adaptateurs sont documentés et les scénarios de refus testés"
+  ],
+  "decisions": [],
+  "deliverables": [
+    "Contrats, points de contrôle et coût de livraison documentés"
+  ],
+  "depends_on": [],
+  "id": "T-b6e566ad5966",
+  "max_runs": 10,
+  "owner": "codex-coordination",
+  "resources": [
+    "framework:coordination"
+  ],
+  "scope": [
+    "src",
+    "tests",
+    "docs",
+    "examples",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    ".framework/OPERATING.md",
+    ".agents",
+    ".claude",
+    ".cursor"
+  ],
+  "status": "submitted",
+  "title": "Coordonner les interfaces et mesurer le coût de livraison par fonctionnalité"
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "prd",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "prd"
+      ]
+    },
+    "problem": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Problème et résultat attendu",
+      "description": "Décrire le problème observé, sa preuve et le résultat attendu, sans inventer de métrique."
+    },
+    "users": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Utilisateurs et parcours",
+      "description": "Identifier les utilisateurs, leurs droits et les parcours prioritaires."
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Périmètre et exclusions",
+      "description": "Lister ce qui est inclus et explicitement exclu de cette version."
+    },
+    "requirements": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Exigences fonctionnelles",
+      "description": "REQ-001 — Décrire un comportement observable et sa priorité. Répéter pour chaque exigence."
+    },
+    "quality": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Contraintes et qualité",
+      "description": "Préciser les contraintes mesurables pertinentes : sécurité, performance, données, accessibilité. Justifier les non-applicabilités."
+    },
+    "acceptance": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Critères de succès et acceptation",
+      "description": "AC-001 → REQ-001 — Définir le scénario, le résultat attendu et le moyen de vérification."
+    },
+    "unknowns": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Hypothèses et décisions ouvertes",
+      "description": "Distinguer faits et hypothèses, nommer les décisions bloquantes et les preuves manquantes. Écrire Aucune avec justification si résolu."
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "problem",
+    "users",
+    "scope",
+    "requirements",
+    "quality",
+    "acceptance",
+    "unknowns"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "duration_ms": 37096,
+      "exit_code": 0,
+      "log": ".framework/evidence/E-f31d62a33298-0.log",
+      "log_sha256": "0ca52087231f9e78863b496d6f885bc4891b6c167ca8a153c1ea2f3126701b2f",
+      "name": "tests"
+    },
+    {
+      "argv": [
+        "{python}",
+        "bin/framework",
+        "adapters",
+        "--check"
+      ],
+      "duration_ms": 131,
+      "exit_code": 0,
+      "log": ".framework/evidence/E-f31d62a33298-1.log",
+      "log_sha256": "d233b0ec4838f22a4e6951a642572fd60672d852781e509617d7f571f3567457",
+      "name": "adapters"
+    }
+  ],
+  "contract": "85fbb8887f36360345f2ec1b84e9ec6083451bea60a3b9a2a507485a8bd8f7be",
+  "created_at": "2026-09-14T08:28:01+00:00",
+  "fingerprint": "dbb033620ee31217b06cedf42a33d0e90f7c56c9707053fb4b244ed44e929b9a",
+  "head": "365e650ffed1eda8ee543078728fa161b6207601",
+  "id": "E-f31d62a33298",
+  "passed": true,
+  "task": "T-b6e566ad5966"
+}

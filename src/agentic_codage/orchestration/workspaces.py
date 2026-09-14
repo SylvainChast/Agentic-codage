@@ -28,7 +28,7 @@ def changes(store, base='HEAD'):
 
 
 def allowed(name, scopes):
-    protected = ('.git', '.framework', '.agents', '.claude', '.cursor', '.windsurf')
+    protected = ('.git', '.framework', '.agents', '.claude', '.cursor', '.windsurf', '.gemini')
     return (not name.startswith(protected) and name not in ('AGENTS.md', 'CLAUDE.md', 'GEMINI.md')
             and name != 'docs/carte-du-code.html' and any(covers(s, name) for s in scopes))
 
@@ -40,7 +40,10 @@ def commit_worker(store, base, scopes, managed=False):
     if managed:
         from ..store import KINDS
         names = [n for n in names if not any(n.startswith(f".framework/{k}/") for k in KINDS)]
+    framing_paths = {r['path'] for r in store.all('artifacts')}
     for name in names:
+        if name in framing_paths:
+            raise FrameworkError(f'Worker modified a registered framing document: {name}; revise preparation first')
         if not allowed(name, scopes):
             raise FrameworkError(f'Worker exceeded scope: {name}')
         if (store.root / name).is_symlink():
@@ -71,7 +74,7 @@ def apply(store, data):
 
 def sync_records(source, target):
     # Only framework-managed records, never policy/config or source instructions.
-    for kind in ('tasks', 'runs', 'decisions', 'findings', 'exceptions', 'reviews', 'evidence', 'orchestrations'):
+    for kind in ('tasks', 'runs', 'decisions', 'findings', 'exceptions', 'reviews', 'evidence', 'orchestrations', 'artifact_reviews'):
         directory = source.meta / kind
         if directory.exists():
             for path in directory.iterdir():
@@ -106,7 +109,7 @@ def prepare_candidate(source, target, base):
     from ..store import KINDS
     def runtime(name):
         return (name == 'docs/carte-du-code.html' or name.startswith('.framework/local/')
-                or any(name.startswith(f'.framework/{kind}/') for kind in KINDS if kind != 'decisions'))
+                or any(name.startswith(f'.framework/{kind}/') for kind in KINDS if kind not in ('decisions', 'interfaces', 'artifacts')))
     if any(not runtime(name) for name in changes(source, base)):
         raise FrameworkError('Commit source/config changes before orchestration; lifecycle records may remain dirty')
     for name in source.git('ls-files', '--cached', '-z').split('\0'):

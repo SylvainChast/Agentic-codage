@@ -24,7 +24,7 @@ du JSON UTF-8 ; `--help` donne les options exactes. Pas de service d’arrière-
 | `review record TASK …` | Enregistre un verdict sur une preuve courante et les critères exacts |
 | `check [--base SHA --task TASK]` | Valide les fiches ; optionnellement le périmètre du diff |
 | `context CHEMIN` | Retourne décisions actives, risques, tâches et transmissions concernés |
-| `costs` | Retourne coûts des tâches et ratios du portefeuille |
+| `costs [--task TASK]` | Coûts du portefeuille ou d’une livraison, ventilés par rôle, modèle, session et étape |
 | `map [--check]` | Génère la carte HTML ou vérifie la fraîcheur de ses données |
 
 ## Codes de retour
@@ -59,3 +59,36 @@ Aucune commande ne choisit de modèle, n’ouvre une PR, ne fusionne une branche
 `feedback`, `cancel` et `integrate`. Le [guide détaillé](orchestration.md) décrit arguments,
 protocole, coûts et états. `run` retourne 0 pour ready, 1 pour une session bloquée/annulée ;
 les erreurs de configuration ou préconditions retournent 2.
+
+## Méthode produit et développement
+
+| Commande | Effet |
+| --- | --- |
+| `method catalog` | Liste les parcours et étapes disponibles |
+| `method init TASK --track express\|feature\|product [--ui]` | Active le cadrage adapté sur une tâche existante |
+| `method template prd\|stories` | Renvoie gabarit Markdown et schéma JSON versionné |
+| `method scaffold TASK --kind prd\|stories --file CHEMIN.md` | Crée une copie à remplir dans le périmètre réservé, sans écrasement |
+| `method story TASK --id STORY --complexity N --note TEXTE` | Sélectionne une story, sa taille de 1 à 5 et ses notes ; `--note` répétable |
+| `method prompt ETAPE --task TASK [--max-chars 12000]` | Charge une procédure et ses extraits de contexte pertinents |
+| `method record TASK --kind TYPE --file CHEMIN.md --author ACTOR [--input A-ID]` | Enregistre une révision de document et ses entrées ; `--input` répétable |
+| `method use TASK A-ID` | Réutilise et sélectionne un document déjà enregistré |
+| `method review TASK --artifact A-ID --reviewer ACTOR --verdict approve\|request_changes --summary TEXTE [--finding TEXTE]` | Enregistre une revue réelle de cadrage ; `--finding` répétable |
+| `method status TASK` | Décrit les documents et blocages, sans lancer d’agent |
+| `method gate TASK` | Refuse de poursuivre si la préparation est incomplète ou périmée |
+| `method ship TASK --base SHA --review V-ID` | Prépare localement le corps d’une PR à partir d’une implémentation revue |
+
+`run record --stage ETAPE` attribue une exécution à une étape sans en modifier le coût total.
+`method` ne lance pas de fournisseur : les skills exécutent les procédures dans l’hôte courant,
+et `orchestration run` reste le mécanisme de délégation configurée. Voir les
+[exemples complets et formats](methodologie.md).
+
+## Profils d'architecture
+
+- `method starters` : catalogue public avec provenance, licence et limites déclarées.
+- `method architecture TASK --boilerplate PROFIL [--revision SHA] [--constraint TEXTE]` : choix de base MIT.
+- `method architecture TASK --custom --stack TEXTE [--constraint TEXTE]` : stack libre.
+- `method architecture TASK --existing [--stack TEXTE] [--constraint TEXTE]` : conservation du projet existant.
+
+Les trois modes sont exclusifs. `--stack` et `--constraint` sont répétables. La sélection remplace
+la précédente et transmet le contexte aux agents, sans clonage ni installation.
+Voir [le parcours et l'épinglage de révision](boilerplates.md).

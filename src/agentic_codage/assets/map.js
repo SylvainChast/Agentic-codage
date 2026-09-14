@@ -12,6 +12,10 @@ const $ = (id) => document.getElementById(id),
   };
 const labels = {
   planned: "Planifiée",
+  in_progress: "En cours",
+  incomplete: "Incomplet",
+  estimated: "Estimé",
+  recorded: "Renseigné",
   active: "En cours",
   submitted: "En revue",
   accepted: "Acceptée",
@@ -206,6 +210,7 @@ function economics() {
     "Exécutions",
     "Coût connu",
     "Budget",
+    "Coût de livraison accepté",
     "Livrables acceptés",
     "Mesure",
   ])
@@ -222,12 +227,13 @@ function economics() {
       r.runs,
       money(r.known_cost_minor),
       money(r.budget_minor),
+      money(r.delivery.total_cost_minor),
       r.accepted_deliverables,
-      r.complete
+      labels[r.delivery.state] + " · " + (r.complete
         ? r.estimated_cost_runs
           ? "Estimée"
           : "Renseignée"
-        : "Incomplète",
+        : "Incomplète"),
     ])
       row.append(el("td", v));
     if (r.over_budget) row.lastChild.append(badge("Budget dépassé", "warn"));
@@ -311,6 +317,13 @@ const views = [
     r => r.task + " · " + r.profile.roles.orchestrator.model,
     r => r.status + " · " + r.steps.length + " appels · tour " + r.round
   )],
+  ["method", "Cadrage", () => cardList(
+    [...(records.artifacts || []), ...(records.artifact_reviews || [])],
+    r => r.kind ? r.kind + " · " + r.path : "Revue de préparation · " + r.artifact,
+    r => r.verdict ? labels[r.verdict] : "Document enregistré"
+  )],
+  ["interfaces", "Interfaces", () => cardList(records.interfaces || [],
+    r => r.name + " · version " + r.version, r => r.id)],
   ["proof", "Preuves", proof],
   ["costs", "Coûts", economics],
   [

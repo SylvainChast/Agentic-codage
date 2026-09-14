@@ -1,0 +1,39 @@
+{
+  "acceptance": null,
+  "budget_minor": 20000,
+  "created_at": "2026-09-14T12:20:58+00:00",
+  "criteria": [
+    "Le catalogue ne propose que des bases publiques libres avec provenance et limites explicites",
+    "La commande et le skill architecture respectent le choix entre boilerplate publique, architecture sur mesure et projet existant",
+    "Le choix de base, sa révision et ses contraintes sont transmis aux agents et une modification invalide le cadrage concerné",
+    "Les commandes, la notice et les scénarios de refus sont documentés et testés sans installer de SaaS ni appeler un fournisseur"
+  ],
+  "decisions": [],
+  "deliverables": [
+    "Profils d’architecture portables, contrôles de cohérence et documentation"
+  ],
+  "depends_on": [],
+  "id": "T-6b0a3a1d068b",
+  "max_runs": 10,
+  "owner": "codex-architecture-profiles",
+  "resources": [
+    "framework:architecture-profiles"
+  ],
+  "scope": [
+    "src",
+    "tests",
+    "docs",
+    "examples",
+    "README.md",
+    "CHANGELOG.md",
+    ".framework/method",
+    ".agents",
+    ".claude",
+    ".cursor",
+    ".github/prompts",
+    ".gemini",
+    ".windsurf/workflows"
+  ],
+  "status": "submitted",
+  "title": "Choisir une architecture et des bases SaaS libres"
+}

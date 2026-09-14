@@ -123,6 +123,15 @@
         "accepted_at": {
           "type": "string",
           "minLength": 1
+        },
+        "run_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
         }
       },
       "required": [
@@ -132,6 +141,143 @@
         "contract",
         "accepted_by",
         "accepted_at"
+      ],
+      "additionalProperties": false
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "method": {
+      "type": "object",
+      "properties": {
+        "track": {
+          "type": "string",
+          "enum": [
+            "express",
+            "feature",
+            "product"
+          ]
+        },
+        "ui": {
+          "type": "boolean"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "story": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "complexity": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "agent_notes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "complexity",
+            "agent_notes"
+          ],
+          "additionalProperties": false
+        },
+        "architecture": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "boilerplate",
+                "custom",
+                "existing"
+              ]
+            },
+            "boilerplate": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "nextjs-saas",
+                "open-saas",
+                "fastapi-react",
+                null
+              ]
+            },
+            "repository": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "revision": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "[a-f0-9]{40}"
+            },
+            "stack": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "mode",
+            "boilerplate",
+            "repository",
+            "revision",
+            "stack",
+            "constraints"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "track",
+        "ui",
+        "artifacts"
       ],
       "additionalProperties": false
     }

@@ -1,0 +1,21 @@
+{
+  "actor": "codex-method",
+  "cost_note": "Coût et tokens de session indisponibles ; correction après revue indépendante, tests de ponts simulés sans appel fournisseur.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T12:14:25+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-e3cf2381e873",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Enregistrer le verdict indépendant final puis synchroniser le dépôt principal et régénérer la carte.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "stage": "execute",
+  "summary": "Corrections de revue : préserver le cycle de revue/shipping, vérifier le cadrage avant chaque appel et intégration, protéger les Markdown de cadrage des travailleurs. Trois régressions ajoutées. Preuve E-7543b32c1a5f : 89 tests et 94 adaptateurs réussis ; démo complète réussie.",
+  "task": "T-6281659aad20"
+}

@@ -1,0 +1,20 @@
+{
+  "actor": "codex-coordination",
+  "cost_note": "Facturation et tokens de session indisponibles. Démonstration et tests avec ponts simulés, sans appels LLM payants.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T08:28:59+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-6e0fa9716e58",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Revue indépendante du diff et de la preuve E-f31d62a33298 ; adapter les ponts existants au protocole 2 avant utilisation.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Interfaces versionnées, transmissions, checkpoints obligatoires et coût par livraison implémentés. Suite complète et adaptateurs passent ; démo intégrée et notice HTML vérifiées. Revue indépendante de cette modification encore à effectuer.",
+  "task": "T-b6e566ad5966"
+}

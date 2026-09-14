@@ -15,6 +15,8 @@ def verify(store: Store, ident: str) -> dict:
     task = store.get("tasks", ident)
     if task["status"] not in ("active", "submitted"):
         raise FrameworkError("Verify an active or submitted task")
+    from .method.workflow import require_ready
+    require_ready(store, task)
     policy = store.policy()
     record = dict(id=uid("evidence"), created_at=now(), task=ident,
                   fingerprint=store.fingerprint(), contract=task_contract(task),
@@ -61,6 +63,8 @@ def verify(store: Store, ident: str) -> dict:
 
 
 def current_evidence(store: Store, task: dict, ident: str) -> dict:
+    from .method.workflow import require_ready
+    require_ready(store, task)
     evidence = store.get("evidence", ident)
     if (evidence["task"] != task["id"] or not evidence["passed"] or
             evidence["fingerprint"] != store.fingerprint() or
@@ -117,6 +121,7 @@ def accept(store: Store, task: dict, review_id: str, actor: str) -> dict:
     task["status"] = "accepted"
     task["acceptance"] = dict(review=review_id, evidence=evidence["id"],
                               fingerprint=evidence["fingerprint"], contract=task_contract(task),
-                              accepted_by=actor, accepted_at=now())
+                              accepted_by=actor, accepted_at=now(),
+                              run_ids=sorted(r["id"] for r in store.all("runs") if r["task"] == task["id"]))
     store.put("tasks", task)
     return task

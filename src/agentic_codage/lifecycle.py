@@ -6,11 +6,17 @@ from .store import FrameworkError, Store, now, uid
 
 def create_task(store: Store, *, title: str, owner: str, scope: list[str],
                 criteria: list[str], deliverables: list[str], budget_minor: int,
-                max_runs: int, resources: list[str], decisions: list[str], depends_on: list[str]) -> dict:
+                max_runs: int, resources: list[str], decisions: list[str], depends_on: list[str],
+                interfaces: list[str] | None = None) -> dict:
     task = dict(id=uid("tasks"), created_at=now(), title=title, owner=owner, scope=scope,
                 resources=resources, decisions=decisions, depends_on=depends_on, criteria=criteria,
                 deliverables=deliverables, budget_minor=budget_minor, max_runs=max_runs,
                 status="planned", acceptance=None)
+    if interfaces:
+        task['interfaces'] = interfaces
+        from .interfaces import for_task
+        for_task(store, task)
+        task['resources'] = list(dict.fromkeys(resources + [f"interface:{r['name']}" for r in for_task(store, task)]))
     for dependency in depends_on:
         store.get("tasks", dependency)
     for decision in decisions:

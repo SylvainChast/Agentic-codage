@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "Q-[A-Za-z0-9_-]+"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_digest": {
+      "type": "string",
+      "pattern": "[a-f0-9]{64}"
+    },
+    "task_baseline": {
+      "type": "string",
+      "pattern": "[a-f0-9]{64}"
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "approve",
+        "request_changes"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "id",
+    "created_at",
+    "task",
+    "artifact",
+    "artifact_digest",
+    "task_baseline",
+    "reviewer",
+    "verdict",
+    "summary",
+    "findings"
+  ],
+  "additionalProperties": false
+}

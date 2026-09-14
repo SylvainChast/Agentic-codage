@@ -22,6 +22,8 @@ class Calls:
         profile = session['profile']
         config = profile['roles'][role]
         with self.lock:
+            from .coordination import assert_current
+            assert_current(store, session)
             task = store.get('tasks', session['task'])
             runs = [r for r in store.all('runs') if r['task'] == task['id']]
             if self.cancelled():
@@ -40,7 +42,7 @@ class Calls:
             argv, text = adapters.request(profile, role, payload, target.root, scratch)
             output = transport.execute(argv, text, target.root, scratch, profile['timeout_seconds'], self.cancelled)
             decoded = adapters.decode(config['adapter'], role, output, scratch, store.policy()['currency'])
-            identity, error = adapters.validate_response(profile, role, decoded)
+            identity, error = adapters.validate_response(profile, role, decoded, payload.get("phase"))
             if error:
                 raise FrameworkError(error)
             if finish:
@@ -61,6 +63,8 @@ class Calls:
                     cost_note=f"{config['adapter']} report; unknown includes unavailable billing or currency conversion. Local logs: {scratch}",
                     summary=summary, next_step='Continue controller or inspect blocked session',
                     input_tokens=decoded['input_tokens'], output_tokens=decoded['output_tokens'],
+                    stage={'worker': 'execute', 'reviewer': 'review', 'arbiter': 'execute'}.get(
+                        role, 'execute' if payload.get('phase') == 'checkpoint' else 'plan'),
                     orchestration=session['id'], role=role, work_item=item, requested_model=config['model'],
                     observed_models=decoded['observed_models'], identity_status=identity,
                     identity_source=f"{config['adapter']}-reported")

@@ -17,3 +17,8 @@ an authenticated approval: repository protection and real platform reviews enfor
 Record the cost of this review with purpose `review`, including an unknown amount if necessary.
 Do not resolve a semantic conflict by picking an author's preference; compare both options to
 the contract, document the arbitration, and escalate only decisions outside existing authority.
+
+For a task with `method` configured, load `.framework/method/review.md` and run
+`framework method prompt review --task TASK` for the selected preparation and its current gate.
+Record the execution with `--stage review`. This is the implementation review; a story readiness
+review is a separate `method review` record and cannot replace it.

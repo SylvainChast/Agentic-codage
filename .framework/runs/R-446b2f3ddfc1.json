@@ -1,0 +1,20 @@
+{
+  "actor": "codex-notice",
+  "cost_note": "Facturation et tokens de cette session indisponibles ; aucun modèle lancé par les adaptateurs.",
+  "cost_source": "unknown",
+  "created_at": "2026-09-14T07:08:35+00:00",
+  "currency": "EUR",
+  "human_rate_minor": 0,
+  "human_seconds": 0,
+  "id": "R-446b2f3ddfc1",
+  "infra_cost_minor": 0,
+  "input_tokens": null,
+  "llm_cost_minor": null,
+  "model": "Codex — identifiant exact non mesuré",
+  "next_step": "Vérification du dépôt, génération de la carte et transmission ; revue indépendante non réalisée.",
+  "outcome": "succeeded",
+  "output_tokens": null,
+  "purpose": "implementation",
+  "summary": "Notice détaillée ajoutée : mécanismes, HTML, deux parcours, rôles, exemples CLI, économie, dépannage et limites ; README relié et ambiguïté du guide accompagné corrigée.",
+  "task": "T-d8ac73aa628d"
+}
